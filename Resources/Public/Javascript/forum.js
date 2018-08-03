@@ -104,7 +104,14 @@ jQuery(document).ready(function($) {
             "&tx_typo3forum_ajax[action]=" + "__typo3_forum_action__" +
             "&tx_typo3forum_ajax[post]=" + "__typo3_forum_post__";
     }
-    
+    function isValidJSON(text) {
+        try {
+            var json = JSON.parse(text);
+            return json;
+        } catch {
+            return false;
+        }
+    }
     if (typeof typo3_forum_ajaxUrl !== 'undefined') {
         $.ajax({
             type: "POST",
@@ -122,7 +129,21 @@ jQuery(document).ready(function($) {
                 "tx_typo3forum_ajax[displayedAds]": JSON.stringify(displayedAds)
             },
             success: function (data) {
-                var json = $.parseJSON(data);
+                json = isValidJSON(data);
+                if(data && !json) {
+                    if ($('.forum_menu')) {
+                        $('.forum_menu').each(function (index) {
+                            if($('.forum_menu[data-uid="' + $(this).data('uid') + '"]')){
+                                console.log(data);
+                                $('.forum_menu[data-uid="' + $(this).data('uid') + '"]').html('<div>AJAX FEHLER: Kein gültiges JSON erhalten!</div>');
+                            }
+                        });
+                    }
+                    return false;
+                } else if (!data){
+                    $('.forum_menu[data-uid="' + $(this).data('uid') + '"]').html('<div>AJAX FEHLER: Keine Daten erhalten!</div>');
+                    return false;
+                }
                 if (json.topicIcons) {
                     json.topicIcons.forEach(function (entry) {
                         $('.topic_icon[data-uid="' + entry.uid + '"]').html(entry.html);
