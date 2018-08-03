@@ -64,13 +64,12 @@ class ForumIconViewHelper extends AbstractViewHelper
     public function render(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum = null, $width = 0, $alt = '')
     {
         $data = $this->getDataArray($forum);
-
-        if ($data['new']) {
-            return $this->getCObjectViewHelper()->render('plugin.tx_typo3forum.renderer.icons.forum_new', $data);
-        } else {
-            return $this->getCObjectViewHelper()->render('plugin.tx_typo3forum.renderer.icons.forum', $data);
-        }
-
+        $cObjectViewHelper = $this->getCObjectViewHelper();
+        $typoscriptObjectPath = 'plugin.tx_typo3forum.renderer.icons.forum';
+        $typoscriptObjectPath .= $data['new'] ? '_new' : '';
+        $cObjectViewHelper->arguments['typoscriptObjectPath'] = $typoscriptObjectPath;
+        $cObjectViewHelper->arguments['data'] = $data;
+        return $cObjectViewHelper->render($typoscriptObjectPath, $data);
     }
 
     /**
