@@ -129,8 +129,12 @@ jQuery(document).ready(function($) {
                 "tx_typo3forum_ajax[displayedAds]": JSON.stringify(displayedAds)
             },
             success: function (data) {
+                if (!data){
+                    $('.forum_menu[data-uid="' + $(this).data('uid') + '"]').html('<div>AJAX FEHLER: Keine Daten erhalten!</div>');
+                    return false;
+                }
                 json = isValidJSON(data);
-                if(data && !json) {
+                if(!json) {
                     if ($('.forum_menu')) {
                         $('.forum_menu').each(function (index) {
                             if($('.forum_menu[data-uid="' + $(this).data('uid') + '"]')){
@@ -139,9 +143,6 @@ jQuery(document).ready(function($) {
                             }
                         });
                     }
-                    return false;
-                } else if (!data){
-                    $('.forum_menu[data-uid="' + $(this).data('uid') + '"]').html('<div>AJAX FEHLER: Keine Daten erhalten!</div>');
                     return false;
                 }
                 if (json.topicIcons) {

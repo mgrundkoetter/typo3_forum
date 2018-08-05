@@ -142,8 +142,7 @@ class AjaxController extends AbstractController {
 		if ((int)$displayedAds->count > 1) {
 			$content['ads'] = $this->_getAds($displayedAds);
 		}
-
-		$this->view->assign('content', json_encode($content));
+        return json_encode($content);
 	}
 
 
@@ -169,24 +168,36 @@ class AjaxController extends AbstractController {
 	}
 
 	/**
+	 * @return string
+	 */
+    private function getTemplatePath(){
+        $templatePaths = $this->view->getTemplatePaths()->getTemplateRootPaths();
+        return array_pop($templatePaths);
+    }
+
+	/**
 	 * @param string $displayedForumMenus
 	 * @return array
 	 */
 	private function _getForumMenus($displayedForumMenus) {
 		$data = [];
 		$displayedForumMenus = json_decode($displayedForumMenus);
-		if (count($displayedForumMenus) < 1) return $data;
-		$this->request->setFormat('html');
-		$foren = $this->forumRepository->findByUids($displayedForumMenus);
+        // If no forumMenus are requested return empty array
+		if (count($displayedForumMenus) < 1) {
+            return $data;
+        }
+        $this->view->setTemplatePathAndFilename($this->getTemplatePath().'Ajax/ForumMenu.html');
+		// find Forums for requested ForumMenus
+        $foren = $this->forumRepository->findByUids($displayedForumMenus);
 		$counter = 0;
 		foreach ($foren as $forum) {
-			$this->view->assign('forum', $forum)
-				->assign('user', $this->getCurrentUser());
 			$data[$counter]['uid'] = $forum->getUid();
-			$data[$counter]['html'] = $this->view->render('ForumMenu');
+			$data[$counter]['html'] = $this->view->renderSection('html', [
+                'forum' => $forum,
+                'user' => $this->getCurrentUser()
+            ]);
 			$counter++;
 		}
-		$this->request->setFormat('json');
 		return $data;
 	}
 

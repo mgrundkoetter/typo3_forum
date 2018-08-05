@@ -51,7 +51,7 @@ class IfAccessViewHelper extends AbstractViewHelper {
 	 */
 	public function render(AccessibleInterface $object, $accessType = Access::TYPE_READ) {
 		if ($object->checkAccess($this->frontendUserRepository->findCurrent(), $accessType)) {
-			return $this->renderChildren();
+            return $this->renderChildren();
 		}
 	}
 }
