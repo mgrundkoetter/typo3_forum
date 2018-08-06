@@ -1,4 +1,7 @@
 <?php
+
+namespace Mittwald\Typo3Forum\Domain\Model;
+
 /**
  *
  * COPYRIGHT NOTICE
@@ -24,9 +27,6 @@
  *
  */
 
-namespace Mittwald\Typo3Forum\Domain\Model;
-
-
 use Mittwald\Typo3Forum\Configuration\ConfigurationBuilder;
 
 /**
@@ -46,7 +46,7 @@ trait ConfigurableEntityTrait
      * Whole TypoScript typo3_forum settings
      * @var array
      */
-    private $settings;
+    protected $settings;
 
     /**
      * @param ConfigurationBuilder $configurationBuilder
@@ -74,7 +74,6 @@ trait ConfigurableEntityTrait
         if (empty($this->settings)) {
             $this->settings = $this->configurationBuilder->getSettings();
         }
-
         return $this->settings;
     }
 }

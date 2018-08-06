@@ -39,7 +39,8 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  * posts. Topic are submitted to the access control mechanism and
  * can be subscribed by users.
  */
-class Topic extends AbstractEntity implements AccessibleInterface, SubscribeableInterface, NotifiableInterface, ReadableInterface, ConfigurableInterface {
+class Topic extends AbstractEntity implements AccessibleInterface, SubscribeableInterface, NotifiableInterface, ReadableInterface, ConfigurableInterface
+{
 
     use ConfigurableEntityTrait;
 
@@ -178,6 +179,13 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 */
 	protected $topicRepository;
 
+    /**
+     * @var ConfigurationBuilder
+     * @var \Mittwald\Typo3Forum\Configuration\ConfigurationBuilder
+     * @inject
+     */
+    protected $configurationBuilder;
+
 	/**
 	 * Constructor. Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage instances.
 	 *
@@ -285,13 +293,13 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 		return $this->postCount;
 	}
 
-//	/**
-//	 * Gets the amount of pages of this topic.
-//	 * @return integer Page count
-//	 */
-//	public function getPageCount() {
-//		return ceil($this->postCount / (int)$this->getSettings()['pagebrowser']['topicShow']['itemsPerPage']);
-//	}
+	/**
+	 * Gets the amount of pages of this topic.
+	 * @return integer Page count
+	 */
+	public function getPageCount() {
+		return ceil($this->postCount / (int) $this->settings['pagebrowser']['topicShow']['itemsPerPage']);
+	}
 
 	/**
 	 * Gets the reply count.
