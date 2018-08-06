@@ -285,13 +285,13 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 		return $this->postCount;
 	}
 
-	/**
-	 * Gets the amount of pages of this topic.
-	 * @return integer Page count
-	 */
-	public function getPageCount() {
-		return ceil($this->postCount / (int)$this->getSettings()['pagebrowser']['topicShow']['itemsPerPage']);
-	}
+//	/**
+//	 * Gets the amount of pages of this topic.
+//	 * @return integer Page count
+//	 */
+//	public function getPageCount() {
+//		return ceil($this->postCount / (int)$this->getSettings()['pagebrowser']['topicShow']['itemsPerPage']);
+//	}
 
 	/**
 	 * Gets the reply count.

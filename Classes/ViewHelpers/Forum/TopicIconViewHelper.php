@@ -65,8 +65,8 @@ class TopicIconViewHelper extends AbstractViewHelper
     public function render(Topic $topic = null, $width = null)
     {
         $data = $this->getDataArray($topic);
-
         if ($data['new']) {
+\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(array('$this->arguments'=>$this->arguments,'$data'=>$data,'$this->getCObjectViewHelper()'=>$this->getCObjectViewHelper(),'$this->viewHelperNode'=>$this->viewHelperNode));
             return $this->getCObjectViewHelper()->render('plugin.tx_typo3forum.renderer.icons.topic_new', $data);
         } else {
             return $this->getCObjectViewHelper()->render('plugin.tx_typo3forum.renderer.icons.topic', $data);
