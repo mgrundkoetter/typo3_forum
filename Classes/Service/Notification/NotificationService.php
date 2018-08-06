@@ -1,5 +1,7 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Service\Notification;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -32,7 +34,8 @@ use Mittwald\Typo3Forum\Utility\Localization;
  * Service class for notifications. This service notifies subscribers of
  * forums and topic about new posts within the subscribed objects.
  */
-class NotificationService extends AbstractService implements NotificationServiceInterface {
+class NotificationService extends AbstractService implements NotificationServiceInterface
+{
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Service\Mailing\HTMLMailingService
@@ -58,7 +61,8 @@ class NotificationService extends AbstractService implements NotificationService
 	 */
 	protected $settings;
 
-	public function initializeObject() {
+	public function initializeObject()
+    {
 		$this->settings = $this->configurationBuilder->getSettings();
 	}
 
@@ -72,7 +76,8 @@ class NotificationService extends AbstractService implements NotificationService
 	 * @return void
 	 *
 	 */
-	public function notifySubscribers(SubscribeableInterface $subscriptionObject, NotifiableInterface $notificationObject) {
+	public function notifySubscribers(SubscribeableInterface $subscriptionObject, NotifiableInterface $notificationObject)
+    {
 		$topic = $subscriptionObject;
 		$post  = $notificationObject;
 
@@ -125,5 +130,4 @@ class NotificationService extends AbstractService implements NotificationService
 			}
 		}
 	}
-
 }

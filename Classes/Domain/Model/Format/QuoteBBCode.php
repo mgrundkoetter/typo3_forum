@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model\Format;
 
 /*                                                                      *
@@ -27,13 +28,15 @@ namespace Mittwald\Typo3Forum\Domain\Model\Format;
 /**
  * A special quote bb code element.
  */
-class QuoteBBCode extends BBCode {
+class QuoteBBCode extends BBCode
+{
 
 	/**
 	 * Return the left (opening) bb code tag.
 	 * @return string The left bb code tag.
 	 */
-	public function getLeftBBCode() {
+	public function getLeftBBCode()
+    {
 		return '[quote]';
 	}
 
@@ -42,7 +45,8 @@ class QuoteBBCode extends BBCode {
 	 * @return string The right bb code tag.
 	 */
 
-	public function getRightBBCode() {
+	public function getRightBBCode()
+    {
 		return '[/quote]';
 	}
 }

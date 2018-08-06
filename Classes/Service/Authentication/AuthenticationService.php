@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Service\Authentication;
 
 /*                                                                    - *
@@ -35,7 +36,8 @@ use Mittwald\Typo3Forum\Service\AbstractService;
 /**
  * A service class that handles the entire authentication.
  */
-class AuthenticationService extends AbstractService implements AuthenticationServiceInterface {
+class AuthenticationService extends AbstractService implements AuthenticationServiceInterface
+{
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
@@ -75,7 +77,8 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 	 * @param AccessibleInterface $object The object that is to be accessed.
 	 * @return void
 	 */
-	public function assertReadAuthorization(AccessibleInterface $object) {
+	public function assertReadAuthorization(AccessibleInterface $object)
+    {
 		$this->assertAuthorization($object, Access::TYPE_READ);
 	}
 
@@ -86,7 +89,8 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 	 * @param Forum $forum The forum in which the new topic is to be created.
 	 * @return void
 	 */
-	public function assertNewTopicAuthorization(Forum $forum) {
+	public function assertNewTopicAuthorization(Forum $forum)
+    {
 		$this->assertAuthorization($forum, Access::TYPE_NEW_TOPIC);
 	}
 
@@ -98,7 +102,8 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 	 * @param Topic $topic The topic in which the new post is to be created.
 	 * @return void
 	 */
-	public function assertNewPostAuthorization(Topic $topic) {
+	public function assertNewPostAuthorization(Topic $topic)
+    {
 		$this->assertAuthorization($topic, Access::TYPE_NEW_POST);
 	}
 
@@ -109,7 +114,8 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 	 * @param Post $post The post that shall be edited.
 	 * @return void
 	 */
-	public function assertEditPostAuthorization(Post $post) {
+	public function assertEditPostAuthorization(Post $post)
+    {
 		$this->assertAuthorization($post, Access::TYPE_EDIT_POST);
 	}
 
@@ -120,7 +126,8 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 	 * @param Post $post The post that is to be deleted.
 	 * @return void
 	 */
-	public function assertDeletePostAuthorization(Post $post) {
+	public function assertDeletePostAuthorization(Post $post)
+    {
 		$this->assertAuthorization($post, Access::TYPE_DELETE_POST);
 	}
 
@@ -131,7 +138,8 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 	 * @param AccessibleInterface $object The object that is to be moderated.
 	 * @return void
 	 */
-	public function assertModerationAuthorization(AccessibleInterface $object) {
+	public function assertModerationAuthorization(AccessibleInterface $object)
+    {
 		$this->assertAuthorization($object, Access::TYPE_MODERATE);
 	}
 
@@ -144,7 +152,8 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 	 * @return void
 	 * @throws NoAccessException
 	 */
-	public function assertAuthorization(AccessibleInterface $object, $action) {
+	public function assertAuthorization(AccessibleInterface $object, $action)
+    {
 		if ($this->checkAuthorization($object, $action) === FALSE) {
 			throw new NoAccessException("You are not authorized to perform this action!", 1284709852);
 		}
@@ -159,7 +168,8 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 	 * @param string $action The action for which the access check is to be performed.
 	 * @return boolean TRUE, when the user is authorized, otherwise FALSE.
 	 */
-	public function checkAuthorization(AccessibleInterface $object, $action) {
+	public function checkAuthorization(AccessibleInterface $object, $action)
+    {
 		// ACLs can be disabled for debugging.
 		if (isset($this->settings) && $this->settings['debug']['disableACLs']) {
 			return TRUE;
@@ -185,7 +195,8 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 	 * @return string              The cache identifier.
 	 * @access private
 	 */
-	protected function getCacheIdentifier(AccessibleInterface $object, $action) {
+	protected function getCacheIdentifier(AccessibleInterface $object, $action)
+    {
 		$className = array_pop(explode('\\', get_class($object)));
 		/** @noinspection PhpUndefinedMethodInspection */
 		return 'acl-' . $className . '-' . $object->getUid() . '-' . $this->getUserGroupIdentifier() . '-' . $action;
@@ -198,7 +209,8 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 	 *
 	 * @return string An identifier for all current user groups.
 	 */
-	protected function getUserGroupIdentifier() {
+	protected function getUserGroupIdentifier()
+    {
 		if ($this->userGroupIdentifier === NULL) {
 			$user = $this->getUser();
 			if ($user === NULL) {
@@ -215,11 +227,11 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 		return $this->userGroupIdentifier;
 	}
 
-	public function getUser() {
+	public function getUser()
+    {
 		if ($this->user === -1) {
 			$this->user = $this->frontendUserRepository->findCurrent();
 		}
 		return $this->user;
 	}
-
 }

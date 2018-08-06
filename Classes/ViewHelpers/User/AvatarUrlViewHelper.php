@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\User;
 
 /*                                                                    - *
@@ -32,7 +33,8 @@ use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 /**
  * ViewHelper that renders a user's avatar.
  */
-class AvatarUrlViewHelper extends CObjectViewHelper {
+class AvatarUrlViewHelper extends CObjectViewHelper
+{
 
 	/**
 	 * An instance of the Extbase Signal-/Slot-Dispatcher.
@@ -46,7 +48,8 @@ class AvatarUrlViewHelper extends CObjectViewHelper {
 	 * Initializes the view helper's arguments.
 	 *
 	 */
-	public function initializeArguments() {
+	public function initializeArguments()
+    {
 		parent::initializeArguments();
 	}
 
@@ -56,7 +59,8 @@ class AvatarUrlViewHelper extends CObjectViewHelper {
 	 * @param FrontendUser $user
 	 * @return string
 	 */
-	public function render(FrontendUser $user = NULL) {
+	public function render(FrontendUser $user = NULL)
+    {
 		// if user ist not set
 		$avatarFilename = NULL;
 
@@ -69,5 +73,4 @@ class AvatarUrlViewHelper extends CObjectViewHelper {
 		}
 		return $avatarFilename;
 	}
-
 }

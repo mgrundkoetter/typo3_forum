@@ -1,5 +1,7 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\Format;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -30,7 +32,8 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  * which is to be used for the file size (B, KiB, MiB, ...) is determined
  * automatically.
  */
-class FileSizeViewHelper extends AbstractViewHelper {
+class FileSizeViewHelper extends AbstractViewHelper
+{
 
 	/**
 	 * Diffentently scaled units for file sizes.
@@ -51,14 +54,19 @@ class FileSizeViewHelper extends AbstractViewHelper {
 	 *
 	 * @return string
 	 */
-	public function render($decimals = 2, $decimalSeparator = ',', $thousandsSeparator = '.') {
+	public function render($decimals = 2, $decimalSeparator = ',', $thousandsSeparator = '.')
+    {
 		$fileSize = $this->renderChildren();
 		$suffix   = 0;
 		while ($fileSize >= 1024) {
 			$fileSize /= 1024;
 			$suffix++;
 		}
-		return number_format($fileSize, $decimals, $decimalSeparator,
-		                     $thousandsSeparator) . ' ' . $this->suffixes[$suffix];
+		return number_format(
+            $fileSize,
+            $decimals,
+            $decimalSeparator,
+		    $thousandsSeparator
+        ) . ' ' . $this->suffixes[$suffix];
 	}
 }

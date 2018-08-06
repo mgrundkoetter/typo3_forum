@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Controller;
 
 /*                                                                      *
@@ -32,7 +33,8 @@ use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
-class ReportController extends AbstractController {
+class ReportController extends AbstractController
+{
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\PostReportRepository
@@ -66,7 +68,8 @@ class ReportController extends AbstractController {
 	 *
 	 * @dontvalidate $firstComment
 	 */
-	public function newUserReportAction(FrontendUser $user, ReportComment $firstComment = NULL) {
+	public function newUserReportAction(FrontendUser $user, ReportComment $firstComment = NULL)
+	{
 		$this->view->assignMultiple([
 			'firstComment' => $firstComment,
 			'user' => $user,
@@ -81,7 +84,8 @@ class ReportController extends AbstractController {
 	 *
 	 * @dontvalidate $firstComment
 	 */
-	public function newPostReportAction(Post $post, ReportComment $firstComment = NULL) {
+	public function newPostReportAction(Post $post, ReportComment $firstComment = NULL)
+	{
 		$this->authenticationService->assertReadAuthorization($post);
 		$this->view->assign('firstComment', $firstComment)->assign('post', $post);
 	}
@@ -92,7 +96,8 @@ class ReportController extends AbstractController {
 	 * @param FrontendUser $user
 	 * @param ReportComment $firstComment
 	 */
-	public function createUserReportAction(FrontendUser $user, ReportComment $firstComment = NULL) {
+	public function createUserReportAction(FrontendUser $user, ReportComment $firstComment = NULL)
+	{
 
 		/** @var UserReport $report */
 		$report = $this->reportFactory->createUserReport($firstComment);
@@ -115,7 +120,8 @@ class ReportController extends AbstractController {
 	 * @param Post $post
 	 * @param ReportComment $firstComment
 	 */
-	public function createPostReportAction(Post $post, ReportComment $firstComment = NULL) {
+	public function createPostReportAction(Post $post, ReportComment $firstComment = NULL)
+	{
 		// Assert authorization;
 		$this->authenticationService->assertReadAuthorization($post);
 
@@ -133,5 +139,4 @@ class ReportController extends AbstractController {
 		);
 		$this->redirect('show', 'Topic', NULL, ['topic' => $post->getTopic()]);
 	}
-
 }

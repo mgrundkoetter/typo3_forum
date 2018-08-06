@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers;
 
 /*                                                                      *
@@ -33,15 +34,24 @@ use TYPO3Fluid\Fluid\ViewHelpers\IfViewHelper;
 class IfInstanceOfViewHelper extends IfViewHelper
 {
 
-
     /**
      * @return void
      */
     public function initializeArguments()
     {
         parent::initializeArguments();
-        $this->registerArgument('object', 'TYPO3\\CMS\\Extbase\\DomainObject\\AbstractDomainObject', 'Object to check', true);
-        $this->registerArgument('className', 'string', 'className which object has to be', true);
+        $this->registerArgument(
+            'object',
+            'TYPO3\\CMS\\Extbase\\DomainObject\\AbstractDomainObject',
+            'Object to check',
+            true
+        );
+        $this->registerArgument(
+            'className',
+            'string',
+            'className which object has to be',
+            true
+        );
     }
 
     /**

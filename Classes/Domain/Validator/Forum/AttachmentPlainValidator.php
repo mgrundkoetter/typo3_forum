@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Validator\Forum;
 
 /*                                                                    - *
@@ -26,7 +27,8 @@ namespace Mittwald\Typo3Forum\Domain\Validator\Forum;
 
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 
-class AttachmentPlainValidator extends AbstractValidator {
+class AttachmentPlainValidator extends AbstractValidator
+{
 
 	/**
 	 * An instance of the extbase object manager.
@@ -43,7 +45,8 @@ class AttachmentPlainValidator extends AbstractValidator {
 	 *
 	 * @return bool
 	 */
-	public function isValid($value) {
+	public function isValid($value)
+    {
 		$result = TRUE;
 		$attachmentObj = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Attachment');
 		foreach ($value as $attachment) {

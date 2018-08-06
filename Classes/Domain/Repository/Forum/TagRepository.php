@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Repository\Forum;
 
 /*                                                                    - *
@@ -27,20 +28,20 @@ namespace Mittwald\Typo3Forum\Domain\Repository\Forum;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
-class TagRepository extends Repository {
-
+class TagRepository extends Repository
+{
 
 	/**
 	 * Find all ordered by topic count
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Tag[]
 	 */
-	public function findAllOrderedByCounter() {
+	public function findAllOrderedByCounter()
+    {
 		$query = $this->createQuery();
 		$query->setOrderings(['topic_count' => 'DESC']);
 
 		return $query->execute();
 	}
-
 
 	/**
 	 * Find a tag with a specific name
@@ -49,14 +50,14 @@ class TagRepository extends Repository {
 	 *
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Tag[]
 	 */
-	public function findTagWithSpecificName($name) {
+	public function findTagWithSpecificName($name)
+    {
 		$query = $this->createQuery();
 		$query->matching($query->equals('name', $name));
 		$query->setLimit(1);
 
 		return $query->execute();
 	}
-
 
 	/**
 	 * Find a tag including a specific name
@@ -65,7 +66,8 @@ class TagRepository extends Repository {
 	 *
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Tag[]
 	 */
-	public function findTagLikeAName($name) {
+	public function findTagLikeAName($name)
+    {
 		$query = $this->createQuery();
 		$query->getQuerySettings()->setRespectStoragePage(FALSE);
 		$pids = $query->getQuerySettings()->getStoragePageIds();
@@ -86,12 +88,12 @@ class TagRepository extends Repository {
 	 *
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Tag[]
 	 */
-	public function findTagsOfUser(FrontendUser $user) {
+	public function findTagsOfUser(FrontendUser $user)
+    {
 		$query = $this->createQuery();
 		$query->matching($query->contains('feuser', $user));
 		$query->setOrderings(['name' => 'ASC']);
 
 		return $query->execute();
 	}
-
 }

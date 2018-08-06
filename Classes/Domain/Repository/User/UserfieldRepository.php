@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Repository\User;
 
 /*                                                                    - *
@@ -37,7 +38,8 @@ use Mittwald\Typo3Forum\Domain\Repository\AbstractRepository;
  * configured in the database.
  *
  */
-class UserfieldRepository extends AbstractRepository {
+class UserfieldRepository extends AbstractRepository
+{
 
 	/**
 	 * ConfigurationManagerInterface
@@ -57,7 +59,8 @@ class UserfieldRepository extends AbstractRepository {
 	 *
 	 * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
 	 */
-	public function __construct(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager) {
+	public function __construct(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager)
+    {
 		parent::__construct($objectManager);
 		$this->objectType = 'Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield';
 	}
@@ -76,7 +79,8 @@ class UserfieldRepository extends AbstractRepository {
 	 *                             All userfields, both from the database and
 	 *                             the core typoscript setup.
 	 */
-	public function findAll() {
+	public function findAll()
+    {
 		$query = $this->createQueryWithFallbackStoragePage();
 
 		return array_merge($this->findCoreUserfields(), $query->execute()->toArray());
@@ -91,7 +95,8 @@ class UserfieldRepository extends AbstractRepository {
 	 *                             typoscript configuration.
 	 * @throws \TYPO3\CMS\Extbase\Object\UnknownClassException
 	 */
-	protected function findCoreUserfields() {
+	protected function findCoreUserfields()
+    {
 		if ($this->coreUserfields === NULL) {
 			$conf = $this->configurationManagerInterface->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 			$this->coreUserfields = [];
@@ -119,6 +124,4 @@ class UserfieldRepository extends AbstractRepository {
 
 		return $this->coreUserfields;
 	}
-
-
 }

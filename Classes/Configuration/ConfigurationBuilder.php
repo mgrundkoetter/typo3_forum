@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Configuration;
 
 /***************************************************************
@@ -22,13 +23,15 @@ namespace Mittwald\Typo3Forum\Configuration;
  ***************************************************************/
 
 use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Service\TypoScriptService;
+#use TYPO3\CMS\Extbase\Service\TypoScriptService;
 
-class ConfigurationBuilder implements SingletonInterface {
+class ConfigurationBuilder implements SingletonInterface
+{
 
     /**
-     * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
+     * @var \TYPO3\CMS\Core\TypoScript\TypoScriptService
      * @inject
      *
      */
@@ -56,7 +59,6 @@ class ConfigurationBuilder implements SingletonInterface {
         return $this->settings;
     }
 
-
     /**
      * @return array
      */
@@ -69,14 +71,12 @@ class ConfigurationBuilder implements SingletonInterface {
         return $this->persistenceSettings;
     }
 
-
     protected function loadTypoScript()
     {
         $typoScript = $this->getTypoScriptService()->convertTypoScriptArrayToPlainArray($GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_typo3forum.']);
         $this->settings = $typoScript['settings'];
         $this->persistenceSettings = $typoScript['persistence'];
     }
-
 
     /**
      * this method is taken from the old implementation in AbstractRepository. The reason this exists is that if somehow the
@@ -87,10 +87,9 @@ class ConfigurationBuilder implements SingletonInterface {
     protected function getTypoScriptService()
     {
         if (is_null($this->typoScriptService)) {
-            $this->typoScriptService = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService');
+            $this->typoScriptService = GeneralUtility::makeInstance(TypoScriptService::class);
         }
 
         return $this->typoScriptService;
     }
-
 }

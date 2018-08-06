@@ -1,5 +1,7 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\Control;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -29,7 +31,8 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  * ViewHelper that renders a page browser.
  */
 
-class PageBrowserViewHelper extends AbstractViewHelper {
+class PageBrowserViewHelper extends AbstractViewHelper
+{
 
 	/**
 	 * Renders the page browser.
@@ -39,7 +42,8 @@ class PageBrowserViewHelper extends AbstractViewHelper {
 	 * @param integer $currentPage  Current page
 	 * @return string               HTML content of the page browser.
 	 */
-	public function render($elements, $itemsPerPage, $currentPage = 1) {
+	public function render($elements, $itemsPerPage, $currentPage = 1)
+    {
 		$output    = '';
 		$pageCount = ceil($elements / $itemsPerPage);
 
@@ -63,7 +67,8 @@ class PageBrowserViewHelper extends AbstractViewHelper {
 	 * @param integer $pageLabel Page label
 	 * @return string            Rendered page link
 	 */
-	private function renderChildItemWithPage($pageNum, $pageLabel) {
+	private function renderChildItemWithPage($pageNum, $pageLabel)
+    {
 		$this->templateVariableContainer->add('pageLabel', $pageLabel);
 		$this->templateVariableContainer->add('page', $pageNum);
 		$output = $this->renderChildren();

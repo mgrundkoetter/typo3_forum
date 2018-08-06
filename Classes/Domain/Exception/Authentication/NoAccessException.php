@@ -1,5 +1,7 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Exception\Authentication;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -25,8 +27,8 @@ namespace Mittwald\Typo3Forum\Domain\Exception\Authentication;
 
 use Mittwald\Typo3Forum\Domain\Exception\AbstractException;
 
-class NoAccessException extends AbstractException {
-
+class NoAccessException extends AbstractException
+{
 
 	/**
 	 * The exception message.

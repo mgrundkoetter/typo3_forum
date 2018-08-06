@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Repository\Format;
 
 /*                                                                    - *
@@ -30,16 +31,17 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 /**
  * Repository class for bb codes.
  */
-class BBCodeRepository extends AbstractRepository {
+class BBCodeRepository extends AbstractRepository
+{
 
 	/**
 	 * @return QueryResultInterface
 	 */
-	public function findAll() {
+	public function findAll()
+    {
 		$query = $this->createQueryWithFallbackStoragePage();
 		$query->setOrderings(['uid' => 'ASC']);
 
 		return $query->execute();
 	}
-
 }

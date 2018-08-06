@@ -36,7 +36,7 @@ return [
 	],
 	'columns' => [
 		'sys_language_uid' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.language',
 			'config' => [
 				'type' => 'select',
@@ -48,10 +48,16 @@ return [
 					['LLL:EXT:lang/locallang_general.php:LGL.default_value', 0],
 				],
 			],
+            'default' => 0,
+            'fieldWizard' => [
+                'selectIcons' => [
+                    'disabled' => false,
+                ],
+            ],
 		],
 		'l18n_parent' => [
 			'displayCond' => 'FIELD:sys_language_uid:>:0',
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.l18n_parent',
 			'config' => [
 				'type' => 'select',
@@ -77,14 +83,14 @@ return [
 			],
 		],
 		'hidden' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
 			'config' => [
 				'type' => 'check'
 			],
 		],
 		'operation' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'operation',
 			'config' => [
 				'type' => 'select',
@@ -101,7 +107,7 @@ return [
 			],
 		],
 		'negate' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'negate',
 			'config' => [
 				'type' => 'check',
@@ -109,7 +115,7 @@ return [
 			],
 		],
 		'forum' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_forum',
 			'config' => [
 				'type' => 'select',
@@ -120,7 +126,7 @@ return [
 			],
 		],
 		'affected_group' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'group',
 			'config' => [
 				'type' => 'select',
@@ -131,7 +137,7 @@ return [
 			],
 		],
 		'login_level' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'login_level',
 			'config' => [
 				'type' => 'select',

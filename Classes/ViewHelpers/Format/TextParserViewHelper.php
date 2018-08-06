@@ -1,5 +1,7 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\Format;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -28,7 +30,8 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 /**
  * ViewHelper that performs text parsing operations on text input.
  */
-class TextParserViewHelper extends AbstractViewHelper {
+class TextParserViewHelper extends AbstractViewHelper
+{
 
 	/**
 	 * The text parser service
@@ -56,8 +59,11 @@ class TextParserViewHelper extends AbstractViewHelper {
 	 * @return string                The rendered text
 	 *
 	 */
-	public function render($configuration = 'plugin.tx_typo3forum.settings.textParsing',
-	                       \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post = NULL, $content = NULL) {
+	public function render(
+        $configuration = 'plugin.tx_typo3forum.settings.textParsing',
+	    \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post = NULL,
+        $content = NULL
+    ) {
 		$this->textParserService->setControllerContext($this->controllerContext);
 		$this->textParserService->loadConfiguration($configuration);
 

@@ -1,5 +1,7 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Exception\Authentication;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -25,4 +27,6 @@ namespace Mittwald\Typo3Forum\Domain\Exception\Authentication;
 
 use Mittwald\Typo3Forum\Domain\Exception\AbstractException;
 
-class NotLoggedInException extends AbstractException {}
+class NotLoggedInException extends AbstractException
+{
+}

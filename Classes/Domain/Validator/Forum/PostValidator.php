@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Validator\Forum;
 
 /*                                                                      *
@@ -26,7 +27,8 @@ namespace Mittwald\Typo3Forum\Domain\Validator\Forum;
 
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 
-class PostValidator extends AbstractValidator {
+class PostValidator extends AbstractValidator
+{
 
 	/**
 	 * Check if $value is valid. If it is not valid, needs to add an error
@@ -35,7 +37,8 @@ class PostValidator extends AbstractValidator {
 	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
 	 * @return bool
 	 */
-	protected function isValid($post) {
+	protected function isValid($post)
+    {
 		$result = TRUE;
 
 		if (trim($post->getText()) === '') {
@@ -45,5 +48,4 @@ class PostValidator extends AbstractValidator {
 
 		return $result;
 	}
-
 }

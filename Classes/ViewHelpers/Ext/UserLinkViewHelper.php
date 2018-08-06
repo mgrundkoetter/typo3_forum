@@ -1,5 +1,7 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\Ext;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -25,7 +27,8 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Ext;
 
 use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 
-class UserLinkViewHelper extends CObjectViewHelper {
+class UserLinkViewHelper extends CObjectViewHelper
+{
 
     /**
      * @var \Mittwald\Typo3Forum\Configuration\ConfigurationBuilder
@@ -47,15 +50,18 @@ class UserLinkViewHelper extends CObjectViewHelper {
 	 */
 	protected $authenticationService = NULL;
 
-	public function initializeObject() {
+	public function initializeObject()
+    {
 		$this->settings = $this->configurationBuilder->getSettings();
 	}
 
-	public function initialize() {
+	public function initialize()
+    {
 		parent::initialize();
 	}
 
-	public function initializeArguments() {
+	public function initializeArguments()
+    {
 		parent::initializeArguments();
 		$this->registerArgument('class', 'string', 'CSS class.');
 		$this->registerArgument('style', 'string', 'CSS inline styles.');
@@ -68,13 +74,14 @@ class UserLinkViewHelper extends CObjectViewHelper {
 	 *
 	 * @return string
 	 */
-	public function render($link = TRUE) {
+	public function render($link = TRUE)
+    {
 		$user = $this->authenticationService->getUser();
 		if($link){
 				$uriBuilder = $this->controllerContext->getUriBuilder();
 				$uri = $uriBuilder->setTargetPageUid($this->settings['pids']['UserShow'])->setArguments(['tx_typo3forum_pi1[user]' => $user->getUid(), 'tx_typo3forum_pi1[controller]' => 'User', 'tx_typo3forum_pi1[action]' => 'show'])->build();
 				return '<a href="' . $uri . '" title="' . $user->getUsername() . '">' . $user->getUsername() . '</a>';
-		}else{
+		} else {
 			return $user->getUsername();
 		}
 	}

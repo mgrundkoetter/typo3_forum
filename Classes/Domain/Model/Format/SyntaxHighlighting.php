@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model\Format;
 
 /*                                                                      *
@@ -28,7 +29,8 @@ namespace Mittwald\Typo3Forum\Domain\Model\Format;
  * A syntax highlighting element. This class implements the abstract
  * AbstractTextParserElement class.
  */
-class SyntaxHighlighting extends BBCode {
+class SyntaxHighlighting extends BBCode
+{
 
 	/**
 	 * The language key.
@@ -46,7 +48,8 @@ class SyntaxHighlighting extends BBCode {
 	 * Return the left (opening) bb code tag.
 	 * @return string The left bb code tag.
 	 */
-	public function getLeftBBCode() {
+	public function getLeftBBCode()
+	{
 		return "[code language={$this->language}]\n";
 	}
 
@@ -54,7 +57,8 @@ class SyntaxHighlighting extends BBCode {
 	 * Return the right (closing) bb code tag.
 	 * @return string The right bb code tag.
 	 */
-	public function getRightBBCode() {
+	public function getRightBBCode()
+	{
 		return '[/code]';
 	}
 }

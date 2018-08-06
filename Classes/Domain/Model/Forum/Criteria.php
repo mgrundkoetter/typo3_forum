@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 
 /*                                                                    - *
@@ -26,7 +27,8 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-class Criteria extends AbstractEntity {
+class Criteria extends AbstractEntity
+{
 
 	/**
 	 * The name of the criteria
@@ -53,7 +55,8 @@ class Criteria extends AbstractEntity {
 	 * Gets the absolute name of this criteria.
 	 * @return string The name of criteria.
 	 */
-	public function getName() {
+	public function getName()
+	{
 		return $this->name;
 	}
 
@@ -64,7 +67,8 @@ class Criteria extends AbstractEntity {
 	 *
 	 * @return void
 	 */
-	public function setName($name) {
+	public function setName($name)
+	{
 		$this->name = $name;
 	}
 
@@ -73,7 +77,8 @@ class Criteria extends AbstractEntity {
 	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption>
 	 *            All options of criteria.
 	 */
-	public function getOptions() {
+	public function getOptions()
+	{
 		return $this->options;
 	}
 
@@ -82,7 +87,8 @@ class Criteria extends AbstractEntity {
 	 *
 	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $options
 	 */
-	public function setOptions(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $options) {
+	public function setOptions(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $options)
+	{
 		$this->options = $options;
 	}
 
@@ -90,7 +96,8 @@ class Criteria extends AbstractEntity {
 	 * Get the default option
 	 * @return CriteriaOption
 	 */
-	public function getDefaultOption() {
+	public function getDefaultOption()
+	{
 		return $this->defaultOption;
 	}
 
@@ -101,7 +108,8 @@ class Criteria extends AbstractEntity {
 	 *
 	 * @return void
 	 */
-	public function setDefaultOption(CriteriaOption $defaultOption) {
+	public function setDefaultOption(CriteriaOption $defaultOption)
+	{
 		$this->defaultOption = $defaultOption;
 	}
 }

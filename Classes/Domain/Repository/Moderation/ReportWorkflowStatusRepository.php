@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Repository\Moderation;
 
 /*                                                                    - *
@@ -31,14 +32,16 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 /**
  * Repository class for workflow status objects.
  */
-class ReportWorkflowStatusRepository extends AbstractRepository {
+class ReportWorkflowStatusRepository extends AbstractRepository
+{
 
 	/**
 	 * Finds the initial status that is to be used for new reports.
 	 *
 	 * @return ReportWorkflowStatus The initial status that is to be used for new reports.
 	 */
-	public function findInitial() {
+	public function findInitial()
+    {
 		$query = $this->createQueryWithFallbackStoragePage();
 		return $query->matching($query->equals('initial', TRUE))->setLimit(1)->execute()->getFirst();
 	}
@@ -47,7 +50,8 @@ class ReportWorkflowStatusRepository extends AbstractRepository {
 	/**
 	 * @return QueryInterface
 	 */
-	public function createQuery() {
+	public function createQuery()
+    {
 		$query = parent::createQuery();
 
 		$storagePageIds = $query->getQuerySettings()->getStoragePageIds();
@@ -56,5 +60,4 @@ class ReportWorkflowStatusRepository extends AbstractRepository {
 		$query->getQuerySettings()->setStoragePageIds($storagePageIds);
 		return $query;
 	}
-
 }

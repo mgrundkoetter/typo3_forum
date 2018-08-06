@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model\User\Userfield;
 
 /*                                                                      *
@@ -27,7 +28,8 @@ namespace Mittwald\Typo3Forum\Domain\Model\User\Userfield;
 /**
  * Special userfield that renders its contents as a date.
  */
-class DateUserfield extends TyposcriptUserfield {
+class DateUserfield extends TyposcriptUserfield
+{
 
 	/**
 	 * The typoscript path that is to be used for rendering this field.

@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\Forum;
 
 /*                                                                    - *
@@ -29,7 +30,8 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 /**
  * ViewHelper that renders a big button.
  */
-class RootlineViewHelper extends AbstractTagBasedViewHelper {
+class RootlineViewHelper extends AbstractTagBasedViewHelper
+{
 
 	/**
 	 * @var string
@@ -41,12 +43,14 @@ class RootlineViewHelper extends AbstractTagBasedViewHelper {
 	 */
 	protected $settings = NULL;
 
-	public function initializeArguments() {
+	public function initializeArguments()
+    {
 		parent::initializeArguments();
 		$this->registerUniversalTagAttributes();
 	}
 
-	public function initialize() {
+	public function initialize()
+    {
 		parent::initialize();
 		$this->settings = $this->templateVariableContainer->get('settings');
 	}
@@ -59,7 +63,8 @@ class RootlineViewHelper extends AbstractTagBasedViewHelper {
 	 *
 	 * @return string
 	 */
-	public function render(array $rootline, $reverse = FALSE) {
+	public function render(array $rootline, $reverse = FALSE)
+    {
 		if ($reverse) {
 			array_reverse($rootline);
 		}
@@ -87,7 +92,8 @@ class RootlineViewHelper extends AbstractTagBasedViewHelper {
 	 *
 	 * @return string
 	 */
-	protected function renderNavigationNode($object) {
+	protected function renderNavigationNode($object)
+    {
 		$extensionName = 'typo3forum';
 		$pluginName = 'pi1';
 		if ($object instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Forum) {

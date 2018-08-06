@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 
 /*                                                                    - *
@@ -27,7 +28,8 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-class Tag extends AbstractEntity {
+class Tag extends AbstractEntity
+{
 
 	/**
 	 * Tame of a tag
@@ -63,7 +65,8 @@ class Tag extends AbstractEntity {
 	/**
 	 * Creates a new Tag.
 	 */
-	public function __construct() {
+	public function __construct()
+	{
 		$this->feuser = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
 
@@ -71,7 +74,8 @@ class Tag extends AbstractEntity {
 	 * Get the name of this tag
 	 * @return string
 	 */
-	public function getName() {
+	public function getName()
+	{
 		return $this->name;
 	}
 
@@ -79,7 +83,8 @@ class Tag extends AbstractEntity {
 	 * Get the timestamp of this tag
 	 * @return \DateTime
 	 */
-	public function getTstamp() {
+	public function getTstamp()
+	{
 		return $this->tstamp;
 	}
 
@@ -87,7 +92,8 @@ class Tag extends AbstractEntity {
 	 * Get the crdate of this tag
 	 * @return \DateTime
 	 */
-	public function getCrdate() {
+	public function getCrdate()
+	{
 		return $this->crdate;
 	}
 
@@ -95,28 +101,32 @@ class Tag extends AbstractEntity {
 	 * Get the amount of topics which are using this tag
 	 * @return int
 	 */
-	public function getTopicCount() {
+	public function getTopicCount()
+	{
 		return $this->topicCount;
 	}
 
 	/**
 	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
 	 */
-	public function getFeuser() {
+	public function getFeuser()
+	{
 		return $this->feuser;
 	}
 
 	/**
 	 * @param string $name
 	 */
-	public function setName($name) {
+	public function setName($name)
+	{
 		$this->name = $name;
 	}
 
 	/**
 	 * @param \DateTime $crdate
 	 */
-	public function setCrdate($crdate) {
+	public function setCrdate($crdate)
+	{
 		$this->crdate = $crdate;
 	}
 
@@ -124,7 +134,8 @@ class Tag extends AbstractEntity {
 	 * Increases the topic count by 1
 	 * @return void
 	 */
-	public function increaseTopicCount() {
+	public function increaseTopicCount()
+	{
 		$this->topicCount++;
 	}
 
@@ -132,7 +143,8 @@ class Tag extends AbstractEntity {
 	 * Decreases the topic count by 1
 	 * @return void
 	 */
-	public function decreaseTopicCount() {
+	public function decreaseTopicCount()
+	{
 		$this->topicCount--;
 	}
 
@@ -141,7 +153,8 @@ class Tag extends AbstractEntity {
 	 *
 	 * @param $feuser FrontendUser
 	 */
-	public function addFeuser(FrontendUser $feuser) {
+	public function addFeuser(FrontendUser $feuser)
+	{
 		$this->feuser->attach($feuser);
 	}
 
@@ -150,7 +163,8 @@ class Tag extends AbstractEntity {
 	 *
 	 * @param $feuser FrontendUser
 	 */
-	public function removeFeuser(FrontendUser $feuser) {
+	public function removeFeuser(FrontendUser $feuser)
+	{
 		$this->feuser->detach($feuser);
 	}
 }

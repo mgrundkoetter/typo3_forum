@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Factory\User;
 
 /*                                                                      *
@@ -29,7 +30,8 @@ use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use Mittwald\Typo3Forum\Domain\Model\User\PrivateMessage;
 use Mittwald\Typo3Forum\Domain\Model\User\PrivateMessageText;
 
-class PrivateMessageFactory extends AbstractFactory {
+class PrivateMessageFactory extends AbstractFactory
+{
 
 	/**
 	 *
@@ -43,7 +45,8 @@ class PrivateMessageFactory extends AbstractFactory {
 	 * @return PrivateMessage The new private message.
 	 *
 	 */
-	public function createPrivateMessage(FrontendUser $opponent, FrontendUser $feUser, PrivateMessageText $text, $type, $userRead) {
+	public function createPrivateMessage(FrontendUser $opponent, FrontendUser $feUser, PrivateMessageText $text, $type, $userRead)
+    {
 		/** @var PrivateMessage $privateMessage */
 		$privateMessage = $this->getClassInstance();
 		$privateMessage->setFeuser($feUser);
@@ -55,5 +58,4 @@ class PrivateMessageFactory extends AbstractFactory {
 
 		return $privateMessage;
 	}
-
 }

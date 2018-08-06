@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model\User;
 
 	/*                                                                      *
@@ -27,7 +28,8 @@ namespace Mittwald\Typo3Forum\Domain\Model\User;
 /**
  * A frontend user group.
  */
-class FrontendUserGroup extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup {
+class FrontendUserGroup extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
+{
 
 	/**
 	 * Read topics.
@@ -39,8 +41,8 @@ class FrontendUserGroup extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGrou
 	 * Gets the post count of this user.
 	 * @return integer
 	 */
-	public function getUserMod() {
+	public function getUserMod()
+    {
 		return (int) $this->userMod;
 	}
-
 }

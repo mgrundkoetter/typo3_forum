@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Cache;
 
 /*                                                                      *
@@ -36,7 +37,8 @@ use TYPO3\CMS\Core\SingletonInterface;
  *
  *
  */
-class Cache implements SingletonInterface {
+class Cache implements SingletonInterface
+{
 
 	const CACHE_NAME = 'typo3forum_main';
 
@@ -59,7 +61,8 @@ class Cache implements SingletonInterface {
 	/**
 	 *
 	 */
-	public function initializeObject() {
+	public function initializeObject()
+	{
 		try {
 			$this->cacheInstance = $this->cacheManager->getCache(self::CACHE_NAME);
 		} catch (NoSuchCacheException $e) {
@@ -72,20 +75,23 @@ class Cache implements SingletonInterface {
 		}
 	}
 
-	public function has($identifier) {
+	public function has($identifier)
+	{
 		return $this->cacheInstance->has($identifier);
 	}
 
-	public function get($identifier) {
+	public function get($identifier)
+	{
 		return $this->cacheInstance->get($identifier);
 	}
 
-	public function set($identifier, $value, array $tags = [], $lifetime = NULL) {
+	public function set($identifier, $value, array $tags = [], $lifetime = NULL)
+	{
 		$this->cacheInstance->set($identifier, $value, $tags, $lifetime);
 	}
 
-	public function flush() {
+	public function flush()
+	{
 		$this->cacheInstance->flush();
 	}
-
 }

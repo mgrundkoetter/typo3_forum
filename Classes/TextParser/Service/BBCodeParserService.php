@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\TextParser\Service;
 
 /*                                                                      *
@@ -27,7 +28,8 @@ namespace Mittwald\Typo3Forum\TextParser\Service;
 use Mittwald\Typo3Forum\Domain\Model\Format\ListBBCode;
 use Mittwald\Typo3Forum\Domain\Model\Format\QuoteBBCode;
 
-class BBCodeParserService extends AbstractTextParserService {
+class BBCodeParserService extends AbstractTextParserService
+{
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Format\BBCodeRepository
@@ -47,7 +49,8 @@ class BBCodeParserService extends AbstractTextParserService {
 	 * @param string $text The text that is to be parsed.
 	 * @return string       The parsed text.
 	 */
-	public function getParsedText($text) {
+	public function getParsedText($text)
+    {
 		if ($this->bbCodes === NULL) {
 			$this->bbCodes = $this->bbCodeRepository->findAll();
 		}
@@ -60,5 +63,4 @@ class BBCodeParserService extends AbstractTextParserService {
 		}
 		return $text;
 	}
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Controller;
 
 /*                                                                      *
@@ -30,7 +31,8 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
-class ForumController extends AbstractController {
+class ForumController extends AbstractController
+{
 
 	/**
 	 * @var \TYPO3\CMS\Core\Database\DatabaseConnection
@@ -64,7 +66,8 @@ class ForumController extends AbstractController {
 	/**
 	 *
 	 */
-	public function initializeAction() {
+	public function initializeAction()
+	{
 		$this->databaseConnection = $GLOBALS['TYPO3_DB'];
 	}
 
@@ -72,7 +75,8 @@ class ForumController extends AbstractController {
 	 * Index action. Displays the first two levels of the forum tree.
 	 * @return void
 	 */
-	public function indexAction() {
+	public function indexAction()
+	{
 		if(($forum = $this->forumRepository->findOneByForum(0))) {
 			$this->forward('show', 'Forum', 'Typo3Forum',[
 				'forum' => $forum
@@ -87,7 +91,8 @@ class ForumController extends AbstractController {
 	 * @param Forum $forum The forum that is to be displayed.
 	 * @return void
 	 */
-	public function showAction(Forum $forum) {
+	public function showAction(Forum $forum)
+	{
 		$topics = $this->topicRepository->findForIndex($forum);
 		$this->authenticationService->assertReadAuthorization($forum);
 		$this->view->assignMultiple([
@@ -102,7 +107,8 @@ class ForumController extends AbstractController {
 	 * @throws NotLoggedInException
 	 * @return void
 	 */
-	public function markReadAction(Forum $forum) {
+	public function markReadAction(Forum $forum)
+	{
 		$user = $this->getCurrentUser();
 		if (!$user instanceof FrontendUser || $user->isAnonymous()) {
 			throw new NotLoggedInException('You need to be logged in.', 1288084981);
@@ -132,7 +138,8 @@ class ForumController extends AbstractController {
 	 * @throws NotLoggedInException
 	 * @return void
 	 */
-	public function showUnreadAction(Forum $forum) {
+	public function showUnreadAction(Forum $forum)
+	{
 		$user = $this->getCurrentUser();
 		if (!$user instanceof FrontendUser || $user->isAnonymous()) {
 			throw new NotLoggedInException('You need to be logged in.', 1436620398);
@@ -150,5 +157,4 @@ class ForumController extends AbstractController {
 
 		$this->view->assign('forum', $forum)->assign('topics', $topics);
 	}
-
 }

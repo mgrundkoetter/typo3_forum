@@ -39,7 +39,7 @@ return [
 	],
 	'columns' => [
 		'sys_language_uid' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.language',
 			'config' => [
 				'type' => 'select',
@@ -51,10 +51,16 @@ return [
 					['LLL:EXT:lang/locallang_general.php:LGL.default_value', 0],
 				],
 			],
+            'default' => 0,
+            'fieldWizard' => [
+                'selectIcons' => [
+                    'disabled' => false,
+                ],
+            ],
 		],
 		'l18n_parent' => [
 			'displayCond' => 'FIELD:sys_language_uid:>:0',
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.l18n_parent',
 			'config' => [
 				'type' => 'select',
@@ -79,14 +85,14 @@ return [
 			],
 		],
 		'hidden' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
 			'config' => [
 				'type' => 'check'
 			],
 		],
 		'type' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'type',
 			'config' => [
 				'type' => 'select',
@@ -101,7 +107,7 @@ return [
 			],
 		],
 		'name' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'name',
 			'config' => [
 				'type' => 'input',
@@ -110,7 +116,7 @@ return [
 			],
 		],
 		'icon_class' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'icon_class',
 			'config' => [
 				'type' => 'input',
@@ -119,7 +125,7 @@ return [
 			],
 		],
 		'bbcode_wrap' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'bbcode_wrap',
 			'config' => [
 				'type' => 'input',
@@ -128,7 +134,7 @@ return [
 			],
 		],
 		'regular_expression' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'regular_expression',
 			'config' => [
 				'type' => 'input',
@@ -137,7 +143,7 @@ return [
 			],
 		],
 		'regular_expression_replacement' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'regular_expression_replacement',
 			'config' => [
 				'type' => 'input',
@@ -146,7 +152,7 @@ return [
 			],
 		],
 		'smiley_shortcut' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'smiley_shortcut',
 			'config' => [
 				'type' => 'input',
@@ -155,7 +161,7 @@ return [
 			],
 		],
 		'language' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'language',
 			'config' => [
 				'type' => 'input',

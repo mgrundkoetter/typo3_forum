@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Repository\User;
 
 /*                                                                    - *
@@ -28,7 +29,8 @@ use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
-class RankRepository extends Repository {
+class RankRepository extends Repository
+{
 
 	/**
 	 * Find the rank of a specific user
@@ -37,7 +39,8 @@ class RankRepository extends Repository {
 	 *
 	 * @return \Mittwald\Typo3Forum\Domain\Model\User\Rank[]
 	 */
-	public function findRankByUser(FrontendUser $user) {
+	public function findRankByUser(FrontendUser $user)
+    {
 		$query = $this->createQuery();
 		$query->matching($query->lessThan('point_limit', $user->getPoints()));
 		$query->setOrderings(['point_limit' => 'DESC']);
@@ -54,7 +57,8 @@ class RankRepository extends Repository {
 	 * @deprecated
 	 * @return \Mittwald\Typo3Forum\Domain\Model\User\Rank[]
 	 */
-	public function findRankByPoints($points) {
+	public function findRankByPoints($points)
+    {
 		$query = $this->createQuery();
 		$query->matching($query->greaterThan('point_limit', (int)$points));
 		$query->setOrderings(['point_limit' => 'ASC']);
@@ -70,7 +74,8 @@ class RankRepository extends Repository {
 	 *
 	 * @return \Mittwald\Typo3Forum\Domain\Model\User\Rank
 	 */
-	public function findOneRankByPoints($points) {
+	public function findOneRankByPoints($points)
+    {
 		$query = $this->createQuery();
 		$query->matching($query->greaterThan('point_limit', (int)$points));
 		$query->setOrderings(['point_limit' => 'ASC']);
@@ -90,7 +95,8 @@ class RankRepository extends Repository {
 	 *
 	 * @return \Mittwald\Typo3Forum\Domain\Model\User\Rank[]
 	 */
-	public function findAllForRankingOverview() {
+	public function findAllForRankingOverview()
+    {
 		$query = $this->createQuery();
 		$query->setOrderings(['point_limit' => 'ASC']);
 

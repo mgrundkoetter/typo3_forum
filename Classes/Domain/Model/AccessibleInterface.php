@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model;
 
 /*                                                                      *
@@ -30,7 +31,8 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Access;
  * Interface definition for objects that are submitted to the access control
  * mechanism of the typo3_forum.
  */
-interface AccessibleInterface {
+interface AccessibleInterface
+{
 
 	/**
 	 * Checks if a certain frontend user has access to a specific operation.

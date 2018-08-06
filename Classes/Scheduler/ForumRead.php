@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Scheduler;
 
 /*                                                                    - *
@@ -29,7 +30,8 @@ use TYPO3\CMS\Scheduler\Task\AbstractTask;
 /**
  * Check for any user which forum is read and which not. Best way to ensure performance.
  */
-class ForumRead extends AbstractTask {
+class ForumRead extends AbstractTask
+{
 
 	/**
 	 * @var int
@@ -45,35 +47,40 @@ class ForumRead extends AbstractTask {
 	/**
 	 * @return int
 	 */
-	public function getForumPid() {
+	public function getForumPid()
+    {
 		return $this->forumPid;
 	}
 
 	/**
 	 * @return int
 	 */
-	public function getUserPid() {
+	public function getUserPid()
+    {
 		return $this->userPid;
 	}
 
 	/**
 	 * @param int $forumPid
 	 */
-	public function setForumPid($forumPid) {
+	public function setForumPid($forumPid)
+    {
 		$this->forumPid = $forumPid;
 	}
 
 	/**
 	 * @param int $userPid
 	 */
-	public function setUserPid($userPid) {
+	public function setUserPid($userPid)
+    {
 		$this->userPid = $userPid;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function execute() {
+	public function execute()
+    {
 		if ($this->getForumPid() == false || $this->getUserPid() == false) return false;
 
 		$limit = 86400;

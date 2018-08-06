@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Scheduler;
 
 /*                                                                    - *
@@ -31,7 +32,8 @@ use TYPO3\CMS\Scheduler\Task\AbstractTask;
 /**
  * Additional field provider for the counter task
  */
-class CounterAdditionalFieldProvider implements AdditionalFieldProviderInterface {
+class CounterAdditionalFieldProvider implements AdditionalFieldProviderInterface
+{
 
 	/**
 	 * Lorem
@@ -41,7 +43,8 @@ class CounterAdditionalFieldProvider implements AdditionalFieldProviderInterface
 	 * @param SchedulerModuleController $schedulerModule : reference to the calling object (Scheduler's BE module)
 	 * @return array Array containg all the information pertaining to the additional fields.
 	 */
-	public function getAdditionalFields(array &$taskInfo, $task, SchedulerModuleController $schedulerModule) {
+	public function getAdditionalFields(array &$taskInfo, $task, SchedulerModuleController $schedulerModule)
+    {
 		$additionalFields = [];
 
 		if ($schedulerModule->CMD == 'add') {
@@ -79,7 +82,8 @@ class CounterAdditionalFieldProvider implements AdditionalFieldProviderInterface
 	 * @param SchedulerModuleController $schedulerModule : reference to the calling object (Scheduler's BE module)
 	 * @return boolean True if validation was ok (or selected class is not relevant), FALSE otherwise
 	 */
-	public function validateAdditionalFields(array &$submittedData, SchedulerModuleController $schedulerModule) {
+	public function validateAdditionalFields(array &$submittedData, SchedulerModuleController $schedulerModule)
+    {
 		$submittedData['Counter_forumPid'] = (int)$submittedData['Counter_forumPid'];
 		$submittedData['Counter_userPid'] = (int)$submittedData['Counter_userPid'];
 		return TRUE;
@@ -92,7 +96,8 @@ class CounterAdditionalFieldProvider implements AdditionalFieldProviderInterface
 	 * @param  array $submittedData : array containing the data submitted by the user
 	 * @param  AbstractTask $task : reference to the current task object
 	 */
-	public function saveAdditionalFields(array $submittedData, AbstractTask $task) {
+	public function saveAdditionalFields(array $submittedData, AbstractTask $task)
+    {
 		$task->setUserPid($submittedData['Counter_userPid']);
 		$task->setForumPid($submittedData['Counter_forumPid']);
 	}

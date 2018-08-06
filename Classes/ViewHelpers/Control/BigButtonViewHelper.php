@@ -1,5 +1,7 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\Control;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -28,7 +30,8 @@ use TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper;
 /**
  * ViewHelper that renders a big button.
  */
-class BigButtonViewHelper extends ActionViewHelper {
+class BigButtonViewHelper extends ActionViewHelper
+{
 
 	/**
 	 * iconBaseClass
@@ -37,7 +40,8 @@ class BigButtonViewHelper extends ActionViewHelper {
 	 */
 	protected $iconBaseClass = 'tx-typo3forum-icon-32-';
 
-	public function initializeArguments() {
+	public function initializeArguments()
+    {
 		parent::initializeArguments();
 
 		$this->registerArgument('iconAction', 'string', 'Deprecated!');
@@ -45,12 +49,14 @@ class BigButtonViewHelper extends ActionViewHelper {
 		$this->registerArgument('iconClass', 'string', 'Classname for the icon');
 	}
 
-	public function initialize() {
+	public function initialize()
+    {
 		parent::initialize();
 		$this->tag->addAttribute('class', 'tx-typo3forum-button-big');
 	}
 
-	public function renderChildren() {
+	public function renderChildren()
+    {
 		$content   = parent::renderChildren();
 		$iconClass = NULL;
 

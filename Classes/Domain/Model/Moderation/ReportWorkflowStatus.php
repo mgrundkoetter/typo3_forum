@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
 
 /*                                                                    - *
@@ -29,7 +30,8 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
 /**
  * A report workflow status.
  */
-class ReportWorkflowStatus extends AbstractValueObject {
+class ReportWorkflowStatus extends AbstractValueObject
+{
 
 	/**
 	 * The name.
@@ -68,7 +70,8 @@ class ReportWorkflowStatus extends AbstractValueObject {
 	 * @param boolean $initial TRUE to mark this status as initial status.
 	 * @param boolean $final   TRUE to mark this status as final status.
 	 */
-	public function __construct($name = NULL, $initial = NULL, $final = NULL) {
+	public function __construct($name = NULL, $initial = NULL, $final = NULL)
+    {
 		$this->followupStatus = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->name = $name;
 		$this->initial = $initial;
@@ -79,7 +82,8 @@ class ReportWorkflowStatus extends AbstractValueObject {
 	 * Gets the status name.
 	 * @return string The status name.
 	 */
-	public function getName() {
+	public function getName()
+    {
 		return $this->name;
 	}
 
@@ -88,7 +92,8 @@ class ReportWorkflowStatus extends AbstractValueObject {
 	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus>
 	 *                             The allowed follow-up status.
 	 */
-	public function getFollowupStatus() {
+	public function getFollowupStatus()
+    {
 		return $this->followupStatus;
 	}
 
@@ -101,7 +106,8 @@ class ReportWorkflowStatus extends AbstractValueObject {
 	 * @return boolean             TRUE, if $status is a valid follow-up status,
 	 *                             otherwise FALSE.
 	 */
-	public function hasFollowupStatus(\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $status) {
+	public function hasFollowupStatus(\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $status)
+    {
 		return $this->followupStatus->contains($status);
 	}
 
@@ -110,7 +116,8 @@ class ReportWorkflowStatus extends AbstractValueObject {
 	 * @return boolean TRUE, if this status is the initial status for newly created
 	 *                 reports, otherwise FALSE.
 	 */
-	public function isInitial() {
+	public function isInitial()
+    {
 		return $this->initial;
 	}
 
@@ -118,7 +125,8 @@ class ReportWorkflowStatus extends AbstractValueObject {
 	 * Determines if this status is a final status for edited reports.
 	 * @return boolean TRUE, if this status is a final status for edited reports, otherwise FALSE.
 	 */
-	public function isFinal() {
+	public function isFinal()
+    {
 		return $this->final;
 	}
 
@@ -126,7 +134,8 @@ class ReportWorkflowStatus extends AbstractValueObject {
 	 * Return the icon filename.
 	 * @return string The icon filename.
 	 */
-	public function getIcon() {
+	public function getIcon()
+    {
 		return $this->icon;
 	}
 
@@ -138,7 +147,8 @@ class ReportWorkflowStatus extends AbstractValueObject {
 	 * @global array $TCA
 	 * @return string The site relative path of this status' icon.
 	 */
-	public function getIconFullpath() {
+	public function getIconFullpath()
+    {
 		if (version_compare(TYPO3_branch, '6.1', '<')) {
 			\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA(strtolower(__CLASS__));
 		}
@@ -160,7 +170,8 @@ class ReportWorkflowStatus extends AbstractValueObject {
 	 *
 	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $followupStatus
 	 */
-	public function addAllowedFollowupStatus(\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $followupStatus) {
+	public function addAllowedFollowupStatus(\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $followupStatus)
+    {
 		$this->followupStatus->attach($followupStatus);
 	}
 }

@@ -1,4 +1,7 @@
 <?php
+
+namespace Mittwald\Typo3Forum\Service\Migration;
+
 /**
  *
  * COPYRIGHT NOTICE
@@ -30,9 +33,6 @@
  * Date: 28.02.17
  * Time: 14:45
  */
-
-namespace Mittwald\Typo3Forum\Service\Migration;
-
 
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
@@ -205,5 +205,4 @@ abstract class AbstractMigrationService
     {
         return $this->objectManager->get(FlashMessageService::class);
     }
-
 }

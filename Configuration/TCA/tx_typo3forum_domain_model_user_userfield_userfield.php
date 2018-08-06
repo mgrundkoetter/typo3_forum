@@ -36,7 +36,7 @@ return [
 	],
 	'columns' => [
 		'sys_language_uid' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.language',
 			'config' => [
 				'type' => 'select',
@@ -48,10 +48,16 @@ return [
 					['LLL:EXT:lang/locallang_general.php:LGL.default_value', 0],
 				],
 			],
+            'default' => 0,
+            'fieldWizard' => [
+                'selectIcons' => [
+                    'disabled' => false,
+                ],
+            ],
 		],
 		'l18n_parent' => [
 			'displayCond' => 'FIELD:sys_language_uid:>:0',
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.l18n_parent',
 			'config' => [
 				'type' => 'select',
@@ -77,7 +83,7 @@ return [
 			],
 		],
 		'hidden' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
 			'config' => [
 				'type' => 'check',
@@ -96,7 +102,7 @@ return [
 			],
 		],
 		'name' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'name',
 			'config' => [
 				'type' => 'input',
@@ -105,7 +111,7 @@ return [
 			],
 		],
 		'typoscript_path' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'typoscript_path',
 			'config' => [
 				'type' => 'input',
@@ -114,7 +120,7 @@ return [
 			],
 		],
 		'map_to_user_object' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'map_to_user_object',
 			'config' => [
 				'type' => 'input',

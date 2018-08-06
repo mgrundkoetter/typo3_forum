@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\Forum;
 
 /*                                                                    - *
@@ -32,6 +33,7 @@ use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
  */
 class ForumIconViewHelper extends AbstractViewHelper
 {
+    protected $escapeOutput = false;
 
     /**
      * The frontend user repository.
@@ -39,17 +41,6 @@ class ForumIconViewHelper extends AbstractViewHelper
      * @inject
      */
     protected $frontendUserRepository = null;
-
-    /**
-     *
-     * Initializes the view helper arguments.
-     * @return void
-     *
-     */
-    public function initializeArguments()
-    {
-
-    }
 
     /**
      *
@@ -100,6 +91,6 @@ class ForumIconViewHelper extends AbstractViewHelper
      */
     protected function getCObjectViewHelper()
     {
-        return $this->objectManager->get('TYPO3\\CMS\\Fluid\\ViewHelpers\\CObjectViewHelper');
+        return $this->objectManager->get(\TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper::class);
     }
 }

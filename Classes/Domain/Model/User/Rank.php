@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model\User;
 
 /*                                                                    - *
@@ -26,7 +27,8 @@ namespace Mittwald\Typo3Forum\Domain\Model\User;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-class Rank extends AbstractEntity {
+class Rank extends AbstractEntity
+{
 
 	/**
 	 * The name of this rank
@@ -50,7 +52,8 @@ class Rank extends AbstractEntity {
 	 * Get the name of this rank
 	 * @return string
 	 */
-	public function getName() {
+	public function getName()
+    {
 		return $this->name;
 	}
 
@@ -61,7 +64,8 @@ class Rank extends AbstractEntity {
 	 *
 	 * @return void
 	 */
-	public function setName($name) {
+	public function setName($name)
+    {
 		$this->name = $name;
 	}
 
@@ -69,7 +73,8 @@ class Rank extends AbstractEntity {
 	 * Get the limit of this rank
 	 * @return int
 	 */
-	public function getPointLimit() {
+	public function getPointLimit()
+    {
 		return $this->pointLimit;
 	}
 
@@ -80,7 +85,8 @@ class Rank extends AbstractEntity {
 	 *
 	 * @return void
 	 */
-	public function setPointLimit($pointLimit) {
+	public function setPointLimit($pointLimit)
+    {
 		$this->pointLimit = $pointLimit;
 	}
 
@@ -88,7 +94,8 @@ class Rank extends AbstractEntity {
 	 * Get the amount of users of this rank
 	 * @return int
 	 */
-	public function getUserCount() {
+	public function getUserCount()
+    {
 		return $this->userCount;
 	}
 
@@ -96,7 +103,8 @@ class Rank extends AbstractEntity {
 	 * Set the counter of user count +1
 	 * @return void
 	 */
-	public function increaseUserCount() {
+	public function increaseUserCount()
+    {
 		$this->userCount++;
 	}
 
@@ -104,7 +112,8 @@ class Rank extends AbstractEntity {
 	 * Set the counter of user count -1
 	 * @return void
 	 */
-	public function decreaseUserCount() {
+	public function decreaseUserCount()
+    {
 		$this->userCount--;
 	}
 }

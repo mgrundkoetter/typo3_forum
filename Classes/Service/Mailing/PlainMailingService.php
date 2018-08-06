@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Service\Mailing;
 
 /*                                                                    - *
@@ -23,13 +24,15 @@ namespace Mittwald\Typo3Forum\Service\Mailing;
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
+
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
 
 /**
  * Service class for sending plain text emails.
  */
-class PlainMailingService extends AbstractMailingService {
+class PlainMailingService extends AbstractMailingService
+{
 
 	/**
 	 * The format in which this service sends mails.
@@ -46,7 +49,8 @@ class PlainMailingService extends AbstractMailingService {
 	 * @param string $bodyText The mail's bodytext
 	 * @return void
 	 */
-	public function sendMail(FrontendUser $recipient, $subject, $bodyText) {
+	public function sendMail(FrontendUser $recipient, $subject, $bodyText)
+    {
 		if ($recipient->getEmail()) {
 			$mail = new MailMessage();
 			$mail->setTo([$recipient->getEmail()])
@@ -64,7 +68,8 @@ class PlainMailingService extends AbstractMailingService {
 	 * @return string The mail headers.
 	 *
 	 */
-	protected function getHeaders() {
+	protected function getHeaders()
+    {
 		$headerArray = [
 			'From' => $this->getDefaultSender(),
 			'Content-Type' => 'text/plain; charset=' . $this->getCharset(),
@@ -77,5 +82,4 @@ class PlainMailingService extends AbstractMailingService {
 
 		return $headerString;
 	}
-
 }

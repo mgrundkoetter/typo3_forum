@@ -34,7 +34,7 @@ return [
 	],
 	'columns' => [
 		'sys_language_uid' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.language',
 			'config' => [
 				'type' => 'select',
@@ -46,10 +46,16 @@ return [
 					['LLL:EXT:lang/locallang_general.php:LGL.default_value', 0],
 				],
 			],
+            'default' => 0,
+            'fieldWizard' => [
+                'selectIcons' => [
+                    'disabled' => false,
+                ],
+            ],
 		],
 		'l18n_parent' => [
 			'displayCond' => 'FIELD:sys_language_uid:>:0',
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.l18n_parent',
 			'config' => [
 				'type' => 'select',
@@ -63,7 +69,8 @@ return [
 		],
 		'l18n_diffsource' => [
 			'config' => [
-				'type' => 'passthrough'],
+				'type' => 'passthrough'
+            ],
 		],
 		't3ver_label' => [
 			'displayCond' => 'FIELD:t3ver_label:REQ:true',
@@ -74,14 +81,14 @@ return [
 			],
 		],
 		'hidden' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
 			'config' => [
 				'type' => 'check'
 			],
 		],
 		'user' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'user',
 			'config' => [
 				'type' => 'select',
@@ -92,7 +99,7 @@ return [
 			],
 		],
 		'userfield' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'userfield',
 			'config' => [
 				'type' => 'select',
@@ -102,7 +109,7 @@ return [
 			],
 		],
 		'value' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'value',
 			'config' => [
 				'type' => 'none',

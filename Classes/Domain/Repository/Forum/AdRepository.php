@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Repository\Forum;
 
 /*                                                                    - *
@@ -36,7 +37,8 @@ class AdRepository extends Repository {
 	 *
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Ad[]
 	 */
-	public function findForForumView($limit = 0) {
+	public function findForForumView($limit = 0)
+    {
 		return $this->findAdsByCategories([0, 1], $limit);
 	}
 
@@ -49,7 +51,8 @@ class AdRepository extends Repository {
 	 *
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Ad[]
 	 */
-	private function findAdsByCategories(array $categories = [], $limit = 1) {
+	private function findAdsByCategories(array $categories = [], $limit = 1)
+    {
 		if (empty($categories))
 			$categories = [0];
 
@@ -77,9 +80,8 @@ class AdRepository extends Repository {
 	 *
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Ad[]
 	 */
-	public function findForTopicView($limit = 0) {
+	public function findForTopicView($limit = 0)
+    {
 		return $this->findAdsByCategories([0, 2], $limit);
 	}
-
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\TextParser;
 
 /*                                                                    - *
@@ -31,7 +32,8 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext;
  * Service class for parsing text values for display. This service handles
  * for example the rendering of bb codes, smileys, etc.
  */
-class TextParserService extends AbstractService {
+class TextParserService extends AbstractService
+{
 
 	/**
 	 * An instance of the Extbase object manager.
@@ -74,7 +76,8 @@ class TextParserService extends AbstractService {
 	 * Sets the current Extbase controller context.
 	 * @param ControllerContext $controllerContext
 	 */
-	public function setControllerContext(ControllerContext $controllerContext) {
+	public function setControllerContext(ControllerContext $controllerContext)
+    {
 		$this->controllerContext = $controllerContext;
 	}
 
@@ -85,7 +88,8 @@ class TextParserService extends AbstractService {
 	 * @return void
 	 * @throws \Mittwald\Typo3Forum\Domain\Exception\TextParser\Exception
 	 */
-	public function loadConfiguration($configurationPath = 'plugin.tx_typo3forum.settings.textParsing') {
+	public function loadConfiguration($configurationPath = 'plugin.tx_typo3forum.settings.textParsing')
+    {
 		if ($this->settings !== NULL) {
 			return;
 		}
@@ -108,8 +112,6 @@ class TextParserService extends AbstractService {
 		}
 	}
 
-
-
 	/**
 	 * Parses a certain input text.
 	 *
@@ -117,7 +119,8 @@ class TextParserService extends AbstractService {
 	 * @return string       The parsed text
 	 * @throws \Mittwald\Typo3Forum\Domain\Exception\TextParser\Exception
 	 */
-	public function parseText($text) {
+	public function parseText($text)
+    {
 		if ($this->settings === NULL) {
 			throw new \Mittwald\Typo3Forum\Domain\Exception\TextParser\Exception
 			("The textparser is not configured!", 1284730639);
@@ -129,5 +132,4 @@ class TextParserService extends AbstractService {
 		}
 		return $text;
 	}
-
 }

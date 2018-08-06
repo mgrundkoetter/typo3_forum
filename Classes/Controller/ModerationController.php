@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Controller;
 
 /*                                                                      *
@@ -36,7 +37,8 @@ use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
 
-class ModerationController extends AbstractController {
+class ModerationController extends AbstractController
+{
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
@@ -89,7 +91,8 @@ class ModerationController extends AbstractController {
 	/**
 	 * @return void
 	 */
-	public function indexReportAction() {
+	public function indexReportAction()
+	{
 		$this->view->assign('postReports', $this->postReportRepository->findAll());
 		$this->view->assign('userReports', $this->userReportRepository->findAll());
 	}
@@ -103,7 +106,8 @@ class ModerationController extends AbstractController {
 	 * @return void
 	 * @throws InvalidArgumentValueException
 	 */
-	public function editReportAction(UserReport $userReport = NULL, PostReport $postReport = NULL) {
+	public function editReportAction(UserReport $userReport = NULL, PostReport $postReport = NULL)
+	{
 		// Validate arguments
 		if ($userReport === NULL && $postReport === NULL) {
 			throw new InvalidArgumentValueException("You need to show a user report or post report!", 1285059341);
@@ -129,7 +133,8 @@ class ModerationController extends AbstractController {
 	 *
 	 * @dontvalidate $comment
 	 */
-	public function newReportCommentAction(Report $report, ReportComment $comment = NULL) {
+	public function newReportCommentAction(Report $report, ReportComment $comment = NULL)
+	{
 		$this->view->assignMultiple([
 			'comment' => $comment,
 			'report' => $report,
@@ -142,7 +147,8 @@ class ModerationController extends AbstractController {
 	 * @return void
 	 * @throws InvalidArgumentValueException
 	 */
-	public function createUserReportCommentAction(UserReport $report = NULL, ReportComment $comment) {
+	public function createUserReportCommentAction(UserReport $report = NULL, ReportComment $comment)
+	{
 
 		// Validate arguments
 		if ($report === NULL) {
@@ -172,7 +178,8 @@ class ModerationController extends AbstractController {
 	 * @throws InvalidArgumentValueException
 	 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
 	 */
-	public function createPostReportCommentAction(PostReport $report = NULL, ReportComment $comment) {
+	public function createPostReportCommentAction(PostReport $report = NULL, ReportComment $comment)
+	{
 
 		// Assert authorization
 		$this->authenticationService->assertModerationAuthorization($report->getTopic()->getForum());
@@ -205,7 +212,8 @@ class ModerationController extends AbstractController {
 	 * @return void
 	 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
 	 */
-	public function updateUserReportStatusAction(UserReport $report, ReportWorkflowStatus $status, $redirect = 'indexReport') {
+	public function updateUserReportStatusAction(UserReport $report, ReportWorkflowStatus $status, $redirect = 'indexReport')
+	{
 
 		// Set status and update the report. Add a comment to the report that
 		// documents the status change.
@@ -235,7 +243,8 @@ class ModerationController extends AbstractController {
 	 * @param ReportWorkflowStatus $status
 	 * @param string $redirect
 	 */
-	public function updatePostReportStatusAction(PostReport $report, ReportWorkflowStatus $status, $redirect = 'indexReport') {
+	public function updatePostReportStatusAction(PostReport $report, ReportWorkflowStatus $status, $redirect = 'indexReport')
+	{
 
 		// Assert authorization
 		$this->authenticationService->assertModerationAuthorization($report->getTopic()->getForum());
@@ -267,7 +276,8 @@ class ModerationController extends AbstractController {
 	 *
 	 * @param Topic $topic The topic that is to be edited.
 	 */
-	public function editTopicAction(Topic $topic) {
+	public function editTopicAction(Topic $topic)
+	{
 		$this->authenticationService->assertModerationAuthorization($topic->getForum());
 		$this->view->assign('topic', $topic);
 	}
@@ -279,7 +289,8 @@ class ModerationController extends AbstractController {
 	 * @param boolean $moveTopic TRUE, if the topic is to be moved to another forum.
 	 * @param Forum $moveTopicTarget The forum to which the topic is to be moved.
 	 */
-	public function updateTopicAction(Topic $topic, $moveTopic = FALSE, Forum $moveTopicTarget = NULL) {
+	public function updateTopicAction(Topic $topic, $moveTopic = FALSE, Forum $moveTopicTarget = NULL)
+	{
 		$this->authenticationService->assertModerationAuthorization($topic->getForum());
 		$this->topicRepository->update($topic);
 
@@ -301,7 +312,8 @@ class ModerationController extends AbstractController {
 	 *
 	 * @return void
 	 */
-	public function topicConformDeleteAction(Topic $topic) {
+	public function topicConformDeleteAction(Topic $topic)
+	{
 		$this->authenticationService->assertModerationAuthorization($topic->getForum());
 		foreach ($topic->getPosts() as $post) {
 			$this->postRepository->remove($post);

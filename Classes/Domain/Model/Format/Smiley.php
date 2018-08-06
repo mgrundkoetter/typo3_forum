@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model\Format;
 
 /*                                                                      *
@@ -38,7 +39,8 @@ use Mittwald\Typo3Forum\TextParser\Panel\MarkItUpExportableInterface;
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Smiley extends AbstractTextParserElement implements MarkItUpExportableInterface {
+class Smiley extends AbstractTextParserElement implements MarkItUpExportableInterface
+{
 
 	/**
 	 * The smiley shortcut, e.g. ":)" or ":/"
@@ -57,7 +59,8 @@ class Smiley extends AbstractTextParserElement implements MarkItUpExportableInte
 	 * a MarkItUp configuration object.
 	 * @return array A plain array describing this smiley
 	 */
-	public function exportForMarkItUp() {
+	public function exportForMarkItUp()
+	{
 		return ['name' => $this->getName(),
 			'className' => $this->getIconClass(),
 			'replaceWith' => $this->getSmileyShortcut()];
@@ -67,7 +70,8 @@ class Smiley extends AbstractTextParserElement implements MarkItUpExportableInte
 	 * Gets the smiley IconClass.
 	 * @return string The smiley IconClass.
 	 */
-	public function getIconClass() {
+	public function getIconClass()
+	{
 		return $this->iconClass;
 	}
 
@@ -75,7 +79,8 @@ class Smiley extends AbstractTextParserElement implements MarkItUpExportableInte
 	 * Gets the smiley shortcut.
 	 * @return string The smiley shortcut.
 	 */
-	public function getSmileyShortcut() {
+	public function getSmileyShortcut()
+	{
 		return $this->smileyShortcut;
 	}
 }

@@ -26,14 +26,14 @@ return [
 	],
 	'columns' => [
 		'hidden' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
 			'config' => [
 				'type' => 'check'
 			],
 		],
 		'crdate' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.crdate',
 			'config' => [
 				'type' => 'passthrough'
@@ -48,7 +48,7 @@ return [
 			],
 		],
 		'followup_status' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'followup_status',
 			'config' => [
 				'type' => 'select',

@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Repository\User;
 
 /*                                                                    - *
@@ -27,8 +28,8 @@ namespace Mittwald\Typo3Forum\Domain\Repository\User;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
-class NotificationRepository extends Repository {
-
+class NotificationRepository extends Repository
+{
 
 	/**
 	 * Find notifications for a specific user
@@ -38,7 +39,8 @@ class NotificationRepository extends Repository {
 	 *
 	 * @return \Mittwald\Typo3Forum\Domain\Model\User\Notification[]
 	 */
-	public function findNotificationsForUser(FrontendUser $user, $limit = 0) {
+	public function findNotificationsForUser(FrontendUser $user, $limit = 0)
+    {
 		$query = $this->createQuery();
 		$query->matching($query->equals('feuser', $user));
 		$query->setOrderings(['post.crdate' => 'DESC']);
@@ -48,5 +50,4 @@ class NotificationRepository extends Repository {
 
 		return $query->execute();
 	}
-
 }

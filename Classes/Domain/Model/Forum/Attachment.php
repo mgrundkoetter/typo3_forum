@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 
 /*                                                                      *
@@ -28,7 +29,8 @@ use Mittwald\Typo3Forum\Domain\Model\ConfigurableEntityTrait;
 use Mittwald\Typo3Forum\Domain\Model\ConfigurableInterface;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-class Attachment extends AbstractEntity implements ConfigurableInterface {
+class Attachment extends AbstractEntity implements ConfigurableInterface
+{
 
     use ConfigurableEntityTrait;
 	/**
@@ -72,7 +74,8 @@ class Attachment extends AbstractEntity implements ConfigurableInterface {
 	 * Gets the attachment's filename on file system.
 	 * @return Post
 	 */
-	public function getPost() {
+	public function getPost()
+	{
 		return $this->post;
 	}
 
@@ -83,7 +86,8 @@ class Attachment extends AbstractEntity implements ConfigurableInterface {
 	 *
 	 * @return void
 	 */
-	public function setPost($post) {
+	public function setPost($post)
+	{
 		$this->post = $post;
 	}
 
@@ -91,7 +95,8 @@ class Attachment extends AbstractEntity implements ConfigurableInterface {
 	 * Gets the attachment's filename.
 	 * @return string The attachment's filename.
 	 */
-	public function getFilename() {
+	public function getFilename()
+	{
 		return $this->filename;
 	}
 
@@ -102,7 +107,8 @@ class Attachment extends AbstractEntity implements ConfigurableInterface {
 	 *
 	 * @return void
 	 */
-	public function setFilename($filename) {
+	public function setFilename($filename)
+	{
 		$this->filename = $filename;
 	}
 
@@ -110,7 +116,8 @@ class Attachment extends AbstractEntity implements ConfigurableInterface {
 	 * Gets the allowed mime types.
 	 * @return array The allowed mime types.
 	 */
-	public function getAllowedMimeTypes() {
+	public function getAllowedMimeTypes()
+	{
 		$mime_types = explode(',', $this->getSettings()['attachment']['allowedMimeTypes']);
 		if (empty($mime_types)) {
 			$res = ['text/plain'];
@@ -127,8 +134,10 @@ class Attachment extends AbstractEntity implements ConfigurableInterface {
 	 * Gets the allowed max size of a attachment.
 	 * @return int The allowed max size of a attachment.
 	 */
-	public function getAllowedMaxSize() {
-		if ($this->getSettings()['attachment']['allowedSizeInByte'] == false) {
+	public function getAllowedMaxSize()
+	{
+		if ($this->getSettings()['attachment']['allowedSizeInByte'] == false)
+	{
 			return 4096;
 		} else {
 			return (int)$this->getSettings()['attachment']['allowedSizeInByte'];
@@ -139,7 +148,8 @@ class Attachment extends AbstractEntity implements ConfigurableInterface {
 	 * Gets the filesize.
 	 * @return integer The filesize.
 	 */
-	public function getFilesize() {
+	public function getFilesize()
+	{
 		return filesize($this->getAbsoluteFilename());
 	}
 
@@ -147,7 +157,8 @@ class Attachment extends AbstractEntity implements ConfigurableInterface {
 	 * Gets the absolute filename of this attachment.
 	 * @return string The absolute filename of this attachment.
 	 */
-	public function getAbsoluteFilename() {
+	public function getAbsoluteFilename()
+	{
 		$tca = $GLOBALS['TCA']['tx_typo3forum_domain_model_forum_attachment'];
 		$uploadPath = $tca['columns']['real_filename']['config']['uploadfolder'];
 		return $uploadPath . $this->getRealFilename();
@@ -157,7 +168,8 @@ class Attachment extends AbstractEntity implements ConfigurableInterface {
 	 * Gets the attachment's filename on file system.
 	 * @return string The attachment's filename on file system.
 	 */
-	public function getRealFilename() {
+	public function getRealFilename()
+	{
 		return $this->realFilename;
 	}
 
@@ -168,7 +180,8 @@ class Attachment extends AbstractEntity implements ConfigurableInterface {
 	 *
 	 * @return void
 	 */
-	public function setRealFilename($realFilename) {
+	public function setRealFilename($realFilename)
+	{
 		$this->realFilename = $realFilename;
 	}
 
@@ -176,7 +189,8 @@ class Attachment extends AbstractEntity implements ConfigurableInterface {
 	 * Gets the MIME type.
 	 * @return string The MIME type.
 	 */
-	public function getMimeType() {
+	public function getMimeType()
+	{
 		return $this->mimeType;
 	}
 
@@ -187,7 +201,8 @@ class Attachment extends AbstractEntity implements ConfigurableInterface {
 	 *
 	 * @return void
 	 */
-	public function setMimeType($mimeType) {
+	public function setMimeType($mimeType)
+	{
 		$this->mimeType = $mimeType;
 	}
 
@@ -195,7 +210,8 @@ class Attachment extends AbstractEntity implements ConfigurableInterface {
 	 * Gets the download count.
 	 * @return integer The download count.
 	 */
-	public function getDownloadCount() {
+	public function getDownloadCount()
+	{
 		return $this->downloadCount;
 	}
 
@@ -203,7 +219,8 @@ class Attachment extends AbstractEntity implements ConfigurableInterface {
 	 * Increases the download counter by 1.
 	 * @return void
 	 */
-	public function increaseDownloadCount() {
+	public function increaseDownloadCount()
+	{
 		$this->downloadCount++;
 	}
 
@@ -211,8 +228,8 @@ class Attachment extends AbstractEntity implements ConfigurableInterface {
      * Gets the whole TCA config of tx_typo3forum_domain_model_forum_attachment
      * @return array The whole TCA config of tx_typo3forum_domain_model_forum_attachment
      */
-    public function getTCAConfig() {
+    public function getTCAConfig()
+	{
         return $GLOBALS['TCA']['tx_typo3forum_domain_model_forum_attachment'];
     }
-
 }

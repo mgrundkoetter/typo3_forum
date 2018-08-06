@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\TextParser\Service;
 
 /*                                                                      *
@@ -26,7 +27,8 @@ namespace Mittwald\Typo3Forum\TextParser\Service;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class BasicParserService extends AbstractTextParserService {
+class BasicParserService extends AbstractTextParserService
+{
 
 	/**
 	 * The text.
@@ -46,7 +48,8 @@ class BasicParserService extends AbstractTextParserService {
 	 * @param string $text The text to be parsed.
 	 * @return string       The parsed text.
 	 */
-	public function getParsedText($text) {
+	public function getParsedText($text)
+    {
 		$this->text = $text;
 		$this->extractProtectedParts();
 		$this->escape();
@@ -61,7 +64,8 @@ class BasicParserService extends AbstractTextParserService {
 	 * @param array $matches
 	 * @return string
 	 */
-	protected function makeUrlClickable($matches) {
+	protected function makeUrlClickable($matches)
+    {
 		$ret = '';
 		$url = $matches[2];
 
@@ -79,7 +83,8 @@ class BasicParserService extends AbstractTextParserService {
 	 * @param array $matches
 	 * @return string
 	 */
-	protected function makeWebFtpClickable($matches) {
+	protected function makeWebFtpClickable($matches)
+    {
 		$ret = '';
 		$dest = $matches[2];
 		$dest = 'http://' . $dest;
@@ -98,7 +103,8 @@ class BasicParserService extends AbstractTextParserService {
 	 * @param array $matches
 	 * @return string
 	 */
-	protected function makeEmailClickable($matches) {
+	protected function makeEmailClickable($matches)
+    {
 		$email = $matches[2] . '@' . $matches[3];
 		return $matches[1] . "<a href=\"mailto:$email\">$email</a>";
 	}
@@ -106,7 +112,8 @@ class BasicParserService extends AbstractTextParserService {
 	/**
 	 *
 	 */
-	protected function regUrls() {
+	protected function regUrls()
+    {
 		$ret = ' ' . $this->text;
 		// in testing, using arrays here was found to be faster
 		$ret = preg_replace_callback('#([\s>])([\w]+?://[\w\\x80-\\xff\#$%&~/.\-;:=,?@\[\]+]*)#is', [&$this, 'makeUrlClickable'], $ret);
@@ -125,7 +132,8 @@ class BasicParserService extends AbstractTextParserService {
 	 *
 	 * @return void
 	 */
-	protected function extractProtectedParts() {
+	protected function extractProtectedParts()
+    {
 		$pattern = ',\[code language=[a-z0-9]+\](.*?)\[\/code\],is';
 		preg_match_all($pattern, $this->text, $this->protectedParts);
 		$this->text = preg_replace($pattern, '###MMFORUM_PROTECTED###', $this->text);
@@ -137,7 +145,8 @@ class BasicParserService extends AbstractTextParserService {
 	 *
 	 * @return void
 	 */
-	protected function restoreProtectedParts() {
+	protected function restoreProtectedParts()
+    {
 		while (($s = strpos($this->text, '###MMFORUM_PROTECTED###')) !== FALSE) {
 			$this->text = substr_replace($this->text, array_shift($this->protectedParts[0]), $s, strlen('###MMFORUM_PROTECTED###'));
 		}
@@ -148,7 +157,8 @@ class BasicParserService extends AbstractTextParserService {
 	 *
 	 * @return BasicParserService $this, for chaining
 	 */
-	protected function escape() {
+	protected function escape()
+    {
 		$this->text = htmlspecialchars($this->text);
 		return $this;
 	}
@@ -158,7 +168,8 @@ class BasicParserService extends AbstractTextParserService {
 	 *
 	 * @return BasicParserService $this, for chaining
 	 */
-	protected function paragraphs() {
+	protected function paragraphs()
+    {
 		$this->text = str_replace("\r", '', $this->text);
 		$this->text = preg_replace(';\n{2,};s', "\n\n", $this->text);
 
@@ -172,7 +183,8 @@ class BasicParserService extends AbstractTextParserService {
 	 *
 	 * @return BasicParserService $this, for chaining
 	 */
-	protected function lineBreaks() {
+	protected function lineBreaks()
+    {
 		$this->text = $this->removeUnneccesaryLinebreaks($this->text);
 		$this->text = nl2br($this->text);
 		return $this;
@@ -185,9 +197,9 @@ class BasicParserService extends AbstractTextParserService {
 	 *
 	 * @return string The text with less linebreaks.
 	 */
-	protected function removeUnneccesaryLinebreaks($text) {
+	protected function removeUnneccesaryLinebreaks($text)
+    {
 		$text = preg_replace(',(\[[a-z0-9 ]+\])\s*,is', '$1', $text);
 		return $text;
 	}
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Scheduler;
 
 /*                                                                    - *
@@ -26,7 +27,8 @@ namespace Mittwald\Typo3Forum\Scheduler;
 
 use TYPO3\CMS\Scheduler\Task\AbstractTask;
 
-class SessionResetter extends AbstractTask {
+class SessionResetter extends AbstractTask
+{
 
 	/**
 	 * @var int
@@ -36,21 +38,24 @@ class SessionResetter extends AbstractTask {
 	/**
 	 * @return int
 	 */
-	public function getUserPid() {
+	public function getUserPid()
+    {
 		return $this->userPid;
 	}
 
 	/**
 	 * @param int $userPid
 	 */
-	public function setUserPid($userPid) {
+	public function setUserPid($userPid)
+    {
 		$this->userPid = $userPid;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function execute() {
+	public function execute()
+    {
 		if ((int)$this->getUserPid() === 0) {
 			return FALSE;
 		}

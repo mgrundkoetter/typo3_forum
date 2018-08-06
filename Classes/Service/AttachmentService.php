@@ -1,11 +1,12 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Service;
 
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
-class AttachmentService implements SingletonInterface {
-
+class AttachmentService implements SingletonInterface
+{
 
 	/**
 	 * An instance of the Extbase object manager.
@@ -19,7 +20,8 @@ class AttachmentService implements SingletonInterface {
 	 * @param array $attachments
 	 * @return ObjectStorage
 	 */
-	public function initAttachments(array $attachments){
+	public function initAttachments(array $attachments)
+    {
 		/* @var \Mittwald\Typo3Forum\Domain\Model\Forum\Attachment */
 		$objAttachments = new ObjectStorage();
 
@@ -49,5 +51,4 @@ class AttachmentService implements SingletonInterface {
 		}
 		return $objAttachments;
 	}
-
 }

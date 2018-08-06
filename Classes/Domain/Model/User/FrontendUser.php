@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model\User;
 
 /*                                                                    - *
@@ -39,7 +40,8 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 /**
  * A frontend user.
  */
-class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implements AccessibleInterface, ConfigurableInterface {
+class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implements AccessibleInterface, ConfigurableInterface
+{
 
 	const GENDER_MALE = 0;
 	const GENDER_FEMALE = 1;
@@ -289,7 +291,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 * @param string $username The user's username.
 	 * @param string $password The user's password.
 	 */
-	public function __construct($username = '', $password = '') {
+	public function __construct($username = '', $password = '')
+    {
 		parent::__construct($username, $password);
 		$this->readTopics = new ObjectStorage();
 		$this->readForum = new ObjectStorage();
@@ -300,7 +303,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return integer The post count.
 	 */
-	public function getPostCount() {
+	public function getPostCount()
+    {
 		return $this->postCount;
 	}
 
@@ -309,7 +313,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return integer The post count.
 	 */
-	public function getPostCountSession() {
+	public function getPostCountSession()
+    {
 		return $this->postCountSession;
 	}
 
@@ -318,7 +323,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return integer The topic count.
 	 */
-	public function getTopicCount() {
+	public function getTopicCount()
+    {
 		return $this->topicCount;
 	}
 
@@ -327,7 +333,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return string
 	 */
-	public function getFacebook() {
+	public function getFacebook()
+    {
 		return $this->facebook;
 	}
 
@@ -336,7 +343,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return string
 	 */
-	public function getTwitter() {
+	public function getTwitter()
+    {
 		return $this->twitter;
 	}
 
@@ -345,7 +353,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return string
 	 */
-	public function getGoogle() {
+	public function getGoogle()
+    {
 		return $this->google;
 	}
 
@@ -354,7 +363,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return string
 	 */
-	public function getSkype() {
+	public function getSkype()
+    {
 		return $this->skype;
 	}
 
@@ -363,7 +373,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return string
 	 */
-	public function getJob() {
+	public function getJob()
+    {
 		return $this->job;
 	}
 
@@ -372,7 +383,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return string
 	 */
-	public function getWorkingEnvironment() {
+	public function getWorkingEnvironment()
+    {
 		return $this->workingEnvironment;
 	}
 
@@ -381,7 +393,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return integer The question count.
 	 */
-	public function getQuestionCount() {
+	public function getQuestionCount()
+    {
 		return $this->questionCount;
 	}
 
@@ -390,14 +403,16 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return integer See GENDER_ constants of this class
 	 */
-	public function getGender() {
+	public function getGender()
+    {
 		return $this->gender;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getRegistrationDate() {
+	public function getRegistrationDate()
+    {
 		return $this->crdate->format('d.m.Y');
 	}
 
@@ -406,7 +421,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\PrivateMessage>
 	 */
-	public function getPrivateMessages() {
+	public function getPrivateMessages()
+    {
 		return $this->privateMessages;
 	}
 
@@ -415,7 +431,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Topic> The subscribed topics.
 	 */
-	public function getTopicSubscriptions() {
+	public function getTopicSubscriptions()
+    {
 		return $this->topicSubscriptions;
 	}
 
@@ -424,7 +441,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return integer The helpful count.
 	 */
-	public function getHelpfulCountSession() {
+	public function getHelpfulCountSession()
+    {
 		return $this->helpfulCountSession;
 	}
 
@@ -434,7 +452,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Forum>
 	 *                             The subscribed forums.
 	 */
-	public function getForumSubscriptions() {
+	public function getForumSubscriptions()
+    {
 		return $this->forumSubscriptions;
 	}
 
@@ -444,7 +463,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Post>
 	 *                             The subscribed forums.
 	 */
-	public function getSupportPosts() {
+	public function getSupportPosts()
+    {
 		return $this->supportPosts;
 	}
 
@@ -453,7 +473,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return \DateTime The registration date
 	 */
-	public function getTimestamp() {
+	public function getTimestamp()
+    {
 		return $this->crdate;
 	}
 
@@ -462,7 +483,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return int
 	 */
-	public function getAge() {
+	public function getAge()
+    {
 		$age = (time() - $this->getDateOfBirth()) / (3600 * 24 * 365);
 
 		return floor($age);
@@ -473,7 +495,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return int
 	 */
-	public function getDateOfBirth() {
+	public function getDateOfBirth()
+    {
 		return (int)$this->dateOfBirth;
 	}
 
@@ -484,9 +507,11 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @param FrontendUser $user
 	 * @param string $accessType
+     *
 	 * @return boolean
 	 */
-	public function checkAccess(FrontendUser $user = NULL, $accessType = Access::TYPE_MODERATE) {
+	public function checkAccess(FrontendUser $user = NULL, $accessType = Access::TYPE_MODERATE)
+    {
 		// @todo: the $accessType and the switch statement are useless here
 		switch ($accessType) {
 			default:
@@ -506,7 +531,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 * @return ObjectStorage An object storage containing the usergroup
 	 * @api
 	 */
-	public function getUsergroup() {
+	public function getUsergroup()
+    {
 		return $this->usergroup;
 	}
 
@@ -517,7 +543,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return boolean
 	 */
-	public function isInGroup(FrontendUserGroup $checkGroup) {
+	public function isInGroup(FrontendUserGroup $checkGroup)
+    {
 		foreach ($this->getUsergroup() As $group) {
 			if ($group == $checkGroup) {
 				return TRUE;
@@ -532,7 +559,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return boolean.
 	 */
-	public function getIsOnline() {
+	public function getIsOnline()
+    {
 		if (time() - $this->isOnline < 300) {
 			return TRUE;
 		} else {
@@ -545,7 +573,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return string The signature.
 	 */
-	public function getSignature() {
+	public function getSignature()
+    {
 		return $this->signature;
 	}
 
@@ -554,14 +583,16 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return boolean
 	 */
-	public function getDisable() {
+	public function getDisable()
+    {
 		return $this->disable;
 	}
 
 	/**
 	 * @param bool $val
 	 */
-	public function setDisable($val) {
+	public function setDisable($val)
+    {
 		$this->disable = (int)$val;
 	}
 
@@ -570,14 +601,16 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\Userfield\Value>
 	 */
-	public function getUserfieldValues() {
+	public function getUserfieldValues()
+    {
 		return $this->userfieldValues;
 	}
 
 	/**
 	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\Userfield\Value>
 	 */
-	public function getInterests() {
+	public function getInterests()
+    {
 		return $this->interests;
 	}
 
@@ -586,8 +619,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return string The absolute path of this user's avatar image (if existent).
 	 */
-	public function getImagePath() {
-
+	public function getImagePath()
+    {
 		if ($this->image) {
 			$imageDirectoryName = $this->getSettings()['images']['avatar']['uploadDir'];
 			$imageFilename = rtrim($imageDirectoryName, '/') . '/' . $this->image;
@@ -631,7 +664,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return bool TRUE when this user is an anonymous user.
 	 */
-	public function getAnonymous() {
+	public function getAnonymous()
+    {
 		return $this->isAnonymous();
 	}
 
@@ -640,7 +674,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return bool TRUE when this user is an anonymous user.
 	 */
-	public function isAnonymous() {
+	public function isAnonymous()
+    {
 		return FALSE;
 	}
 
@@ -650,7 +685,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 * @param SubscribeableInterface $object The object that is to be subscribed. This may either be a topic or a forum.
 	 * @return void
 	 */
-	public function addFavSubscription(SubscribeableInterface $object) {
+	public function addFavSubscription(SubscribeableInterface $object)
+    {
 		if ($object instanceof Topic) {
 			$this->topicFavSubscriptions->attach($object);
 		} elseif ($object instanceof Forum) {
@@ -664,7 +700,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 * @param SubscribeableInterface $object The object that is to be unsubscribed.
 	 * @return void
 	 */
-	public function removeFavSubscription(SubscribeableInterface $object) {
+	public function removeFavSubscription(SubscribeableInterface $object)
+    {
 		if ($object instanceof Topic) {
 			$this->topicFavSubscriptions->detach($object);
 		} elseif ($object instanceof Forum) {
@@ -679,7 +716,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return void
 	 */
-	public function addSubscription(SubscribeableInterface $object) {
+	public function addSubscription(SubscribeableInterface $object)
+    {
 		if ($object instanceof Topic) {
 			$this->topicSubscriptions->attach($object);
 		} elseif ($object instanceof Forum) {
@@ -694,7 +732,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return void
 	 */
-	public function removeSubscription(SubscribeableInterface $object) {
+	public function removeSubscription(SubscribeableInterface $object)
+    {
 		if ($object instanceof Topic) {
 			$this->topicSubscriptions->detach($object);
 		} elseif ($object instanceof Forum) {
@@ -708,7 +747,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 * @param ReadableInterface $readObject The object that is to be marked as read.
 	 * @return void
 	 */
-	public function addReadObject(ReadableInterface $readObject) {
+	public function addReadObject(ReadableInterface $readObject)
+    {
 		if ($readObject instanceof Topic) {
 			$this->readTopics->attach($readObject);
 		}
@@ -721,7 +761,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return void
 	 */
-	public function removeReadObject(ReadableInterface $readObject) {
+	public function removeReadObject(ReadableInterface $readObject)
+    {
 		if ($readObject instanceof Topic) {
 			$this->readTopics->detach($readObject);
 		}
@@ -732,7 +773,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @param $message PrivateMessage
 	 */
-	public function addPrivateMessage(PrivateMessage $message) {
+	public function addPrivateMessage(PrivateMessage $message)
+    {
 		$this->privateMessages->attach($message);
 	}
 
@@ -741,7 +783,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @param $message PrivateMessage
 	 */
-	public function removePrivateMessage(PrivateMessage $message) {
+	public function removePrivateMessage(PrivateMessage $message)
+    {
 		$this->privateMessages->detach($message);
 	}
 
@@ -750,7 +793,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return void
 	 */
-	public function decreasePostCount() {
+	public function decreasePostCount()
+    {
 		$this->postCount--;
 		$this->decreasePostCountSession(1);
 	}
@@ -762,7 +806,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return void
 	 */
-	public function decreasePostCountSession($by = 1) {
+	public function decreasePostCountSession($by = 1)
+    {
 		if ($by < 0) {
 			$by = 1;
 		}
@@ -774,7 +819,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return void
 	 */
-	public function increasePostCount() {
+	public function increasePostCount()
+    {
 		$this->postCount++;
 		$this->increasePostCountSession(1);
 	}
@@ -786,7 +832,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return void
 	 */
-	public function increasePostCountSession($by = 1) {
+	public function increasePostCountSession($by = 1)
+    {
 		if ($by < 0) {
 			$by = 1;
 		}
@@ -800,7 +847,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return void
 	 */
-	public function decreaseHelpfulCountSession($by = 1) {
+	public function decreaseHelpfulCountSession($by = 1)
+    {
 		if ($by < 0) {
 			$by = 1;
 		}
@@ -812,7 +860,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return void
 	 */
-	public function decreaseTopicCount() {
+	public function decreaseTopicCount()
+    {
 		$this->topicCount--;
 	}
 
@@ -821,7 +870,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return void
 	 */
-	public function increaseTopicCount() {
+	public function increaseTopicCount()
+    {
 		$this->topicCount++;
 	}
 
@@ -830,7 +880,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return void
 	 */
-	public function decreaseQuestionCount() {
+	public function decreaseQuestionCount()
+    {
 		$this->questionCount--;
 	}
 
@@ -839,7 +890,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return void
 	 */
-	public function increaseQuestionCount() {
+	public function increaseQuestionCount()
+    {
 		$this->questionCount++;
 	}
 
@@ -850,7 +902,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return void
 	 */
-	public function increasePoints($by) {
+	public function increasePoints($by)
+    {
 		$currentRank = $this->getRank();
 
 		$this->points = $this->points + $by;
@@ -874,7 +927,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return Rank
 	 */
-	public function getRank() {
+	public function getRank()
+    {
 		return $this->rank;
 	}
 
@@ -883,7 +937,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @param Rank $rank
 	 */
-	public function setRank(Rank $rank) {
+	public function setRank(Rank $rank)
+    {
 		$this->rank = $rank;
 	}
 
@@ -892,7 +947,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return integer
 	 */
-	public function getPoints() {
+	public function getPoints()
+    {
 		return $this->points;
 	}
 
@@ -903,7 +959,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return void
 	 */
-	public function decreasePoints($by) {
+	public function decreasePoints($by)
+    {
 		$this->points = $this->points - $by;
 		$currentRank = $this->getRank();
 		$rank = $this->rankRepository->findOneRankByPoints($this->getPoints());
@@ -925,7 +982,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return void
 	 */
-	public function setContactData(array $values) {
+	public function setContactData(array $values)
+    {
 		$this->contact = json_encode($values);
 	}
 
@@ -938,7 +996,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return void
 	 */
-	public function setContactDataItem($type, $value) {
+	public function setContactDataItem($type, $value)
+    {
 		$contactData = $this->getContactData();
 		if (!$value) {
 			if (array_key_exists($type, $contactData)) {
@@ -958,7 +1017,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return array All contact information for this user.
 	 */
-	public function getContactData() {
+	public function getContactData()
+    {
 		$decoded = json_decode($this->contact, TRUE);
 		if ($decoded === NULL) {
 			return [];
@@ -973,7 +1033,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 * @return void
 	 * @api
 	 */
-	public function setHelpful() {
+	public function setHelpful()
+    {
 		$this->setHelpfulCount($this->getHelpfulCount() + 1);
 		$this->increaseHelpfulCountSession(1);
 	}
@@ -983,7 +1044,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return integer The helpful count.
 	 */
-	public function getHelpfulCount() {
+	public function getHelpfulCount()
+    {
 		return $this->helpfulCount;
 	}
 
@@ -995,7 +1057,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 * @return void
 	 * @api
 	 */
-	public function setHelpfulCount($count) {
+	public function setHelpfulCount($count)
+    {
 		$diff = $count - $this->getHelpfulCount();
 		if ($diff >= 0) {
 			$this->increaseHelpfulCountSession($diff);
@@ -1013,7 +1076,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @return void
 	 */
-	public function increaseHelpfulCountSession($by) {
+	public function increaseHelpfulCountSession($by)
+    {
 		if ($by < 0) {
 			$by = 1;
 		}

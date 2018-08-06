@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Controller;
 
 /*                                                                      *
@@ -25,8 +26,12 @@ namespace Mittwald\Typo3Forum\Controller;
  *                                                                      */
 
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Fluid\View\StandaloneView;
 
-class AjaxController extends AbstractController {
+class AjaxController extends AbstractController
+{
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AdRepository
@@ -92,7 +97,8 @@ class AjaxController extends AbstractController {
 	/**
 	 *
 	 */
-	public function initializeObject() {
+	public function initializeObject()
+	{
 		$this->settings = $this->configurationBuilder->getSettings();
 	}
 
@@ -108,7 +114,8 @@ class AjaxController extends AbstractController {
 	 * @param string $displayedAds
 	 * @return void
 	 */
-	public function mainAction($displayedUser = "", $postSummarys = "", $topicIcons = "", $forumIcons = "", $displayedTopics = "", $displayOnlinebox = 0, $displayedPosts = "", $displayedForumMenus = "", $displayedAds = "") {
+	public function mainAction($displayedUser = "", $postSummarys = "", $topicIcons = "", $forumIcons = "", $displayedTopics = "", $displayOnlinebox = 0, $displayedPosts = "", $displayedForumMenus = "", $displayedAds = "")
+	{
 		// json array
 		$content = [];
 		if (!empty($displayedUser)) {
@@ -147,84 +154,76 @@ class AjaxController extends AbstractController {
 
 
 	/**
+     * @TODO
 	 * @return void
 	 */
-	public function loginboxAction() {
+	public function loginboxAction()
+	{
 		$this->view->assign('user', $this->getCurrentUser());
-	}
-
-	/**
-	 * @return array
-	 */
-	private function _getOnlinebox() {
-		$data = [];
-		$data['count'] = $this->frontendUserRepository->countByFilter(TRUE);
-		$this->request->setFormat('html');
-		$users = $this->frontendUserRepository->findByFilter((int)$this->settings['widgets']['onlinebox']['limit'], [], TRUE);
-		$this->view->assign('users', $users);
-		$data['html'] = $this->view->render('Onlinebox');
-		$this->request->setFormat('json');
-		return $data;
 	}
 
 	/**
 	 * @return string
 	 */
-    private function getTemplatePath(){
+    private function getTemplatePath()
+    {
         $templatePaths = $this->view->getTemplatePaths()->getTemplateRootPaths();
         return array_pop($templatePaths);
     }
 
 	/**
+     * @param string $templateSubPath    filepath starting from templateRootPath
+     *
+	 * @return string
+	 */
+    private function getStandaloneView($templateSubPath)
+    {
+        $templateSubPath = substr($templateSubPath,0,1)!=='/' ? '/' . $templateSubPath : $templateSubPath;
+		/* @var StandaloneView $standaloneView */
+		$standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
+		$standaloneView->setTemplatePathAndFilename($this->getTemplatePath() . $templateSubPath);
+		$standaloneView->setControllerContext($this->controllerContext);
+        return $standaloneView;
+    }
+
+	/**
+	 * @return array
+	 */
+	private function _getOnlinebox()
+	{
+		$data = [];
+		$standaloneView = $this->getStandaloneView('/Ajax/Onlinebox.html');
+		$users = $this->frontendUserRepository->findByFilter((int)$this->settings['widgets']['onlinebox']['limit'], [], TRUE);
+		$standaloneView->assign('users', $users);
+		$data['count'] = $this->frontendUserRepository->countByFilter(TRUE);
+		$data['html'] = $this->view->render('Onlinebox');
+		return $data;
+	}
+
+	/**
 	 * @param string $displayedForumMenus
 	 * @return array
 	 */
-	private function _getForumMenus($displayedForumMenus) {
+	private function _getForumMenus($displayedForumMenus)
+	{
 		$data = [];
 		$displayedForumMenus = json_decode($displayedForumMenus);
         // If no forumMenus are requested return empty array
 		if (count($displayedForumMenus) < 1) {
             return $data;
         }
-        $this->view->setTemplatePathAndFilename($this->getTemplatePath().'Ajax/ForumMenu.html');
-		// find Forums for requested ForumMenus
-        $foren = $this->forumRepository->findByUids($displayedForumMenus);
+		$standaloneView = $this->getStandaloneView('/Ajax/ForumMenu.html');
+		$foren = $this->forumRepository->findByUids($displayedForumMenus);
 		$counter = 0;
 		foreach ($foren as $forum) {
-			$data[$counter]['uid'] = $forum->getUid();
-			$data[$counter]['html'] = $this->view->renderSection('html', [
+			$standaloneView->assignMultiple([
                 'forum' => $forum,
-                'user' => $this->getCurrentUser()
+				'user' => $this->getCurrentUser()
             ]);
+			$data[$counter]['uid'] = $forum->getUid();
+			$data[$counter]['html'] = $standaloneView->render();
 			$counter++;
 		}
-		return $data;
-	}
-
-	/**
-	 * @param string $displayedPosts
-	 * @return array
-	 */
-	private function _getPosts($displayedPosts) {
-		$data = [];
-		$displayedPosts = json_decode($displayedPosts);
-		if (count($displayedPosts) < 1) return $data;
-		$this->request->setFormat('html');
-		$posts = $this->postRepository->findByUids($displayedPosts);
-		$counter = 0;
-		foreach ($posts as $post) {
-			/** @var Post $post */
-			$this->view->assign('post', $post)
-				->assign('user', $this->getCurrentUser());
-			$data[$counter]['uid'] = $post->getUid();
-			$data[$counter]['postHelpfulButton'] = $this->view->render('PostHelpfulButton');
-			$data[$counter]['postHelpfulCount'] = $post->getHelpfulCount();
-			$data[$counter]['postUserHelpfulCount'] = $post->getAuthor()->getHelpfulCount();
-			$data[$counter]['author']['uid'] = $post->getAuthor()->getUid();
-			$data[$counter]['postEditLink'] = $this->view->render('PostEditLink');
-			$counter++;
-		}
-		$this->request->setFormat('json');
 		return $data;
 	}
 
@@ -232,21 +231,23 @@ class AjaxController extends AbstractController {
 	 * @param string $displayedTopics
 	 * @return array
 	 */
-	private function _getTopics($displayedTopics) {
+	private function _getTopics($displayedTopics)
+	{
 		$data = [];
 		$displayedTopics = json_decode($displayedTopics);
-		if (count($displayedTopics) < 1) return $data;
-		$this->request->setFormat('html');
+		if (count($displayedTopics) < 1) {
+            return $data;
+        }
+		$standaloneView = $this->getStandaloneView('/Ajax/TopicListMenu.html');
 		$topicIcons = $this->topicRepository->findByUids($displayedTopics);
 		$counter = 0;
 		foreach ($topicIcons as $topic) {
-			$this->view->assign('topic', $topic);
+			$standaloneView->assign('topic', $topic);
 			$data[$counter]['uid'] = $topic->getUid();
 			$data[$counter]['replyCount'] = $topic->getReplyCount();
-			$data[$counter]['topicListMenu'] = $this->view->render('topicListMenu');
+			$data[$counter]['topicListMenu'] = $standaloneView->render();
 			$counter++;
 		}
-		$this->request->setFormat('json');
 		return $data;
 	}
 
@@ -254,20 +255,22 @@ class AjaxController extends AbstractController {
 	 * @param string $topicIcons
 	 * @return array
 	 */
-	private function _getTopicIcons($topicIcons) {
+	private function _getTopicIcons($topicIcons)
+	{
 		$data = [];
 		$topicIcons = json_decode($topicIcons);
-		if (count($topicIcons) < 1) return $data;
-		$this->request->setFormat('html');
+		if (count($topicIcons) < 1) {
+            return $data;
+		}
+		$standaloneView = $this->getStandaloneView('/Ajax/topicIcon.html');
 		$topicIcons = $this->topicRepository->findByUids($topicIcons);
 		$counter = 0;
 		foreach ($topicIcons as $topic) {
-			$this->view->assign('topic', $topic);
+			$standaloneView->assign('topic', $topic);
 			$data[$counter]['html'] = $this->view->render('topicIcon');
 			$data[$counter]['uid'] = $topic->getUid();
 			$counter++;
 		}
-		$this->request->setFormat('json');
 		return $data;
 	}
 
@@ -275,20 +278,22 @@ class AjaxController extends AbstractController {
 	 * @param string $forumIcons
 	 * @return array
 	 */
-	private function _getForumIcons($forumIcons) {
+	private function _getForumIcons($forumIcons)
+	{
 		$data = [];
 		$forumIcons = json_decode($forumIcons);
-		if (count($forumIcons) < 1) return $data;
-		$this->request->setFormat('html');
+		if (count($forumIcons) < 1) {
+            return $data;
+		}
+		$standaloneView = $this->getStandaloneView('/Ajax/forumIcon.html');
 		$forumIcons = $this->forumRepository->findByUids($forumIcons);
 		$counter = 0;
 		foreach ($forumIcons as $forum) {
-			$this->view->assign('forum', $forum);
+			$standaloneView->assign('forum', $forum);
 			$data[$counter]['html'] = $this->view->render('forumIcon');
 			$data[$counter]['uid'] = $forum->getUid();
 			$counter++;
 		}
-		$this->request->setFormat('json');
 		return $data;
 	}
 
@@ -296,11 +301,12 @@ class AjaxController extends AbstractController {
 	 * @param string $postSummarys
 	 * @return array
 	 */
-	private function _getPostSummarys($postSummarys) {
+	private function _getPostSummarys($postSummarys)
+	{
 		$postSummarys = json_decode($postSummarys);
 		$data = [];
 		$counter = 0;
-		$this->request->setFormat('html');
+		$standaloneView = $this->getStandaloneView('/Ajax/postSummary.html');
 		foreach ($postSummarys as $summary) {
 			$post = false;
 			switch ($summary->type) {
@@ -317,40 +323,26 @@ class AjaxController extends AbstractController {
 			}
 			if ($post) {
 				$data[$counter] = $summary;
-				$this->view->assign('post', $post)
-					->assign('hiddenImage', $summary->hiddenimage);
-				$data[$counter]->html = $this->view->render('postSummary');
+				$standaloneView->assignMultiple([
+                    'post' => $post,
+					'hiddenImage' => $summary->hiddenimage
+                ]);
+				$data[$counter]->html = $standaloneView->render('postSummary');
 				$counter++;
 			}
 		}
-		$this->request->setFormat('json');
 		return $data;
 	}
-
-	/**
-	 * @param array $displayedUser
-	 * @return array
-	 */
-	private function _getOnlineUser($displayedUser) {
-		// OnlineUser
-		$displayedUser = json_decode($displayedUser);
-		$onlineUsers = $this->frontendUserRepository->findByFilter("", [], true, $displayedUser);
-		// write online user
-		foreach ($onlineUsers as $onlineUser) {
-			$output[] = $onlineUser->getUid();
-		}
-		if (!empty($output)) return $output;
-	}
-
 
 	/**
 	 * @param \stdClass $meta
 	 * @return array
 	 */
-	private function _getAds(\stdClass $meta) {
+	private function _getAds(\stdClass $meta)
+	{
 		$count = (int)$meta->count;
 		$result = [];
-		$this->request->setFormat('html');
+		$standaloneView = $this->getStandaloneView('/Ajax/Ads.html');
 
 		$actDatetime = new \DateTime();
 		if (!$this->sessionHandlingService->get('adTime')) {
@@ -367,13 +359,64 @@ class AjaxController extends AbstractController {
 				$ads = $this->adRepository->findForTopicView(1);
 			}
 			if (!empty($ads)) {
-				$this->view->assign('ads', $ads);
-				$result['html'] = $this->view->render('ads');
+				$standaloneView->assign('ads', $ads);
 				$result['position'] = mt_rand(1, $count - 2);
+				$result['html'] = $standaloneView->render('ads');
 			}
 		}
-		$this->request->setFormat('json');
 		return $result;
 	}
 
+	/**
+	 * @param string $displayedPosts
+	 * @return array
+	 */
+	private function _getPosts($displayedPosts)
+	{
+		$data = [];
+		$displayedPosts = json_decode($displayedPosts);
+		if (count($displayedPosts) < 1) {
+            return $data;
+		}
+		$standaloneViews = [
+            'PostHelpfulButton' => $this->getStandaloneView('/Ajax/PostHelpfulButton.html'),
+            'PostEditLink' => $this->getStandaloneView('/Ajax/PostEditLink.html')
+        ];
+		$posts = $this->postRepository->findByUids($displayedPosts);
+		$counter = 0;
+		foreach ($posts as $post) {
+			$standaloneViews['PostHelpfulButton']->assignMultiple([
+                'post' => $post,
+				'user' => $this->getCurrentUser()
+            ]);
+			$standaloneViews['PostEditLink']->assignMultiple([
+                'post' => $post,
+				'user' => $this->getCurrentUser()
+            ]);
+			$data[$counter]['uid'] = $post->getUid();
+			$data[$counter]['postHelpfulButton'] = $standaloneViews['PostHelpfulButton']->render();
+			$data[$counter]['postHelpfulCount'] = $post->getHelpfulCount();
+			$data[$counter]['postUserHelpfulCount'] = $post->getAuthor()->getHelpfulCount();
+			$data[$counter]['author']['uid'] = $post->getAuthor()->getUid();
+			$data[$counter]['postEditLink'] = $standaloneViews['PostEditLink']->render();
+			$counter++;
+		}
+		return $data;
+	}
+
+	/**
+	 * @param array $displayedUser
+	 * @return array
+	 */
+	private function _getOnlineUser($displayedUser)
+	{
+		// OnlineUser
+		$displayedUser = json_decode($displayedUser);
+		$onlineUsers = $this->frontendUserRepository->findByFilter("", [], true, $displayedUser);
+		// write online user
+		foreach ($onlineUsers as $onlineUser) {
+			$output[] = $onlineUser->getUid();
+		}
+		if (!empty($output)) return $output;
+	}
 }

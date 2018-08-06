@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Controller;
 
 /*                                                                      *
@@ -31,7 +32,8 @@ use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use Mittwald\Typo3Forum\Utility\Localization;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 
-class PostController extends AbstractController {
+class PostController extends AbstractController
+{
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AttachmentRepository
@@ -73,7 +75,8 @@ class PostController extends AbstractController {
      *  Listing Action.
      * @return void
      */
-    public function listAction() {
+    public function listAction()
+	{
 
         $showPaginate = FALSE;
         switch($this->settings['listPosts']){
@@ -96,7 +99,8 @@ class PostController extends AbstractController {
 	 * @param Post $post
 	 * @return string
 	 */
-	public function addSupporterAction(Post $post) {
+	public function addSupporterAction(Post $post)
+	{
 		/** @var FrontendUser $currentUser */
 		$currentUser = $this->authenticationService->getUser();
 
@@ -124,7 +128,8 @@ class PostController extends AbstractController {
 	 * @param Post $post
 	 * @return string
 	 */
-	public function removeSupporterAction(Post $post) {
+	public function removeSupporterAction(Post $post)
+	{
 		/** @var FrontendUser $currentUser */
 		$currentUser = $this->authenticationService->getUser();
 
@@ -157,7 +162,8 @@ class PostController extends AbstractController {
 	 * @param int $showForm ShowForm
 	 * @return void
 	 */
-	public function showAction(Post $post, Post $quote = NULL, $showForm = 0) {
+	public function showAction(Post $post, Post $quote = NULL, $showForm = 0)
+	{
 		// Assert authentication
 		$this->authenticationService->assertReadAuthorization($post);
 
@@ -185,7 +191,8 @@ class PostController extends AbstractController {
 	 * @param Post $quote An optional post that will be quoted within the bodytext of the new post.
 	 * @return void
 	 */
-	public function newAction(Topic $topic, Post $post = NULL, Post $quote = NULL) {
+	public function newAction(Topic $topic, Post $post = NULL, Post $quote = NULL)
+	{
 		// Assert authorization
 		$this->authenticationService->assertNewPostAuthorization($topic);
 
@@ -215,7 +222,8 @@ class PostController extends AbstractController {
 	 * @validate $attachments \Mittwald\Typo3Forum\Domain\Validator\Forum\AttachmentPlainValidator
 	 */
 
-	public function createAction(Topic $topic, Post $post, array $attachments = []) {
+	public function createAction(Topic $topic, Post $post, array $attachments = [])
+	{
 		// Assert authorization
 		$this->authenticationService->assertNewPostAuthorization($topic);
 
@@ -255,7 +263,8 @@ class PostController extends AbstractController {
 	 * @param Post $post The post that is to be edited.
 	 * @return void
 	 */
-	public function editAction(Post $post) {
+	public function editAction(Post $post)
+	{
 		if ($post->getAuthor() != $this->authenticationService->getUser() || $post->getTopic()->getLastPost()->getAuthor() != $post->getAuthor()) {
 			// Assert authorization
 			$this->authenticationService->assertModerationAuthorization($post->getTopic()->getForum());
@@ -271,7 +280,8 @@ class PostController extends AbstractController {
 	 *
 	 * @return void
 	 */
-	public function updateAction(Post $post, array $attachments = []) {
+	public function updateAction(Post $post, array $attachments = [])
+	{
 		if ($post->getAuthor() != $this->authenticationService->getUser() || $post->getTopic()->getLastPost()->getAuthor() != $post->getAuthor()) {
 			// Assert authorization
 			$this->authenticationService->assertModerationAuthorization($post->getTopic()->getForum());
@@ -300,7 +310,8 @@ class PostController extends AbstractController {
 	 * @param Post $post The post that is to be deleted.
 	 * @return void
 	 */
-	public function confirmDeleteAction(Post $post) {
+	public function confirmDeleteAction(Post $post)
+	{
 		$this->authenticationService->assertDeletePostAuthorization($post);
 		$this->view->assign('post', $post);
 	}
@@ -311,7 +322,8 @@ class PostController extends AbstractController {
 	 * @param Post $post The post that is to be deleted.
 	 * @return void
 	 */
-	public function deleteAction(Post $post) {
+	public function deleteAction(Post $post)
+	{
 		// Assert authorization
 		$this->authenticationService->assertDeletePostAuthorization($post);
 
@@ -344,7 +356,8 @@ class PostController extends AbstractController {
 	 * Displays a preview of a rendered post text.
 	 * @param string $text The content.
 	 */
-	public function previewAction($text) {
+	public function previewAction($text)
+	{
 		$this->view->assign('text', $text);
 	}
 
@@ -352,7 +365,8 @@ class PostController extends AbstractController {
 	 * Downloads an attachment and increase the download counter
 	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Attachment $attachment
 	 */
-	public function downloadAttachmentAction($attachment) {
+	public function downloadAttachmentAction($attachment)
+    {
         $attachment->increaseDownloadCount();
 		$this->attachmentRepository->update($attachment);
 
@@ -366,5 +380,4 @@ class PostController extends AbstractController {
 		readfile($attachment->getAbsoluteFilename());
 		die();
 	}
-
 }

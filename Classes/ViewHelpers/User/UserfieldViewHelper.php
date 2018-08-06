@@ -1,5 +1,7 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\User;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -35,7 +37,8 @@ use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
  * ViewHelper that renders the value of a specific userfield for a user.
  *
  */
-class UserfieldViewHelper extends AbstractViewHelper {
+class UserfieldViewHelper extends AbstractViewHelper
+{
 
 	/**
 	 *
@@ -46,7 +49,8 @@ class UserfieldViewHelper extends AbstractViewHelper {
 	 * @return string HTML content
 	 *
 	 */
-	public function render(FrontendUser $user, AbstractUserfield $userfield) {
+	public function render(FrontendUser $user, AbstractUserfield $userfield)
+    {
 		if (!$userfield instanceof TyposcriptUserfield) {
 			return new \InvalidArgumentException('Only userfields of type TyposcriptUserField are supported', 1435048481);
 		}
@@ -63,7 +67,8 @@ class UserfieldViewHelper extends AbstractViewHelper {
 	 * @return string Anything converted to a string
 	 *
 	 */
-	protected function convertDataToString($data) {
+	protected function convertDataToString($data)
+    {
 		if (is_array($data)) {
 			foreach ($data as $k => &$v) {
 				$v = $this->convertDataToString($v);

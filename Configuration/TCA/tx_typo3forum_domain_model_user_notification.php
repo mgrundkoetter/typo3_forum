@@ -25,7 +25,7 @@ return [
 	],
 	'columns' => [
 		'crdate' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'crdate',
 			'config' => [
 				'type' => 'none',
@@ -50,7 +50,7 @@ return [
 			],
 		],
 		'post' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'post',
 			'config' => [
 				'type' => 'select',
@@ -61,7 +61,7 @@ return [
 			],
 		],
 		'tag' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'tag',
 			'config' => [
 				'type' => 'select',
@@ -72,7 +72,7 @@ return [
 			],
 		],
 		'type' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'type',
 			'config' => [
 				'type' => 'select',

@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Repository\Stats;
 
 /*                                                                    - *
@@ -27,7 +28,8 @@ namespace Mittwald\Typo3Forum\Domain\Repository\Stats;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
-class SummaryRepository extends Repository {
+class SummaryRepository extends Repository
+{
 
 	/**
 	 * The amount of types the summary includes (post,topic,user = 3)
@@ -39,7 +41,8 @@ class SummaryRepository extends Repository {
 	 * Get the latest items of the summary
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Stats\Summary[]
 	 */
-	public function findLatestSummaryItems() {
+	public function findLatestSummaryItems()
+    {
 		$query = $this->createQuery();
 		$ordering = [
 			'tstamp' => QueryInterface::ORDER_DESCENDING,
@@ -50,5 +53,4 @@ class SummaryRepository extends Repository {
 
 		return $query->execute();
 	}
-
 }

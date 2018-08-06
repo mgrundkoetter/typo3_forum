@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\Social;
 
 /*                                                                      *
@@ -27,7 +28,8 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Social;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
-class FacebookShareLinkViewHelper extends AbstractTagBasedViewHelper {
+class FacebookShareLinkViewHelper extends AbstractTagBasedViewHelper
+{
 
 	/**
 	 * @var  string
@@ -39,7 +41,8 @@ class FacebookShareLinkViewHelper extends AbstractTagBasedViewHelper {
 	 *
 	 * @return void
 	 */
-	public function initializeArguments() {
+	public function initializeArguments()
+    {
 		$this->registerTagAttribute('target', 'string', 'Specifies where to open the linked document');
 	}
 
@@ -52,8 +55,8 @@ class FacebookShareLinkViewHelper extends AbstractTagBasedViewHelper {
 	 * @param string $shareUrl
 	 * @return string
 	 */
-	public function render($title = NULL, $text = NULL, $image = NULL, $shareUrl = NULL) {
-
+	public function render($title = NULL, $text = NULL, $image = NULL, $shareUrl = NULL)
+    {
 		// check defaults
 		if (empty($this->arguments['name'])) {
 			$this->tag->addAttribute('name', 'fb_share');
@@ -91,5 +94,4 @@ class FacebookShareLinkViewHelper extends AbstractTagBasedViewHelper {
 		$this->tag->setContent($this->renderChildren());
 		return $this->tag->render();
 	}
-
 }

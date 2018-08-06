@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Repository\Forum;
 
 /*                                                                    - *
@@ -32,7 +33,8 @@ use Mittwald\Typo3Forum\Domain\Repository\AbstractRepository;
 use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
-class TopicRepository extends AbstractRepository {
+class TopicRepository extends AbstractRepository
+{
 
 	/**
      * Returns a query for objects of this repository
@@ -40,7 +42,8 @@ class TopicRepository extends AbstractRepository {
      * @return \TYPO3\CMS\Extbase\Persistence\QueryInterface
      * @api
      */
-    public function createQuery() {
+    public function createQuery()
+    {
         $query = parent::createQuery();
 
         // don't add sys_language_uid constraint
@@ -50,7 +53,6 @@ class TopicRepository extends AbstractRepository {
     }
 	
 	/**
-	 *
 	 * Finds topics for a specific filterset. Page navigation is possible.
 	 *
 	 * @param integer $limit
@@ -59,7 +61,8 @@ class TopicRepository extends AbstractRepository {
 	 * @return Array<\Mittwald\Typo3Forum\Domain\Model\Forum\Topic> The selected subset of posts
 	 *
 	 */
-	public function findByFilter($limit = NULL, $orderings = []) {
+	public function findByFilter($limit = NULL, $orderings = [])
+    {
 		$query = $this->createQuery();
 		if (!empty($limit)) {
 			$query->setLimit($limit);
@@ -71,17 +74,15 @@ class TopicRepository extends AbstractRepository {
 	}
 
 	/**
-	 *
 	 * Finds topics for a specific filterset. Page navigation is possible.
 	 *
 	 * @param array $uids
 	 *
-	 * @return Topic[]
-	 *                               The selected subset of topcis
+	 * @return Topic[]         The selected subset of topics.
 	 *
 	 */
-	public function findByUids($uids) {
-
+	public function findByUids($uids)
+    {
 		$query = $this->createQuery();
 		$constraints = [];
 		if (!empty($uids)) {
@@ -97,13 +98,12 @@ class TopicRepository extends AbstractRepository {
 	/**
 	 * Finds topics for the forum show view. Page navigation is possible.
 	 *
-	 * @param Forum $forum
-	 *                               The forum for which to load the topics.
+	 * @param Forum $forum     The forum for which to load the topics.
 	 *
-	 * @return Topic[]
-	 *                               The selected subset of topics.
+	 * @return Topic[]         The selected subset of topics.
 	 */
-	public function findForIndex(Forum $forum) {
+	public function findForIndex(Forum $forum)
+    {
 		$query = $this->createQuery();
 		$query
 			->matching($query->equals('forum', $forum))
@@ -119,10 +119,12 @@ class TopicRepository extends AbstractRepository {
 	 * @param int $limit
 	 * @param bool $showAnswered
 	 * @param FrontendUser $user
+     *
 	 * @return Topic[]
 	 */
 
-	public function findQuestions($limit = NULL, $showAnswered = FALSE, FrontendUser $user = NULL) {
+	public function findQuestions($limit = NULL, $showAnswered = FALSE, FrontendUser $user = NULL)
+    {
 
 		$query = $this->createQuery();
 
@@ -149,9 +151,11 @@ class TopicRepository extends AbstractRepository {
 	 *
 	 * @param FrontendUser $user The frontend user whose topics are to be loaded.
 	 * @param int $limit
+     *
 	 * @return Topic[] All topics that contain a post by the specified user.
 	 */
-	public function findTopicsCreatedByAuthor(FrontendUser $user, $limit = 0) {
+	public function findTopicsCreatedByAuthor(FrontendUser $user, $limit = 0)
+    {
 		$query = $this->createQuery();
 		$query
 			->matching($query->equals('author', $user))
@@ -172,7 +176,8 @@ class TopicRepository extends AbstractRepository {
 	 *
 	 * @return Topic[] All topics that contain a post by the specified user
 	 */
-	public function findTopicsFavSubscribedByUser(FrontendUser $user, $limit = 0) {
+	public function findTopicsFavSubscribedByUser(FrontendUser $user, $limit = 0)
+    {
 		$query = $this->createQuery();
 		$query->matching($query->contains('favSubscribers', $user))->setOrderings(['crdate' => 'DESC']);
 		if ($limit > 0) {
@@ -185,9 +190,11 @@ class TopicRepository extends AbstractRepository {
 	 * Counts topics by post authors. See findByPostAuthor.
 	 *
 	 * @param FrontendUser $user The frontend user whose topics are to be loaded.
+     *
 	 * @return integer The number of topics that contain a post by the specified user.
 	 */
-	public function countByPostAuthor(FrontendUser $user) {
+	public function countByPostAuthor(FrontendUser $user)
+    {
 		return $this->findByPostAuthor($user)->count();
 	}
 
@@ -199,7 +206,8 @@ class TopicRepository extends AbstractRepository {
 	 *
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
-	public function findByPostAuthor(FrontendUser $user) {
+	public function findByPostAuthor(FrontendUser $user)
+    {
 		$query = $this->createQuery();
 		$query->matching($query->equals('posts.author', $user))->setOrderings(['posts.crdate' => 'DESC']);
 		return $query->execute();
@@ -209,9 +217,11 @@ class TopicRepository extends AbstractRepository {
 	 * Finds all topic that have been subscribed by a certain user.
 	 *
 	 * @param FrontendUser $user The user for whom the subscribed topics are to be loaded.
+     *
 	 * @return QueryInterface The topics subscribed by the given user.
 	 */
-	public function findBySubscriber(FrontendUser $user) {
+	public function findBySubscriber(FrontendUser $user)
+    {
 		$query = $this->createQuery();
 		$query
 			->matching($query->contains('subscribers', $user))
@@ -224,9 +234,11 @@ class TopicRepository extends AbstractRepository {
 	 * Finds all topic that have a specific tag
 	 *
 	 * @param Tag $tag
+     *
 	 * @return QueryInterface The topics of this tag.
 	 */
-	public function findAllTopicsWithGivenTag(Tag $tag) {
+	public function findAllTopicsWithGivenTag(Tag $tag)
+    {
 		$query = $this->createQuery();
 		$query
 			->matching($query->contains('tags', $tag))
@@ -240,9 +252,11 @@ class TopicRepository extends AbstractRepository {
 	 *
 	 * @param int $timeDiff
 	 * @param int $displayLimit
+     *
 	 * @return QueryInterface
 	 */
-	public function findPopularTopics($timeDiff = 0, $displayLimit = 0) {
+	public function findPopularTopics($timeDiff = 0, $displayLimit = 0)
+    {
 		if ($timeDiff == 0) {
 			$timeLimit = 0;
 		} else {
@@ -260,15 +274,15 @@ class TopicRepository extends AbstractRepository {
 	}
 
 	/**
-	 *
 	 * Finds the last topic in a forum.
 	 *
 	 * @param Forum $forum The forum for which to load the last topic.
 	 * @param int $offset If you want to get the next to last topic topic
+     *
 	 * @return Topic The last topic of the specified forum.
-	 *
 	 */
-	public function findLastByForum(Forum $forum, $offset = 0) {
+	public function findLastByForum(Forum $forum, $offset = 0)
+    {
 		$query = $this->createQuery();
 		$query->matching($query->equals('forum', $forum))
 			->setOrderings(['last_post_crdate' => QueryInterface::ORDER_DESCENDING])->setLimit(1);
@@ -280,15 +294,15 @@ class TopicRepository extends AbstractRepository {
 	}
 
 	/**
-	 *
 	 * Finds the last topic in a forum.
 	 *
 	 * @param int $limit  The Limit
 	 * @param int $offset The Offset
+     *
 	 * @return Topic The last topics
-	 *
 	 */
-	public function findLatest($offset = 0, $limit = 5) {
+	public function findLatest($offset = 0, $limit = 5)
+    {
 		$query = $this->createQuery();
 		$query->setOrderings(['last_post_crdate' => QueryInterface::ORDER_DESCENDING])
 			->setLimit($limit);
@@ -302,9 +316,11 @@ class TopicRepository extends AbstractRepository {
 	/**
 	 * @param Forum $forum
 	 * @param FrontendUser $user
+     *
 	 * @return array
 	 */
-	public function getUnreadTopics(Forum $forum, FrontendUser $user) {
+	public function getUnreadTopics(Forum $forum, FrontendUser $user)
+    {
 		$sql = 'SELECT t.uid
 			   FROM tx_typo3forum_domain_model_forum_topic AS t
 			   LEFT JOIN tx_typo3forum_domain_model_user_readtopic AS rt
@@ -315,5 +331,4 @@ class TopicRepository extends AbstractRepository {
 		$query->statement($sql);
 		return $query->execute()->toArray();
 	}
-
 }

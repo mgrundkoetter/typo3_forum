@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Factory\Forum;
 
 /*                                                                    - *
@@ -33,7 +34,8 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\InvalidClassException;
 
-class TopicFactory extends AbstractFactory {
+class TopicFactory extends AbstractFactory
+{
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\CriteriaOptionRepository
@@ -84,7 +86,8 @@ class TopicFactory extends AbstractFactory {
 	 *
 	 * @return Topic The new topic.
 	 */
-	public function createTopic(Forum $forum, Post $firstPost, $subject, $question = 0, array $criteriaOptions = [], $tags = NULL, $subscribe = 0) {
+	public function createTopic(Forum $forum, Post $firstPost, $subject, $question = 0, array $criteriaOptions = [], $tags = NULL, $subscribe = 0)
+	{
 		/** @var $topic Topic */
 		$topic = $this->getClassInstance();
 		$user = $this->getCurrentUser();
@@ -128,7 +131,8 @@ class TopicFactory extends AbstractFactory {
 	 *
 	 * @param Topic $topic
 	 */
-	public function deleteTopic(Topic $topic) {
+	public function deleteTopic(Topic $topic)
+	{
 		foreach ($topic->getPosts() as $post) {
 			/** @var $post Post */
 			$post->getAuthor()->decreasePostCount();
@@ -160,7 +164,8 @@ class TopicFactory extends AbstractFactory {
 	 *
 	 * @return ShadowTopic The newly created shadow topic.
 	 */
-	public function createShadowTopic(Topic $topic) {
+	public function createShadowTopic(Topic $topic)
+	{
 		/** @var $shadowTopic ShadowTopic */
 		$shadowTopic = GeneralUtility::makeInstance('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\ShadowTopic');
 		$shadowTopic->setTarget($topic);
@@ -178,7 +183,8 @@ class TopicFactory extends AbstractFactory {
 	 *
 	 * @throws InvalidClassException
 	 */
-	public function moveTopic(Topic $topic, Forum $targetForum) {
+	public function moveTopic(Topic $topic, Forum $targetForum)
+	{
 		if ($topic instanceof ShadowTopic) {
 			throw new InvalidClassException("Topic is already a shadow topic", 1288702422);
 		}
@@ -198,10 +204,10 @@ class TopicFactory extends AbstractFactory {
 	 * @param Topic $topic
 	 * @param Post  $post
 	 */
-	public function setPostAsSolution(Topic $topic, Post $post) {
+	public function setPostAsSolution(Topic $topic, Post $post)
+	{
 		$topic->setSolution($post);
 		$this->topicRepository->update($topic);
 		$this->forumRepository->update($topic->getForum());
 	}
-
 }

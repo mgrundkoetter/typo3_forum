@@ -4,19 +4,19 @@ $lllPath = 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:fe_u
 
 $tempColumns = [
 	'crdate' => [
-		'exclude' => 1,
+		'exclude' => true,
 		'config' => ['type' => 'passthrough'],
 	],
 	'is_online' => [
-		'exclude' => 1,
+		'exclude' => true,
 		'config' => ['type' => 'passthrough'],
 	],
 	'disable' => [
-		'exclude' => 1,
+		'exclude' => true,
 		'config' => ['type' => 'passthrough'],
 	],
 	'date_of_birth' => [
-		'exclude' => 1,
+		'exclude' => true,
 		'config' => ['type' => 'passthrough'],
 	],
 	'tx_typo3forum_rank' => [
@@ -30,95 +30,95 @@ $tempColumns = [
 		],
 	],
 	'tx_typo3forum_points' => [
-		'exclude' => 1,
+		'exclude' => true,
 		'label' => $lllPath . 'tx_typo3forum_points',
 		'config' => ['type' => 'none'],
 	],
 	'tx_typo3forum_post_count' => [
-		'exclude' => 1,
+		'exclude' => true,
 		'label' => $lllPath . 'tx_typo3forum_post_count',
 		'config' => ['type' => 'none'],
 	],
 	'tx_typo3forum_post_count_session' => [
-		'exclude' => 1,
+		'exclude' => true,
 		'label' => $lllPath . 'tx_typo3forum_post_count_session',
 		'config' => ['type' => 'none'],
 	],
 	'tx_typo3forum_topic_count' => [
-		'exclude' => 1,
+		'exclude' => true,
 		'label' => $lllPath . 'tx_typo3forum_topic_count',
 		'config' => ['type' => 'none'],
 	],
 	'tx_typo3forum_helpful_count' => [
-		'exclude' => 1,
+		'exclude' => true,
 		'label' => $lllPath . 'tx_typo3forum_helpful_count',
 		'config' => ['type' => 'none'],
 	],
 	'tx_typo3forum_helpful_count_session' => [
-		'exclude' => 1,
+		'exclude' => true,
 		'label' => $lllPath . 'tx_typo3forum_helpful_count_session',
 		'config' => ['type' => 'none'],
 	],
 	'tx_typo3forum_question_count' => [
-		'exclude' => 1,
+		'exclude' => true,
 		'label' => $lllPath . 'tx_typo3forum_question_count',
 		'config' => ['type' => 'none'],
 	],
 	'tx_typo3forum_topic_favsubscriptions' => [
-		'exclude' => 1,
+		'exclude' => true,
 		'label' => $lllPath . 'tx_typo3forum_topic_favsubscriptions',
 		'config' => [
 			'type' => 'select',
 			'renderType' => 'selectSingleBox',
 			'foreign_table' => 'tx_typo3forum_domain_model_forum_topic',
 			'MM' => 'tx_typo3forum_domain_model_user_topicfavsubscription',
-			'multiple' => TRUE,
+			'multiple' => true,
 			'maxitems' => 9999,
 			'minitems' => 0,
 		],
 	],
 	'tx_typo3forum_topic_subscriptions' => [
-		'exclude' => 1,
+		'exclude' => true,
 		'label' => $lllPath . 'tx_typo3forum_topic_subscriptions',
 		'config' => [
 			'type' => 'select',
 			'renderType' => 'selectSingleBox',
 			'foreign_table' => 'tx_typo3forum_domain_model_forum_topic',
 			'MM' => 'tx_typo3forum_domain_model_user_topicsubscription',
-			'multiple' => TRUE,
+			'multiple' => true,
 			'maxitems' => 9999,
 			'minitems' => 0,
 		],
 	],
 	'tx_typo3forum_forum_subscriptions' => [
-		'exclude' => 1,
+		'exclude' => true,
 		'label' => $lllPath . 'tx_typo3forum_forum_subscriptions',
 		'config' => [
 			'type' => 'select',
 			'renderType' => 'selectSingleBox',
 			'foreign_table' => 'tx_typo3forum_domain_model_forum_forum',
 			'MM' => 'tx_typo3forum_domain_model_user_forumsubscription',
-			'multiple' => TRUE,
+			'multiple' => true,
 			'maxitems' => 9999,
 			'minitems' => 0,
 		],
 	],
 	'tx_typo3forum_signature' => [
-		'exclude' => 1,
+		'exclude' => true,
 		'label' => $lllPath . 'tx_typo3forum_signature',
 		'config' => [
 			'type' => 'text',
 		],
 	],
 	'tx_typo3forum_interests' => [
-		'exclude' => 1,
+		'exclude' => true,
 		'label' => $lllPath . 'tx_typo3forum_interests',
 		'config' => [
 			'type' => 'text',
 		],
 	],
 	'tx_typo3forum_userfield_values' => [
-		'exclude' => 1,
+		'exclude' => true,
 		'label' => $lllPath . 'tx_typo3forum_userfield_values',
 		'config' => [
 			'type' => 'inline',
@@ -132,36 +132,36 @@ $tempColumns = [
 		],
 	],
 	'tx_typo3forum_read_forum' => [
-		'exclude' => 1,
+		'exclude' => true,
 		'label' => $lllPath . 'tx_typo3forum_read_forum',
 		'config' => [
 			'type' => 'group',
 			'foreign_table' => 'tx_typo3forum_domain_model_forum_forum',
 			'MM' => 'tx_typo3forum_domain_model_user_readforum',
-			'multiple' => TRUE,
+			'multiple' => true,
 			'minitems' => 0,
 		],
 	],
 	'tx_typo3forum_read_topics' => [
-		'exclude' => 1,
+		'exclude' => true,
 		'label' => $lllPath . 'tx_typo3forum_read_topics',
 		'config' => [
 			'type' => 'group',
 			'foreign_table' => 'tx_typo3forum_domain_model_forum_topic',
 			'MM' => 'tx_typo3forum_domain_model_user_readtopic',
-			'multiple' => TRUE,
+			'multiple' => true,
 			'minitems' => 0,
 		],
 	],
 	'tx_typo3forum_support_posts' => [
-		'exclude' => 1,
+		'exclude' => true,
 		'label' => $lllPath . 'tx_typo3forum_support_posts',
 		'config' => [
 			'type' => 'select',
 			'renderType' => 'selectSingleBox',
 			'foreign_table' => 'tx_typo3forum_domain_model_forum_post',
 			'MM' => 'tx_typo3forum_domain_model_user_supportpost',
-			'multiple' => TRUE,
+			'multiple' => true,
 			'minitems' => 0,
 		],
 	],
@@ -178,7 +178,7 @@ $tempColumns = [
 		],
 	],
 	'tx_typo3forum_facebook' => [
-		'exclude' => 1,
+		'exclude' => true,
 		'label' => $lllPath . 'tx_typo3forum_facebook',
 		'config' => [
 			'type' => 'input',
@@ -186,7 +186,7 @@ $tempColumns = [
 		],
 	],
 	'tx_typo3forum_twitter' => [
-		'exclude' => 1,
+		'exclude' => true,
 		'label' => $lllPath . 'tx_typo3forum_twitter',
 		'config' => [
 			'type' => 'input',
@@ -194,7 +194,7 @@ $tempColumns = [
 		],
 	],
 	'tx_typo3forum_google' => [
-		'exclude' => 1,
+		'exclude' => true,
 		'label' => $lllPath . 'tx_typo3forum_google',
 		'config' => [
 			'type' => 'input',
@@ -202,7 +202,7 @@ $tempColumns = [
 		],
 	],
 	'tx_typo3forum_skype' => [
-		'exclude' => 1,
+		'exclude' => true,
 		'label' => $lllPath . 'tx_typo3forum_skype',
 		'config' => [
 			'type' => 'input',
@@ -210,7 +210,7 @@ $tempColumns = [
 		],
 	],
 	'tx_typo3forum_job' => [
-		'exclude' => 1,
+		'exclude' => true,
 		'label' => $lllPath . 'tx_typo3forum_job',
 		'config' => [
 			'type' => 'input',
@@ -218,7 +218,7 @@ $tempColumns = [
 		],
 	],
 	'tx_typo3forum_working_environment' => [
-		'exclude' => 1,
+		'exclude' => true,
 		'label' => $lllPath . 'tx_typo3forum_working_environment',
 		'config' => [
 			'type' => 'select',
@@ -234,7 +234,7 @@ $tempColumns = [
 		],
 	],
 	'tx_typo3forum_private_messages' => [
-		'exclude' => 1,
+		'exclude' => true,
 		'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_pm',
 		'config' => [
 			'type' => 'inline',

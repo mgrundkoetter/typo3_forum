@@ -1,5 +1,7 @@
 <?php
+
 namespace Mittwald\Typo3Forum\TextParser\Service;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -29,7 +31,8 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext;
 /**
  * Abstract base class for all kinds of text parsing services.
  */
-abstract class AbstractTextParserService extends AbstractService {
+abstract class AbstractTextParserService extends AbstractService
+{
 
 	/**
 	 * The configuration of this service.
@@ -48,7 +51,8 @@ abstract class AbstractTextParserService extends AbstractService {
 	 * @param array $settings The configuration for this service.
 	 * @return void
 	 */
-	public function setSettings(array $settings) {
+	public function setSettings(array $settings)
+    {
 		$this->settings = $settings;
 	}
 
@@ -57,7 +61,8 @@ abstract class AbstractTextParserService extends AbstractService {
 	 * @param ControllerContext $controllerContext
 	 * @return void
 	 */
-	public function setControllerContext(ControllerContext $controllerContext) {
+	public function setControllerContext(ControllerContext $controllerContext)
+    {
 		$this->controllerContext = $controllerContext;
 	}
 

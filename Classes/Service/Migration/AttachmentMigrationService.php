@@ -1,4 +1,7 @@
 <?php
+
+namespace Mittwald\Typo3Forum\Service\Migration;
+
 /**
  *
  * COPYRIGHT NOTICE
@@ -23,9 +26,6 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  *
  */
-
-namespace Mittwald\Typo3Forum\Service\Migration;
-
 
 class AttachmentMigrationService extends AbstractMigrationService
 {

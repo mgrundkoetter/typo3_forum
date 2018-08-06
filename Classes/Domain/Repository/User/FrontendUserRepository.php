@@ -1,33 +1,34 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Repository\User;
 
-	/*                                                                    - *
-	 *  COPYRIGHT NOTICE                                                    *
-	 *                                                                      *
-	 *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
-	 *           All rights reserved                                        *
-	 *                                                                      *
-	 *  This script is part of the TYPO3 project. The TYPO3 project is      *
-	 *  free software; you can redistribute it and/or modify                *
-	 *  it under the terms of the GNU General Public License as published   *
-	 *  by the Free Software Foundation; either version 2 of the License,   *
-	 *  or (at your option) any later version.                              *
-	 *                                                                      *
-	 *  The GNU General Public License can be found at                      *
-	 *  http://www.gnu.org/copyleft/gpl.html.                               *
-	 *                                                                      *
-	 *  This script is distributed in the hope that it will be useful,      *
-	 *  but WITHOUT ANY WARRANTY; without even the implied warranty of      *
-	 *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the       *
-	 *  GNU General Public License for more details.                        *
-	 *                                                                      *
-	 *  This copyright notice MUST APPEAR in all copies of the script!      *
-	 *                                                                      */
+/*                                                                    - *
+ *  COPYRIGHT NOTICE                                                    *
+ *                                                                      *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
+ *           All rights reserved                                        *
+ *                                                                      *
+ *  This script is part of the TYPO3 project. The TYPO3 project is      *
+ *  free software; you can redistribute it and/or modify                *
+ *  it under the terms of the GNU General Public License as published   *
+ *  by the Free Software Foundation; either version 2 of the License,   *
+ *  or (at your option) any later version.                              *
+ *                                                                      *
+ *  The GNU General Public License can be found at                      *
+ *  http://www.gnu.org/copyleft/gpl.html.                               *
+ *                                                                      *
+ *  This script is distributed in the hope that it will be useful,      *
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of      *
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the       *
+ *  GNU General Public License for more details.                        *
+ *                                                                      *
+ *  This copyright notice MUST APPEAR in all copies of the script!      *
+ *                                                                      */
+
 use Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use Mittwald\Typo3Forum\Domain\Repository\AbstractRepository;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
-
 
 /**
  *
@@ -45,7 +46,8 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class FrontendUserRepository extends AbstractRepository  {
+class FrontendUserRepository extends AbstractRepository 
+{
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager
@@ -58,7 +60,8 @@ class FrontendUserRepository extends AbstractRepository  {
 	 *
 	 * @return FrontendUser The user that is currently logged in, or AnonymousFrontendUser if no user is logged in.
 	 */
-	public function findCurrent() {
+	public function findCurrent()
+    {
 		$currentUserUid = (int) $GLOBALS['TSFE']->fe_user->user['uid'];
 		return $currentUserUid ? $this->findByUid($currentUserUid) : new AnonymousFrontendUser();
 	}
@@ -76,7 +79,8 @@ class FrontendUserRepository extends AbstractRepository  {
 	 *                               The selected subset of posts
 	 *
 	 */
-	public function findByFilter($limit = 0, $orderings = [], $onlyOnline = FALSE, $uids = []) {
+	public function findByFilter($limit = 0, $orderings = [], $onlyOnline = FALSE, $uids = [])
+    {
 		$query = $this->createQuery();
 		$constraints = [];
 		if ($limit > 0) {
@@ -100,7 +104,8 @@ class FrontendUserRepository extends AbstractRepository  {
 	}
 
 
-	public function countByFilter($onlyOnline = FALSE) {
+	public function countByFilter($onlyOnline = FALSE)
+    {
 		$query = $this->createQuery();
 		if (!empty($onlyOnline)) {
 			$query->matching($query->greaterThan('is_online', time() - $this->settings['widgets']['onlinebox']['timeInterval']));
@@ -114,7 +119,8 @@ class FrontendUserRepository extends AbstractRepository  {
 	 * Returns an anonymous frontend user.
 	 * @return AnonymousFrontendUser An anonymous frontend user.
 	 */
-	public function findAnonymous() {
+	public function findAnonymous()
+    {
 		return new AnonymousFrontendUser();
 	}
 
@@ -127,7 +133,8 @@ class FrontendUserRepository extends AbstractRepository  {
 	 * @param string $order QueryInterface::ORDER_ASCENDING or QueryInterface::ORDER_DESCENDING ordering
 	 * @return FrontendUser[] The frontend users with the specified username.
 	 */
-	public function findLikeUsername($part = NULL, $filter = NULL, $order = NULL) {
+	public function findLikeUsername($part = NULL, $filter = NULL, $order = NULL)
+    {
 		$query = $this->createQuery();
 		if ($part !== NULL) {
 			$query->matching($query->like('username', '%' . $part . '%'));
@@ -147,7 +154,8 @@ class FrontendUserRepository extends AbstractRepository  {
 	 *
 	 * @return FrontendUser[] All users.
 	 */
-	public function findForIndex() {
+	public function findForIndex()
+    {
 		return $this->findAll();
 	}
 
@@ -159,7 +167,8 @@ class FrontendUserRepository extends AbstractRepository  {
 	 *
 	 * @return FrontendUser[] The Top $limit User of this forum.
 	 */
-	public function findTopUserByPoints($limit = 50) {
+	public function findTopUserByPoints($limit = 50)
+    {
 		$query = $this->createQuery();
 		$query->setOrderings([
 			'tx_typo3forum_points' => QueryInterface::ORDER_DESCENDING,
@@ -169,6 +178,4 @@ class FrontendUserRepository extends AbstractRepository  {
 
 		return $query->execute();
 	}
-
-
 }

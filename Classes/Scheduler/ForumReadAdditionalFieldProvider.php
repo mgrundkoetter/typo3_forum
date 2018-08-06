@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Scheduler;
 
 /*                                                                    - *
@@ -31,7 +32,8 @@ use TYPO3\CMS\Scheduler\Task\AbstractTask;
 /**
  * Additional field provider for the forum-read task
  */
-class ForumReadAdditionalFieldProvider implements AdditionalFieldProviderInterface {
+class ForumReadAdditionalFieldProvider implements AdditionalFieldProviderInterface
+{
 
 	/**
 	 * @param  array $taskInfo : reference to the array containing the info used in the add/edit form
@@ -41,7 +43,8 @@ class ForumReadAdditionalFieldProvider implements AdditionalFieldProviderInterfa
 	 *                                    The array is multidimensional, keyed to the task class name and each field's id
 	 *                                    For each field it provides an associative sub-array with the following:
 	 */
-	public function getAdditionalFields(array &$taskInfo, $task, SchedulerModuleController $schedulerModule) {
+	public function getAdditionalFields(array &$taskInfo, $task, SchedulerModuleController $schedulerModule)
+    {
 		$additionalFields = [];
 
 		if ($schedulerModule->CMD == 'add') {
@@ -79,7 +82,8 @@ class ForumReadAdditionalFieldProvider implements AdditionalFieldProviderInterfa
 	 * @param SchedulerModuleController $schedulerModule : reference to the calling object (Scheduler's BE module)
 	 * @return boolean True if validation was ok (or selected class is not relevant), FALSE otherwise
 	 */
-	public function validateAdditionalFields(array &$submittedData, SchedulerModuleController $schedulerModule) {
+	public function validateAdditionalFields(array &$submittedData, SchedulerModuleController $schedulerModule)
+    {
 		$submittedData['ForumRead_forumPid'] = (int)$submittedData['ForumRead_forumPid'];
 		$submittedData['ForumRead_userPid'] = (int)$submittedData['ForumRead_userPid'];
 		return TRUE;
@@ -92,7 +96,8 @@ class ForumReadAdditionalFieldProvider implements AdditionalFieldProviderInterfa
 	 * @param array $submittedData : array containing the data submitted by the user
 	 * @param AbstractTask $task : reference to the current task object
 	 */
-	public function saveAdditionalFields(array $submittedData, AbstractTask $task) {
+	public function saveAdditionalFields(array $submittedData, AbstractTask $task)
+    {
 		$task->setUserPid($submittedData['ForumRead_userPid']);
 		$task->setForumPid($submittedData['ForumRead_forumPid']);
 	}

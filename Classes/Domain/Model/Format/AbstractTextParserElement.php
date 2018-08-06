@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model\Format;
 
 /*                                                                    - *
@@ -31,7 +32,8 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
  * An abstract text parser element. This may later be a bb code, a smiley or anything
  * you want.
  */
-abstract class AbstractTextParserElement extends AbstractValueObject {
+abstract class AbstractTextParserElement extends AbstractValueObject
+{
 
 	/**
 	 * The CSS class that will be used to render this element's button.
@@ -57,7 +59,8 @@ abstract class AbstractTextParserElement extends AbstractValueObject {
 	 * @return string The icon filename.
 	 *
 	 */
-	public function getIconClass() {
+	public function getIconClass()
+	{
 		return $this->iconClass;
 	}
 
@@ -68,7 +71,8 @@ abstract class AbstractTextParserElement extends AbstractValueObject {
 	 * @param string $iconClass The icon CSS class.
 	 *
 	 */
-	public function setIconClass($iconClass) {
+	public function setIconClass($iconClass)
+	{
 		$this->iconClass = $iconClass;
 	}
 
@@ -78,7 +82,8 @@ abstract class AbstractTextParserElement extends AbstractValueObject {
 	 * @return string The text parser element name
 	 *
 	 */
-	public function getName() {
+	public function getName()
+	{
 		return $this->name;
 	}
 
@@ -89,14 +94,16 @@ abstract class AbstractTextParserElement extends AbstractValueObject {
 	 * @param string $name The element name.
 	 *
 	 */
-	public function setName($name) {
+	public function setName($name)
+	{
 		$this->name = $name;
 	}
 
 	/**
 	 * @param string $defaultIconDir
 	 */
-	public function setDefaultIconDir($defaultIconDir) {
+	public function setDefaultIconDir($defaultIconDir)
+	{
 		$this->defaultIconDir = $defaultIconDir;
 	}
 }

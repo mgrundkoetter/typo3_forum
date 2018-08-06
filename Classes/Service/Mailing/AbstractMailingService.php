@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Service\Mailing;
 
 /*                                                                    - *
@@ -26,7 +27,8 @@ namespace Mittwald\Typo3Forum\Service\Mailing;
 
 use Mittwald\Typo3Forum\Service\AbstractService;
 
-abstract class AbstractMailingService extends AbstractService implements MailingServiceInterface {
+abstract class AbstractMailingService extends AbstractService implements MailingServiceInterface
+{
 
 	/**
 	 * Whole TypoScript typo3_forum settings
@@ -56,7 +58,8 @@ abstract class AbstractMailingService extends AbstractService implements Mailing
 	 */
 	protected $format = self::MAILING_FORMAT_HTML;
 
-	public function initializeObject() {
+	public function initializeObject()
+    {
 		$this->settings = $this->configurationBuilder->getSettings();
 	}
 
@@ -64,7 +67,8 @@ abstract class AbstractMailingService extends AbstractService implements Mailing
 	 * Gets the preferred format of this mailing service.
 	 * @return string The preferred format of this mailing service.
 	 */
-	public function getFormat() {
+	public function getFormat()
+    {
 		return $this->format;
 	}
 
@@ -72,7 +76,8 @@ abstract class AbstractMailingService extends AbstractService implements Mailing
 	 * Gets the default sender name. Can be configured in the typoscript setup.
 	 * @return string The default sender name.
 	 */
-	protected function getDefaultSenderName() {
+	protected function getDefaultSenderName()
+    {
 		return trim($this->settings['mailing']['sender']['name']);
 	}
 
@@ -82,7 +87,8 @@ abstract class AbstractMailingService extends AbstractService implements Mailing
 	 * Gets the default sender address. Can be configured in the typoscript setup.
 	 * @return string The default sender address.
 	 */
-	protected function getDefaultSenderAddress() {
+	protected function getDefaultSenderAddress()
+    {
 		return trim($this->settings['mailing']['sender']['address']);
 	}
 
@@ -94,7 +100,8 @@ abstract class AbstractMailingService extends AbstractService implements Mailing
 	 *
 	 * @return string The default sender.
 	 */
-	protected function getDefaultSender() {
+	protected function getDefaultSender()
+    {
 		return $this->getDefaultSenderName() . ' <' . $this->getDefaultSenderAddress() . '>';
 	}
 
@@ -106,7 +113,8 @@ abstract class AbstractMailingService extends AbstractService implements Mailing
 	 *
 	 * @return string The preferred charset.
 	 */
-	protected function getCharset() {
+	protected function getCharset()
+    {
 		return $GLOBALS['TSFE']->renderCharset;
 	}
 }

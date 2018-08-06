@@ -21,21 +21,21 @@ return [
 	],
 	'columns' => [
 		'hidden' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label'   => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
 			'config'  => [
 				'type' => 'check',
 			],
 		],
 		'tstamp' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label'   => 'LLL:EXT:lang/locallang_general.xml:LGL.tstamp',
 			'config'  => [
 				'type' => 'passthrough',
 			],
 		],
 		'report' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label'   => $lllPath . 'report',
 			'config' => [
 				'type' => 'select',
@@ -45,7 +45,7 @@ return [
 			],
 		],
 		'author' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label'   => $lllPath . 'author',
 			'config' => [
 				'type' => 'select',
@@ -55,7 +55,7 @@ return [
 			],
 		],
 		'text' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_report.moderator',
 			'config' => [
 				'type' => 'text',

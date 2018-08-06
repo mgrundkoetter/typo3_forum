@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Controller;
 
 /*                                                                      *
@@ -24,7 +25,8 @@ namespace Mittwald\Typo3Forum\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-class StatsController extends AbstractController {
+class StatsController extends AbstractController
+{
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Stats\SummaryRepository
@@ -36,7 +38,8 @@ class StatsController extends AbstractController {
 	 * Listing Action.
 	 * @return void
 	 */
-	public function listAction() {
+	public function listAction()
+    {
 		switch ($this->settings['listStats']) {
 			default:
 			case 'summary':
@@ -47,5 +50,4 @@ class StatsController extends AbstractController {
 		$this->view->assign('partial', $partial);
 		$this->view->assign('dataset', $dataset);
 	}
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Scheduler;
 
 /*                                                                    - *
@@ -26,7 +27,8 @@ namespace Mittwald\Typo3Forum\Scheduler;
 
 use TYPO3\CMS\Scheduler\Task\AbstractTask;
 
-class Notification extends AbstractTask {
+class Notification extends AbstractTask
+{
 
 	/**
 	 * @var string
@@ -56,21 +58,24 @@ class Notification extends AbstractTask {
 	/**
 	 * @return string
 	 */
-	public function getForumPids() {
+	public function getForumPids()
+    {
 		return $this->forumPids;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getUserPids() {
+	public function getUserPids()
+    {
 		return $this->userPids;
 	}
 
 	/**
 	 * @return int
 	 */
-	public function getNotificationPid() {
+	public function getNotificationPid()
+    {
 		return $this->notificationPid;
 	}
 
@@ -78,7 +83,8 @@ class Notification extends AbstractTask {
 	/**
 	 * @return int
 	 */
-	public function getLastExecutedCron() {
+	public function getLastExecutedCron()
+    {
 		return (int)$this->lastExecutedCron;
 	}
 
@@ -86,28 +92,32 @@ class Notification extends AbstractTask {
 	/**
 	 * @return int
 	 */
-	public function getExecutedOn() {
+	public function getExecutedOn()
+    {
 		return (int)$this->executedOn;
 	}
 
 	/**
 	 * @param string $forumPids
 	 */
-	public function setForumPids($forumPids) {
+	public function setForumPids($forumPids)
+    {
 		$this->forumPids = $forumPids;
 	}
 
 	/**
 	 * @param string $userPids
 	 */
-	public function setUserPids($userPids) {
+	public function setUserPids($userPids)
+    {
 		$this->userPids = $userPids;
 	}
 
 	/**
 	 * @param int $notificationPid
 	 */
-	public function setNotificationPid($notificationPid) {
+	public function setNotificationPid($notificationPid)
+    {
 		$this->notificationPid = $notificationPid;
 	}
 
@@ -115,7 +125,8 @@ class Notification extends AbstractTask {
 	 * @param int $lastExecutedCron
 	 * @return void
 	 */
-	public function setLastExecutedCron($lastExecutedCron) {
+	public function setLastExecutedCron($lastExecutedCron)
+    {
 		$this->lastExecutedCron = $lastExecutedCron;
 	}
 
@@ -124,14 +135,16 @@ class Notification extends AbstractTask {
 	 * @param int $executedOn
 	 * @return void
 	 */
-	public function setExecutedOn($executedOn) {
+	public function setExecutedOn($executedOn)
+    {
 		$this->executedOn = $executedOn;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function execute() {
+	public function execute()
+    {
 		if ($this->getForumPids() == false || $this->getUserPids() == false) return false;
 
 		$this->setLastExecutedCron((int)$this->findLastCronExecutionDate());
@@ -146,7 +159,8 @@ class Notification extends AbstractTask {
 	/**
 	 * @return void
 	 */
-	private function checkPostNotifications() {
+	private function checkPostNotifications()
+    {
 
 		$query = 'SELECT t.uid
 				  FROM tx_typo3forum_domain_model_forum_topic AS t
@@ -188,7 +202,8 @@ class Notification extends AbstractTask {
 	/**
 	 * @return boolean
 	 */
-	private function checkTagsNotification() {
+	private function checkTagsNotification()
+    {
 		$query = 'SELECT tg.uid AS tagUid, t.uid AS topicUid
 				 FROM tx_typo3forum_domain_model_forum_tag AS tg
 				 INNER JOIN tx_typo3forum_domain_model_forum_tag_topic AS mm ON mm.uid_foreign = tg.uid
@@ -242,7 +257,8 @@ class Notification extends AbstractTask {
 	 * Get the CrDate of the last inserted notification
 	 * @return int
 	 */
-	private function findLastCronExecutionDate() {
+	private function findLastCronExecutionDate()
+    {
 		$query = 'SELECT crdate
 				  FROM tx_typo3forum_domain_model_user_notification
 				  WHERE pid =' . $this->getNotificationPid() . '
@@ -258,7 +274,8 @@ class Notification extends AbstractTask {
 	 * @param int $topicUid
 	 * @return array
 	 */
-	private function getUserInvolvedInTopic($topicUid) {
+	private function getUserInvolvedInTopic($topicUid)
+    {
 		$user = [];
 		$query = 'SELECT author, uid
 				  FROM tx_typo3forum_domain_model_forum_post

@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Controller;
 
 /*                                                                      *
@@ -30,7 +31,8 @@ use Mittwald\Typo3Forum\Utility\Localization;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
-abstract class AbstractController extends ActionController {
+abstract class AbstractController extends ActionController
+{
 
 	const CONTEXT_WEB = 0;
 	const CONTEXT_AJAX = 1;
@@ -97,7 +99,8 @@ abstract class AbstractController extends ActionController {
 	 * @return void
 	 *
 	 */
-	protected function handleError(AbstractException $e) {
+	protected function handleError(AbstractException $e)
+	{
 		$controllerContext = $this->buildControllerContext();
 		$controllerContext->getRequest()->setControllerName('Default');
 		$controllerContext->getRequest()->setControllerActionName('error');
@@ -118,7 +121,8 @@ abstract class AbstractController extends ActionController {
 	 * @return void
 	 *
 	 */
-	protected function callActionMethod() {
+	protected function callActionMethod()
+	{
 		try {
 			parent::callActionMethod();
 		} catch (AbstractException $e) {
@@ -134,7 +138,8 @@ abstract class AbstractController extends ActionController {
 	 * @return void
 	 *
 	 */
-	protected function initializeAction() {
+	protected function initializeAction()
+	{
 		$this->className = array_pop(explode('_', get_class($this)));
 		$this->localSettings = $this->settings[lcfirst($this->className)];
 
@@ -155,7 +160,8 @@ abstract class AbstractController extends ActionController {
 	 * @return FrontendUser The frontend user that is currently logged in, or NULL if no user is logged in.
 	 *
 	 */
-	protected function getCurrentUser() {
+	protected function getCurrentUser()
+	{
 		return $this->frontendUserRepository->findCurrent();
 	}
 
@@ -166,7 +172,8 @@ abstract class AbstractController extends ActionController {
 	 * @return boolean Always FALSE.
 	 *
 	 */
-	protected function getErrorFlashMessage() {
+	protected function getErrorFlashMessage()
+	{
 		return FALSE;
 	}
 
@@ -182,7 +189,8 @@ abstract class AbstractController extends ActionController {
 	 * @return void
 	 *
 	 */
-	protected function clearCacheForCurrentPage() {
+	protected function clearCacheForCurrentPage()
+	{
 		$this->cacheService->clearPageCache((int)$GLOBALS['TSFE']->id);
 	}
 
@@ -201,7 +209,8 @@ abstract class AbstractController extends ActionController {
 	 *
 	 * @return void
 	 */
-	protected function addLocalizedFlashmessage($key, array $arguments = [], $titleKey = NULL, $severity = FlashMessage::OK) {
+	protected function addLocalizedFlashmessage($key, array $arguments = [], $titleKey = NULL, $severity = FlashMessage::OK)
+	{
 		$message = new FlashMessage(Localization::translate($key, 'Typo3Forum', $arguments), Localization::translate($titleKey, 'Typo3Forum'), $severity);
 		$this->controllerContext->getFlashMessageQueue()->enqueue($message);
 	}
@@ -215,7 +224,8 @@ abstract class AbstractController extends ActionController {
 	 * @param int $delay
 	 * @param int $statusCode
 	 */
-	protected function redirect($actionName, $controllerName = NULL, $extensionName = NULL, array $arguments = NULL, $pageUid = NULL, $delay = 0, $statusCode = 303) {
+	protected function redirect($actionName, $controllerName = NULL, $extensionName = NULL, array $arguments = NULL, $pageUid = NULL, $delay = 0, $statusCode = 303)
+	{
 		if ($this->context === self::CONTEXT_WEB && $this->request->getFormat() === 'html') {
 			parent::redirect($actionName, $controllerName, $extensionName, $arguments, $pageUid, $delay, $statusCode);
 		}
@@ -224,7 +234,8 @@ abstract class AbstractController extends ActionController {
 	/**
 	 * @return mixed|null
 	 */
-	protected function resolveViewObjectName() {
+	protected function resolveViewObjectName()
+	{
 		if ($this->context === self::CONTEXT_WEB) {
 			return parent::resolveViewObjectName();
 		}
@@ -235,7 +246,8 @@ abstract class AbstractController extends ActionController {
 	/**
 	 * @param $context
 	 */
-	public function setContext($context) {
+	public function setContext($context)
+	{
 		$this->context = $context;
 	}
 
@@ -243,7 +255,8 @@ abstract class AbstractController extends ActionController {
 	 * @param string $url
 	 * @return mixed
 	 */
-	public function purgeUrl($url) {
+	public function purgeUrl($url)
+	{
 		$curl = curl_init();
 		curl_setopt($curl, CURLOPT_URL, $url);
 		curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PURGE");
@@ -254,5 +267,4 @@ abstract class AbstractController extends ActionController {
 		$result = curl_exec($curl);
 		return $result;
 	}
-
 }

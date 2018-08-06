@@ -1,5 +1,7 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\Social;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -25,7 +27,8 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Social;
 
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
-class TwitterShareLinkViewHelper extends AbstractTagBasedViewHelper  {
+class TwitterShareLinkViewHelper extends AbstractTagBasedViewHelper
+{
 
 	/**
 	 * @var	string
@@ -37,7 +40,8 @@ class TwitterShareLinkViewHelper extends AbstractTagBasedViewHelper  {
 	 *
 	 * @return void
 	 */
-	public function initializeArguments() {
+	public function initializeArguments()
+    {
 		$this->registerTagAttribute('target', 'string', 'Specifies where to open the linked document');
 	}
 
@@ -49,7 +53,8 @@ class TwitterShareLinkViewHelper extends AbstractTagBasedViewHelper  {
 	 * @param string $shareUrl Title for share
 	 * @return string
 	 */
-	public function render($title = NULL,  $text= NULL, $shareUrl = NULL) {
+	public function render($title = NULL,  $text= NULL, $shareUrl = NULL)
+    {
 
 		// check defaults
 		if (empty($this->arguments['name'])) {

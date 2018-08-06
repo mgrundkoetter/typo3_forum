@@ -1,5 +1,7 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\Bootstrap\Form;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -24,11 +26,13 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Bootstrap\Form;
  *                                                                      */
 
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
+use \TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
  * ViewHelper that renders a form row.
  */
-class RowViewHelper extends AbstractTagBasedViewHelper {
+class RowViewHelper extends AbstractTagBasedViewHelper
+{
 
 	/**
 	 * tagName
@@ -40,11 +44,13 @@ class RowViewHelper extends AbstractTagBasedViewHelper {
 	/**
 	 * @return void
 	 */
-	public function initialize() {
+	public function initialize()
+    {
 		parent::initialize();
 	}
 
-	public function initializeArguments() {
+	public function initializeArguments()
+    {
 		parent::initializeArguments();
 		$this->registerArgument('llLabel', 'string', 'Locallang key for label.', FALSE, '');
 		$this->registerArgument('label', 'string', 'Hardcoded label (better to use llLabel instead).', FALSE, '');
@@ -52,11 +58,12 @@ class RowViewHelper extends AbstractTagBasedViewHelper {
 		$this->registerArgument('errorLLPrefix', 'string', 'Error label locallang prefix.', FALSE);
 	}
 
-	public function render() {
+	public function render()
+    {
 		$class = 'control-group';
 
 		if ($this->arguments['llLabel']) {
-			$label = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($this->arguments['llLabel'], 'typo3_forum');
+			$label = LocalizationUtility::translate($this->arguments['llLabel'], 'typo3_forum');
 		} else {
 			$label = $this->arguments['label'];
 		}
@@ -73,7 +80,7 @@ class RowViewHelper extends AbstractTagBasedViewHelper {
 				$class .= ' error';
 				$errorContent = '';
 				foreach ($errors as $error) {
-					$errorText = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($this->arguments['errorLLPrefix'] . '_' . $error->getCode(),
+					$errorText = LocalizationUtility::translate($this->arguments['errorLLPrefix'] . '_' . $error->getCode(),
 					                                                        'typo3_forum');
 					if (!$errorText) {
 						$errorText = 'TRANSLATE: ' . $this->arguments['errorLLPrefix'] . '_' . $error->getCode();
@@ -101,7 +108,8 @@ class RowViewHelper extends AbstractTagBasedViewHelper {
 	 * @param array  $errors       An array of Tx_Fluid_Error_Error objects
 	 * @return array An array of errors for $propertyName
 	 */
-	protected function getErrorsForProperty($propertyName, $errors) {
+	protected function getErrorsForProperty($propertyName, $errors)
+    {
 		foreach ($errors as $name => $error) {
 			if ($name === $propertyName) {
 				return array_unique($error->getErrors());

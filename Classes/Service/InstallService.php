@@ -1,4 +1,7 @@
 <?php
+
+namespace Mittwald\Typo3Forum\Service;
+
 /**
  *
  * COPYRIGHT NOTICE
@@ -23,9 +26,6 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  *
  */
-
-namespace Mittwald\Typo3Forum\Service;
-
 
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;

@@ -1,5 +1,7 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\Authentication;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -32,7 +34,10 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  * ViewHelper that renders its contents if the current user has access to a
  * certain operation on a certain object.
  */
-class IfAccessViewHelper extends AbstractViewHelper {
+class IfAccessViewHelper extends AbstractViewHelper
+{
+    protected $escapeOutput = false;
+    protected $escapeChildren = false;
 
 	/**
 	 * The frontend user repository.
@@ -49,7 +54,8 @@ class IfAccessViewHelper extends AbstractViewHelper {
 	 * @param string $accessType The operation for which to check the access.
 	 * @return string The ViewHelper contents if the user has access to the specified operation.
 	 */
-	public function render(AccessibleInterface $object, $accessType = Access::TYPE_READ) {
+	public function render(AccessibleInterface $object, $accessType = Access::TYPE_READ)
+    {
 		if ($object->checkAccess($this->frontendUserRepository->findCurrent(), $accessType)) {
             return $this->renderChildren();
 		}

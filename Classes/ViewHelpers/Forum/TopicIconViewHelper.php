@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\Forum;
 
 /* *
@@ -34,7 +35,8 @@ use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
  */
 class TopicIconViewHelper extends AbstractViewHelper
 {
-
+    protected $escapeOutput = false;
+    
     /**
      * The frontend user repository.
      * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
@@ -50,8 +52,13 @@ class TopicIconViewHelper extends AbstractViewHelper
      */
     public function initializeArguments()
     {
-        $this->registerArgument('important', 'integer',
-            'Amount of posts required for a topic to contain in order to be marked as important', false, 15);
+        $this->registerArgument(
+            'important',
+            'integer',
+            'Amount of posts required for a topic to contain in order to be marked as important',
+            false,
+            15
+        );
     }
 
     /**
@@ -65,13 +72,14 @@ class TopicIconViewHelper extends AbstractViewHelper
     public function render(Topic $topic = null, $width = null)
     {
         $data = $this->getDataArray($topic);
-        if ($data['new']) {
-\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(array('$this->arguments'=>$this->arguments,'$data'=>$data,'$this->getCObjectViewHelper()'=>$this->getCObjectViewHelper(),'$this->viewHelperNode'=>$this->viewHelperNode));
-            return $this->getCObjectViewHelper()->render('plugin.tx_typo3forum.renderer.icons.topic_new', $data);
-        } else {
-            return $this->getCObjectViewHelper()->render('plugin.tx_typo3forum.renderer.icons.topic', $data);
-        }
+        $typoscriptObjectPath = 'plugin.tx_typo3forum.renderer.icons.topic' . ($data['new'] ? '_new' : '');
 
+        $cObjectViewHelper = $this->getCObjectViewHelper();
+        $cObjectViewHelper->setArguments([
+            'typoscriptObjectPath' => $typoscriptObjectPath,
+            'data' => $data
+        ]);
+        return $cObjectViewHelper->render();
     }
 
     /**
@@ -106,6 +114,6 @@ class TopicIconViewHelper extends AbstractViewHelper
      */
     protected function getCObjectViewHelper()
     {
-        return $this->objectManager->get('TYPO3\\CMS\\Fluid\\ViewHelpers\\CObjectViewHelper');
+        return $this->objectManager->get(\TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper::class);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
 
 /*                                                                    - *
@@ -30,7 +31,8 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  * A report comment. Each moderation report consists of a set -- and at least one --
  * of these comments.
  */
-class ReportComment extends AbstractEntity {
+class ReportComment extends AbstractEntity
+{
 
 	/**
 	 * The comment author
@@ -61,7 +63,8 @@ class ReportComment extends AbstractEntity {
 	 *
 	 * @param string $text .
 	 */
-	public function __construct($text = NULL) {
+	public function __construct($text = NULL)
+    {
 		$this->text = $text;
 	}
 
@@ -69,7 +72,8 @@ class ReportComment extends AbstractEntity {
 	 * Gets the comment author.
 	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser The comment author.
 	 */
-	public function getAuthor() {
+	public function getAuthor()
+    {
 		if ($this->author instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
 			$this->author->_loadRealInstance();
 		}
@@ -87,7 +91,8 @@ class ReportComment extends AbstractEntity {
 	 *
 	 * @return void
 	 */
-	public function setAuthor(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $author) {
+	public function setAuthor(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $author)
+    {
 		$this->author = $author;
 	}
 
@@ -95,7 +100,8 @@ class ReportComment extends AbstractEntity {
 	 * Gets the comment text.
 	 * @return string The comment text.
 	 */
-	public function getText() {
+	public function getText()
+    {
 		return $this->text;
 	}
 
@@ -106,7 +112,8 @@ class ReportComment extends AbstractEntity {
 	 *
 	 * @return void
 	 */
-	public function setText($text) {
+	public function setText($text)
+    {
 		$this->text = $text;
 	}
 
@@ -114,7 +121,8 @@ class ReportComment extends AbstractEntity {
 	 * Gets the parent report.
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Moderation\Report The report.
 	 */
-	public function getReport() {
+	public function getReport()
+    {
 		return $this->report;
 	}
 
@@ -125,7 +133,8 @@ class ReportComment extends AbstractEntity {
 	 *
 	 * @return void
 	 */
-	public function setReport(\Mittwald\Typo3Forum\Domain\Model\Moderation\Report $report) {
+	public function setReport(\Mittwald\Typo3Forum\Domain\Model\Moderation\Report $report)
+    {
 		$this->report = $report;
 	}
 
@@ -133,7 +142,8 @@ class ReportComment extends AbstractEntity {
 	 * Gets this comment's creation timestamp.
 	 * @return \DateTime The timestamp.
 	 */
-	public function getTimestamp() {
+	public function getTimestamp()
+    {
 		return $this->tstamp;
 	}
 }

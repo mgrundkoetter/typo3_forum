@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\Form;
 
 /*                                                                      *
@@ -31,7 +32,8 @@ use TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper;
 /**
  * ViewHelper that renders a selectbox with a hierarchical list of all forums.
  */
-class ForumSelectViewHelper extends SelectViewHelper {
+class ForumSelectViewHelper extends SelectViewHelper
+{
 
 	/**
 	 * The forum repository.
@@ -44,7 +46,8 @@ class ForumSelectViewHelper extends SelectViewHelper {
 	 * Initializses the view helper arguments.
 	 * @return void
 	 */
-	public function initializeArguments() {
+	public function initializeArguments()
+    {
 		AbstractFormFieldViewHelper::initializeArguments();
 		$this->registerUniversalTagAttributes();
 		$this->registerTagAttribute('multiple', 'string', 'if set, multiple select field');
@@ -57,7 +60,8 @@ class ForumSelectViewHelper extends SelectViewHelper {
 	 * Loads the option rows for this select field.
 	 * @return array All option rows.
 	 */
-	protected function getOptions() {
+	protected function getOptions()
+    {
 		$rootForums = $this->forumRepository->findRootForums();
 		$values = [];
 
@@ -74,7 +78,8 @@ class ForumSelectViewHelper extends SelectViewHelper {
 	 * @param boolean $isRoot TRUE, if the forum is a root category, otherwise FALSE.
 	 * @return array An option row for the specified forum.
 	 */
-	protected function getForumOptionRow(Forum $forum, $isRoot = FALSE) {
+	protected function getForumOptionRow(Forum $forum, $isRoot = FALSE)
+    {
 		$result = [
 			'name' => $forum->getTitle(),
 			'uid' => $forum->getUid(),
@@ -94,7 +99,8 @@ class ForumSelectViewHelper extends SelectViewHelper {
 	 * @param integer $nestingLevel The current nesting level. Required for correct formatting.
 	 * @return string
 	 */
-	protected function renderOptionTags($options, $nestingLevel = 1) {
+	protected function renderOptionTags($options, $nestingLevel = 1)
+    {
 		$content = '';
 		foreach ($options as $option) {
 			if ($option['_isRoot']) {

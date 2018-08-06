@@ -1,5 +1,7 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\Bootstrap;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -28,9 +30,11 @@ use TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper;
 /**
  * ViewHelper that renders a big button.
  */
-class ButtonViewHelper extends ActionViewHelper {
+class ButtonViewHelper extends ActionViewHelper
+{
 
-	public function initializeArguments() {
+	public function initializeArguments()
+    {
 		parent::initializeArguments();
 
 		$this->registerArgument('primary', 'boolean', 'Primary button', FALSE, FALSE);
@@ -38,7 +42,8 @@ class ButtonViewHelper extends ActionViewHelper {
 		$this->registerArgument('icon', 'string', 'Icon', FALSE, NULL);
 	}
 
-	public function initialize() {
+	public function initialize()
+    {
 		parent::initialize();
 
 		$class = 'btn';
@@ -50,7 +55,8 @@ class ButtonViewHelper extends ActionViewHelper {
 		$this->tag->addAttribute('class', $class);
 	}
 
-	public function renderChildren() {
+	public function renderChildren()
+    {
 		if ($this->arguments['icon']) {
 			$content = '<i class="tx-typo3forum-icon-16-' . $this->arguments['icon'] . '"></i> ';
 		} else {

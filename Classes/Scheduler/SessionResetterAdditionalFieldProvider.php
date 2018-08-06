@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Scheduler;
 
 /*                                                                    - *
@@ -28,7 +29,8 @@ use TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface;
 use TYPO3\CMS\Scheduler\Controller\SchedulerModuleController;
 use TYPO3\CMS\Scheduler\Task\AbstractTask;
 
-class SessionResetterAdditionalFieldProvider implements AdditionalFieldProviderInterface {
+class SessionResetterAdditionalFieldProvider implements AdditionalFieldProviderInterface
+{
 
 	/**
 	 * @param array $taskInfo : reference to the array containing the info used in the add/edit form
@@ -38,7 +40,8 @@ class SessionResetterAdditionalFieldProvider implements AdditionalFieldProviderI
 	 *                                    The array is multidimensional, keyed to the task class name and each field's id
 	 *                                    For each field it provides an associative sub-array with the following:
 	 */
-	public function getAdditionalFields(array &$taskInfo, $task, SchedulerModuleController $schedulerModule) {
+	public function getAdditionalFields(array &$taskInfo, $task, SchedulerModuleController $schedulerModule)
+    {
 		$additionalFields = [];
 
 		if ($schedulerModule->CMD == 'add') {
@@ -67,7 +70,8 @@ class SessionResetterAdditionalFieldProvider implements AdditionalFieldProviderI
 	 * @param  SchedulerModuleController $schedulerModule : reference to the calling object (Scheduler's BE module)
 	 * @return  boolean                            True if validation was ok (or selected class is not relevant), FALSE otherwise
 	 */
-	public function validateAdditionalFields(array &$submittedData, SchedulerModuleController $schedulerModule) {
+	public function validateAdditionalFields(array &$submittedData, SchedulerModuleController $schedulerModule)
+    {
 		$submittedData['SessionResetter_userPid'] = (int)$submittedData['SessionResetter_userPid'];
 		return true;
 	}
@@ -79,7 +83,8 @@ class SessionResetterAdditionalFieldProvider implements AdditionalFieldProviderI
 	 * @param  array $submittedData : array containing the data submitted by the user
 	 * @param  AbstractTask $task : reference to the current task object
 	 */
-	public function saveAdditionalFields(array $submittedData, AbstractTask $task) {
+	public function saveAdditionalFields(array $submittedData, AbstractTask $task)
+    {
 		/** @var SessionResetter $task */
 		$task->setUserPid($submittedData['SessionResetter_userPid']);
 	}

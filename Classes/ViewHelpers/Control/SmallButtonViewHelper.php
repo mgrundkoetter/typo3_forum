@@ -1,5 +1,7 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\Control;
+
 /* *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -41,7 +43,8 @@ use Mittwald\Typo3Forum\ViewHelpers\Control\BigButtonViewHelper;
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class SmallButtonViewHelper extends BigButtonViewHelper {
+class SmallButtonViewHelper extends BigButtonViewHelper
+{
 
 	/**
 	 * iconBaseClass
@@ -50,7 +53,8 @@ class SmallButtonViewHelper extends BigButtonViewHelper {
 	 */
 	protected $iconBaseClass = 'tx-typo3forum-icon-16-';
 
-	public function initialize() {
+	public function initialize()
+    {
 		parent::initialize();
 		$this->tag->addAttribute('class', 'tx-typo3forum-button-small');
 	}

@@ -17,6 +17,8 @@ return [
 		'versioning_followPages' => TRUE,
 		'origUid' => 't3_origuid',
 		'languageField' => 'sys_language_uid',
+        'transOrigPointerField' => 'l18n_parent',
+        'transOrigDiffSourceField' => 'l18n_diffsource',
 		'delete' => 'deleted',
 		'enablecolumns' => [
 			'disabled' => 'hidden'
@@ -30,9 +32,12 @@ return [
 	'types' => [
 		'1' => ['showitem' => 'title,description,children,acls,criteria'],
 	],
+    'palettes' => [
+        'language' => ['showitem' => 'sys_language_uid, l18n_parent'],
+    ],
 	'columns' => [
 		'sys_language_uid' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.language',
 			'config' => [
 				'type' => 'select',
@@ -44,7 +49,34 @@ return [
 					['LLL:EXT:lang/locallang_general.php:LGL.default_value', 0],
 				],
 			],
+            'default' => 0,
+            'fieldWizard' => [
+                'selectIcons' => [
+                    'disabled' => false,
+                ],
+            ],
 		],
+        'l18n_parent' => [
+            'displayCond' => 'FIELD:sys_language_uid:>:0',
+            'exclude' => true,
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    ['', 0]
+                ],
+                'foreign_table' => 'sys_category',
+                'foreign_table_where' => 'AND sys_category.uid=###REC_FIELD_l18n_parent### AND sys_category.sys_language_uid IN (-1,0)',
+                'default' => 0
+            ]
+        ],
+        'l18n_diffsource' => [
+            'config' => [
+                'type' => 'passthrough',
+                'default' => ''
+            ]
+        ],
 		't3ver_label' => [
 			'displayCond' => 'FIELD:t3ver_label:REQ:true',
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.versionLabel',
@@ -54,14 +86,14 @@ return [
 			],
 		],
 		'hidden' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
 			'config' => [
 				'type' => 'check',
 			],
 		],
 		'title' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'title',
 			'config' => [
 				'type' => 'input',
@@ -70,7 +102,7 @@ return [
 			],
 		],
 		'description' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'description',
 			'config' => [
 				'type' => 'input',

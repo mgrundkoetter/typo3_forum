@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model\User;
 
 /*                                                                    - *
@@ -29,7 +30,8 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Tag;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 
-class Notification extends AbstractEntity {
+class Notification extends AbstractEntity
+{
 
 	/**
 	 * The execution date of the cron
@@ -73,7 +75,8 @@ class Notification extends AbstractEntity {
 	 * Get the date this message has been sent
 	 * @return \DateTime
 	 */
-	public function getCrdate() {
+	public function getCrdate()
+    {
 		return $this->crdate;
 	}
 
@@ -81,7 +84,8 @@ class Notification extends AbstractEntity {
 	 * Get the type of this notification (Model name)
 	 * @return string
 	 */
-	public function getType() {
+	public function getType()
+    {
 		return $this->type;
 	}
 
@@ -92,7 +96,8 @@ class Notification extends AbstractEntity {
 	 *
 	 * @return void
 	 */
-	public function setType($type) {
+	public function setType($type)
+    {
 		$this->type = $type;
 	}
 
@@ -100,7 +105,8 @@ class Notification extends AbstractEntity {
 	 * Get the User who is related with this notification
 	 * @return FrontendUser
 	 */
-	public function getFeuser() {
+	public function getFeuser()
+    {
 		if ($this->feuser instanceof LazyLoadingProxy) {
 			$this->feuser->_loadRealInstance();
 		}
@@ -118,7 +124,8 @@ class Notification extends AbstractEntity {
 	 *
 	 * @return void
 	 */
-	public function setFeuser(FrontendUser $feuser) {
+	public function setFeuser(FrontendUser $feuser)
+    {
 		$this->feuser = $feuser;
 	}
 
@@ -126,7 +133,8 @@ class Notification extends AbstractEntity {
 	 * Get the Post which is related with this notification
 	 * @return Post
 	 */
-	public function getPost() {
+	public function getPost()
+    {
 		return $this->post;
 	}
 
@@ -137,7 +145,8 @@ class Notification extends AbstractEntity {
 	 *
 	 * @return void
 	 */
-	public function setPost(Post $post) {
+	public function setPost(Post $post)
+    {
 		$this->post = $post;
 	}
 
@@ -145,7 +154,8 @@ class Notification extends AbstractEntity {
 	 * Get the tag which is related with this notification
 	 * @return Tag
 	 */
-	public function getTag() {
+	public function getTag()
+    {
 		return $this->tag;
 	}
 
@@ -156,7 +166,8 @@ class Notification extends AbstractEntity {
 	 *
 	 * @return void
 	 */
-	public function setTag(Tag $tag) {
+	public function setTag(Tag $tag)
+    {
 		$this->tag = $tag;
 	}
 
@@ -164,7 +175,8 @@ class Notification extends AbstractEntity {
 	 * Get if the user already read this notification
 	 * @return int The flag
 	 */
-	public function getUserRead() {
+	public function getUserRead()
+    {
 		return (int)$this->userRead;
 	}
 
@@ -175,7 +187,8 @@ class Notification extends AbstractEntity {
 	 *
 	 * @return void
 	 */
-	public function setUserRead($userRead) {
+	public function setUserRead($userRead)
+    {
 		$this->userRead = $userRead;
 	}
 }

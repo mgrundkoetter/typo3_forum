@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\General;
 
 /*                                                                    - *
@@ -48,5 +49,4 @@ class QueryResultReverseViewHelper extends AbstractViewHelper
 
         return $newArray;
     }
-
 }

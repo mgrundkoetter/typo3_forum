@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 
 /*                                                                    - *
@@ -32,7 +33,8 @@ use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
  * the original forum, while the topic itself is moved to the
  * other forum.
  */
-class ShadowTopic extends Topic {
+class ShadowTopic extends Topic
+{
 
 	/**
 	 * The target topic, i.e. the topic this shadow is pointing to.
@@ -44,7 +46,8 @@ class ShadowTopic extends Topic {
 	 * Gets the target topic, i.e. the topic this shadow is pointing to.
 	 * @return Topic The target topic
 	 */
-	public function getTarget() {
+	public function getTarget()
+	{
 		return $this->target;
 	}
 
@@ -56,7 +59,8 @@ class ShadowTopic extends Topic {
 	 *
 	 * @return void
 	 */
-	public function setTarget(Topic $topic) {
+	public function setTarget(Topic $topic)
+	{
 		$this->target = $topic;
 		$this->lastPost = $topic->getLastPost();
 		$this->lastPostCrdate = $this->lastPost->getTimestamp();
@@ -72,7 +76,8 @@ class ShadowTopic extends Topic {
 	 *
 	 * @return boolean TRUE, if the user can create new posts. Always FALSE.
 	 */
-	public function checkAccess(FrontendUser $user = NULL, $accessType = Access::TYPE_READ) {
+	public function checkAccess(FrontendUser $user = NULL, $accessType = Access::TYPE_READ)
+	{
 		if ($accessType === Access::TYPE_NEW_POST) {
 			return FALSE;
 		} else {
@@ -88,7 +93,8 @@ class ShadowTopic extends Topic {
 	 *
 	 * @return boolean TRUE, if the user can create new posts. Always FALSE.
 	 */
-	public function checkNewPostAccess(FrontendUser $user = NULL) {
+	public function checkNewPostAccess(FrontendUser $user = NULL)
+	{
 		return FALSE;
 	}
 }

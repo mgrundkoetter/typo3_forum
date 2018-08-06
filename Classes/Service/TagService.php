@@ -1,10 +1,12 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Service;
 
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
-class TagService implements SingletonInterface {
+class TagService implements SingletonInterface
+{
 
 	/**
 	 * An instance of the Extbase object manager.
@@ -25,7 +27,8 @@ class TagService implements SingletonInterface {
 	 * @param string $tags
 	 * @return ObjectStorage
 	 */
-	public function initTags($tags) {
+	public function initTags($tags)
+    {
 		/* @var \Mittwald\Typo3Forum\Domain\Model\Forum\Tag */
 		$objTags = new ObjectStorage();
 
@@ -50,5 +53,4 @@ class TagService implements SingletonInterface {
 		}
 		return $objTags;
 	}
-
 }

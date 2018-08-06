@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Repository\Forum;
 
 /*                                                                    - *
@@ -26,4 +27,6 @@ namespace Mittwald\Typo3Forum\Domain\Repository\Forum;
 
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
-class AttachmentRepository extends Repository {}
+class AttachmentRepository extends Repository
+{
+}

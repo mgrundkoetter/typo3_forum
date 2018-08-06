@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Validator\User;
 
 /*                                                                      *
@@ -40,8 +41,8 @@ use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class PrivateMessageRecipientValidator extends AbstractValidator {
-
+class PrivateMessageRecipientValidator extends AbstractValidator
+{
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
@@ -56,7 +57,8 @@ class PrivateMessageRecipientValidator extends AbstractValidator {
 	 * @param $value
 	 * @return bool
 	 */
-	protected function isValid($value) {
+	protected function isValid($value)
+    {
 		$result = TRUE;
 
 		if (!$this->userRepository->findOneByUsername($value)) {

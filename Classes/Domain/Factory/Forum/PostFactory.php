@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Factory\Forum;
 
 /*                                                                      *
@@ -29,7 +30,8 @@ use Mittwald\Typo3Forum\Domain\Factory\AbstractFactory;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 
-class PostFactory extends AbstractFactory {
+class PostFactory extends AbstractFactory
+{
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\PostRepository
@@ -53,7 +55,8 @@ class PostFactory extends AbstractFactory {
 	 * Creates an empty post
 	 * @return Post An empty post.
 	 */
-	public function createEmptyPost() {
+	public function createEmptyPost()
+	{
 		return $this->getClassInstance();
 	}
 
@@ -64,7 +67,8 @@ class PostFactory extends AbstractFactory {
 	 *
 	 * @return Post The new post.
 	 */
-	public function createPostWithQuote(Post $quotedPost) {
+	public function createPostWithQuote(Post $quotedPost)
+	{
 		/** @var $post Post */
 		$post = $this->getClassInstance();
 		$post->setText('[quote=' . $quotedPost->getUid() . ']' . $quotedPost->getText() . '[/quote]');
@@ -81,7 +85,8 @@ class PostFactory extends AbstractFactory {
 	 * @throws NotLoggedInException
 	 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
 	 */
-	public function assignUserToPost(Post $post, FrontendUser $user = NULL) {
+	public function assignUserToPost(Post $post, FrontendUser $user = NULL)
+	{
 		// If no user is set, use current user is set.
 		if ($user === NULL) {
 			$user = $this->getCurrentUser();
@@ -113,7 +118,8 @@ class PostFactory extends AbstractFactory {
 	 *
 	 * @param Post $post
 	 */
-	public function deletePost(Post $post) {
+	public function deletePost(Post $post)
+	{
 		$topic = $post->getTopic();
 
 		// If the post is the only one in the topic, delete the whole topic instead of
@@ -128,5 +134,4 @@ class PostFactory extends AbstractFactory {
 			$this->topicRepository->update($topic);
 		}
 	}
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 
 /*                                                                      *
@@ -32,7 +33,8 @@ use TYPO3\CMS\Core\SingletonInterface;
  * This class models a virtual root forum that is the parent forum of all
  * other forums.
  */
-class RootForum extends Forum implements SingletonInterface {
+class RootForum extends Forum implements SingletonInterface
+{
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
@@ -40,16 +42,18 @@ class RootForum extends Forum implements SingletonInterface {
 	 */
 	protected $forumRepository = NULL;
 
-	public function __construct() {
+	public function __construct()
+	{
 		$this->uid = 0;
 	}
 
-	public function getChildren() {
+	public function getChildren()
+	{
 		return $this->forumRepository->findRootForums();
 	}
 
-	public function checkAccess(FrontendUser $user = NULL, $accessType = Access::TYPE_READ) {
+	public function checkAccess(FrontendUser $user = NULL, $accessType = Access::TYPE_READ)
+	{
 		return $accessType === Access::TYPE_READ;
 	}
-
 }

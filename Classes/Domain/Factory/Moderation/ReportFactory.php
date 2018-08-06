@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Factory\Moderation;
 
 /*                                                                    - *
@@ -29,7 +30,8 @@ use Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment;
 use Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus;
 use Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport;
 
-class ReportFactory extends AbstractFactory {
+class ReportFactory extends AbstractFactory
+{
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportWorkflowStatusRepository
@@ -46,7 +48,8 @@ class ReportFactory extends AbstractFactory {
 	 * @return UserReport
 	 *
 	 */
-	public function createUserReport(ReportComment $firstComment) {
+	public function createUserReport(ReportComment $firstComment)
+	{
 		$user = &$this->getCurrentUser();
 		$firstComment->setAuthor($user);
 		/** @var UserReport $report */
@@ -66,7 +69,8 @@ class ReportFactory extends AbstractFactory {
 	 *
 	 * @return object
 	 */
-	public function createPostReport(ReportComment $firstComment) {
+	public function createPostReport(ReportComment $firstComment)
+	{
 		$user = &$this->getCurrentUser();
 		$firstComment->setAuthor($user);
 		$report = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\Moderation\\PostReport');
@@ -81,12 +85,12 @@ class ReportFactory extends AbstractFactory {
 	 * @return ReportWorkflowStatus
 	 * @throws \Exception
 	 */
-	protected function getInitialWorkflowStatus() {
+	protected function getInitialWorkflowStatus()
+	{
 		$initialWorkStatus = $this->workflowStatusRepository->findInitial();
 		if (!$initialWorkStatus instanceof ReportWorkflowStatus) {
 			throw new \Exception('No initial workflow status configured', 1436529800);
 		}
 		return $initialWorkStatus;
 	}
-
 }

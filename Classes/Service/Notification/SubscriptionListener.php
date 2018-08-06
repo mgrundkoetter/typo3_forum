@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Service\Notification;
 
 /*                                                                    - *
@@ -23,16 +24,17 @@ namespace Mittwald\Typo3Forum\Service\Notification;
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
+
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
-
 
 /**
  * Listener class for modifications. This class uses Extbase's Signal-/Slot
  * mechanism to "listen" for new posts and topics and notifies the subscribers
  * of the regarding objects.
  */
-final class SubscriptionListener {
+final class SubscriptionListener
+{
 
 	/**
 	 * An instance of the notification service.
@@ -47,7 +49,8 @@ final class SubscriptionListener {
 	 * @param Post $post Event data.
 	 * @return void
 	 */
-	public function onPostCreated($post) {
+	public function onPostCreated($post)
+    {
 		if ($post instanceof Post) {
 			$this->notificationService->notifySubscribers($post->getTopic(), $post);
 		}
@@ -59,7 +62,8 @@ final class SubscriptionListener {
 	 * @param Topic $topic Event data.
 	 * @return void
 	 */
-	public function onTopicCreated($topic) {
+	public function onTopicCreated($topic)
+    {
 		if ($topic instanceof Topic) {
 
 		}

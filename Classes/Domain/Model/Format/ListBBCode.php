@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model\Format;
 
 /*                                                                      *
@@ -28,13 +29,15 @@ namespace Mittwald\Typo3Forum\Domain\Model\Format;
  *
  * A special bb code element that implements an unordered list.
  */
-class ListBBCode extends BBCode {
+class ListBBCode extends BBCode
+{
 
 	/**
 	 * Return the left (opening) bb code tag.
 	 * @return string The left bb code tag.
 	 */
-	public function getLeftBBCode() {
+	public function getLeftBBCode()
+    {
 		return "[list]\n[*] ";
 	}
 
@@ -42,7 +45,8 @@ class ListBBCode extends BBCode {
 	 * Return the right (closing) bb code tag.
 	 * @return string The right bb code tag.
 	 */
-	public function getRightBBCode() {
+	public function getRightBBCode()
+    {
 		return "\n[/list]";
 	}
 }

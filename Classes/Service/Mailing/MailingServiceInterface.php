@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Service\Mailing;
 
 /*                                                                      *
@@ -30,7 +31,8 @@ use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
  * Interface descriptor for mailing services.
  */
 
-interface MailingServiceInterface {
+interface MailingServiceInterface
+{
 
 	/**
 	 * Sends a mail with a certain subject and bodytext to a recipient in form of a

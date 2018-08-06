@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model\User\Userfield;
 
 /*                                                                      *
@@ -30,7 +31,8 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
  * A userfield value. This class models an association between userfields,
  * users and a specific userfield value.
  */
-class Value extends AbstractValueObject {
+class Value extends AbstractValueObject
+{
 
 	/**
 	 * The userfield.
@@ -56,7 +58,8 @@ class Value extends AbstractValueObject {
 	 * @return \Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield The userfield.
 	 *
 	 */
-	public function getUserfield() {
+	public function getUserfield()
+    {
 		return $this->userfield;
 	}
 
@@ -66,7 +69,8 @@ class Value extends AbstractValueObject {
 	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser The user
 	 *
 	 */
-	public function getUser() {
+	public function getUser()
+    {
 		return $this->user;
 	}
 
@@ -76,7 +80,8 @@ class Value extends AbstractValueObject {
 	 * @return string The value
 	 *
 	 */
-	public function getValue() {
+	public function getValue()
+    {
 		return $this->value;
 	}
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Service\Authentication;
 
 /*                                                                      *
@@ -33,7 +34,8 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
  * An interface for authentication services, in case anyone wants to
  * implement his own solution... ;)
  */
-interface AuthenticationServiceInterface {
+interface AuthenticationServiceInterface
+{
 
 	/**
 	 * @param AccessibleInterface $object

@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 
 /*                                                                      *
@@ -38,8 +39,8 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
  * Every object that implements the \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface
  * provides methods to check the ACLs of the parent forums.
  */
-class Access extends AbstractValueObject {
-
+class Access extends AbstractValueObject
+{
 
 	const TYPE_READ = 'read';
 	const TYPE_NEW_TOPIC = 'newTopic';
@@ -96,7 +97,8 @@ class Access extends AbstractValueObject {
 	protected $affectedGroup;
 
 
-	public function __construct($operation = NULL, $level = NULL, \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup $group = NULL) {
+	public function __construct($operation = NULL, $level = NULL, \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup $group = NULL)
+	{
 		$this->operation = $operation;
 		$this->loginLevel = $level;
 		$this->affectedGroup = $group;
@@ -106,7 +108,8 @@ class Access extends AbstractValueObject {
 	 * Gets the affected operation.
 	 * @return string The affected operation.
 	 */
-	public function getOperation() {
+	public function getOperation()
+	{
 		return $this->operation;
 	}
 
@@ -117,7 +120,8 @@ class Access extends AbstractValueObject {
 	 *
 	 * @return void
 	 */
-	public function setOperation($operation) {
+	public function setOperation($operation)
+	{
 		$this->operation = $operation;
 	}
 
@@ -125,7 +129,8 @@ class Access extends AbstractValueObject {
 	 * Determines if this ACL entry is negated.
 	 * @return boolean TRUE, if this entry is negated.
 	 */
-	public function getNegated() {
+	public function getNegated()
+	{
 		return $this->negate;
 	}
 
@@ -133,7 +138,8 @@ class Access extends AbstractValueObject {
 	 * Determines if this ACL entry is negated.
 	 * @return boolean TRUE, if this entry is negated.
 	 */
-	public function isNegated() {
+	public function isNegated()
+	{
 		return $this->negate;
 	}
 
@@ -141,7 +147,8 @@ class Access extends AbstractValueObject {
 	 * Gets the group for this entry.
 	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup group The group
 	 */
-	public function getGroup() {
+	public function getGroup()
+	{
 		return $this->affectedGroup;
 	}
 
@@ -150,7 +157,8 @@ class Access extends AbstractValueObject {
 	 * @return boolean TRUE, when this entry affects all visitors, otherwise FALSE.
 	 */
 
-	public function isEveryone() {
+	public function isEveryone()
+	{
 		return $this->loginLevel == Access::LOGIN_LEVEL_EVERYONE;
 	}
 
@@ -158,7 +166,8 @@ class Access extends AbstractValueObject {
 	 * Determines whether this entry requires any login.
 	 * @return boolean TRUE when this entry requires any login, otherwise FALSE.
 	 */
-	public function isAnyLogin() {
+	public function isAnyLogin()
+	{
 		return $this->loginLevel == Access::LOGIN_LEVEL_ANYLOGIN;
 	}
 
@@ -169,7 +178,8 @@ class Access extends AbstractValueObject {
 	 * @param FrontendUser $user The user to be matched. Can also be NULL (for anonymous  users).
 	 * @return bool TRUE if this access rule matches the given user, otherwise FALSE. This result may be negated using the "negate" property.
 	 */
-	public function matches(FrontendUser $user = NULL) {
+	public function matches(FrontendUser $user = NULL)
+	{
 		$result = FALSE;
 		if ($this->loginLevel === self::LOGIN_LEVEL_EVERYONE) {
 			$result = TRUE;
@@ -204,7 +214,8 @@ class Access extends AbstractValueObject {
 	 *
 	 * @return void
 	 */
-	public function setNegated($negate) {
+	public function setNegated($negate)
+	{
 		$this->negate = $negate;
 	}
 
@@ -215,7 +226,8 @@ class Access extends AbstractValueObject {
 	 *
 	 * @return void
 	 */
-	public function setAffectedGroup(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup $group) {
+	public function setAffectedGroup(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup $group)
+	{
 		$this->affectedGroup = $group;
 	}
 }

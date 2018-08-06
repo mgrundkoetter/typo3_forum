@@ -25,21 +25,21 @@ return [
 	],
 	'columns' => [
 		'hidden' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
 			'config' => [
 				'type' => 'check',
 			],
 		],
 		'crdate' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.crdate',
 			'config' => [
 				'type' => 'passthrough',
 			],
 		],
 		'type' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'type',
 			'config' => [
 				'type' => 'select',
@@ -60,7 +60,7 @@ return [
 			],
 		],
 		'feuser' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'user',
 			'config' => [
 				'type' => 'select',
@@ -70,7 +70,7 @@ return [
 			],
 		],
 		'reporter' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'reporter',
 			'config' => [
 				'type' => 'select',
@@ -80,7 +80,7 @@ return [
 			],
 		],
 		'moderator' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'moderator',
 			'config' => [
 				'type' => 'select',
@@ -90,7 +90,7 @@ return [
 			],
 		],
 		'workflow_status' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'workflow_status',
 			'config' => [
 				'type' => 'select',
@@ -100,7 +100,7 @@ return [
 			],
 		],
 		'comments' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'comments',
 			'config' => [
 				'type' => 'inline',

@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model\User;
 
 /*                                                                    - *
@@ -26,7 +27,8 @@ namespace Mittwald\Typo3Forum\Domain\Model\User;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-class PrivateMessageText extends AbstractEntity {
+class PrivateMessageText extends AbstractEntity
+{
 
 	/**
 	 * The submitted text
@@ -38,7 +40,8 @@ class PrivateMessageText extends AbstractEntity {
 	 * Get the short text of this pm
 	 * @return string The short text
 	 */
-	public function getShortMessageText() {
+	public function getShortMessageText()
+    {
 		$limit = 80;
 		$text = $this->getMessageText();
 		if (strlen($text) < $limit) {
@@ -52,7 +55,8 @@ class PrivateMessageText extends AbstractEntity {
 	 * Get the text of this pm
 	 * @return string The text
 	 */
-	public function getMessageText() {
+	public function getMessageText()
+    {
 		return $this->messageText;
 	}
 
@@ -63,7 +67,8 @@ class PrivateMessageText extends AbstractEntity {
 	 *
 	 * @return void
 	 */
-	public function setMessageText($messageText) {
+	public function setMessageText($messageText)
+    {
 		$this->messageText = $messageText;
 	}
 }

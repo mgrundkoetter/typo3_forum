@@ -33,21 +33,21 @@ return [
 			],
 		],
 		'hidden' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
 			'config' => [
 				'type' => 'check'
 			],
 		],
 		'crdate' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.crdate',
 			'config' => [
 				'type' => 'passthrough'
 			],
 		],
 		'post' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_post.topic',
 			'config' => [
 				'type' => 'select',
@@ -58,7 +58,7 @@ return [
 			],
 		],
 		'filename' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'filename',
 			'config' => [
 				'type' => 'input',
@@ -67,7 +67,7 @@ return [
 			],
 		],
 		'real_filename' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'real_filename',
 			'config' => [
 				'type' => 'group',
@@ -80,7 +80,7 @@ return [
 			],
 		],
 		'mime_type' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'mime_type',
 			'config' => [
 				'type' => 'input',
@@ -89,7 +89,7 @@ return [
 			],
 		],
 		'download_count' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'download_count',
 			'config' => [
 				'type' => 'none'

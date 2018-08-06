@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model\User\Userfield;
 
 /*                                                                      *
@@ -28,7 +29,8 @@ namespace Mittwald\Typo3Forum\Domain\Model\User\Userfield;
  * Userfield that renders its content using a previously defined typoscript
  * object.
  */
-class TyposcriptUserfield extends AbstractUserfield {
+class TyposcriptUserfield extends AbstractUserfield
+{
 
 	/**
 	 * The typoscript path that is to be used for rendering this field.
@@ -42,7 +44,8 @@ class TyposcriptUserfield extends AbstractUserfield {
 	 * @return string The typoscript path.
 	 *
 	 */
-	public function getTyposcriptPath() {
+	public function getTyposcriptPath()
+    {
 		return $this->typoscriptPath;
 	}
 }

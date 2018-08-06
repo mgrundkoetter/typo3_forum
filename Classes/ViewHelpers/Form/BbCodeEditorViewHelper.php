@@ -1,5 +1,7 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\Form;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -28,7 +30,8 @@ use TYPO3\CMS\Fluid\ViewHelpers\Form\TextareaViewHelper;
 /**
  * ViewHelper that renders a textarea with additional bb code buttons.
  */
-class BbCodeEditorViewHelper extends TextareaViewHelper {
+class BbCodeEditorViewHelper extends TextareaViewHelper
+{
 
 	/**
 	 * cache
@@ -72,10 +75,16 @@ class BbCodeEditorViewHelper extends TextareaViewHelper {
 	 * @return void
 	 *
 	 */
-	public function initializeArguments() {
+	public function initializeArguments()
+    {
 		parent::initializeArguments();
-		$this->registerArgument('configuration', 'string', 'Path to TS configuration', FALSE,
-		                        'plugin.tx_typo3forum.settings.textParsing.editorPanel');
+		$this->registerArgument(
+            'configuration',
+            'string',
+            'Path to TS configuration',
+            FALSE,
+		    'plugin.tx_typo3forum.settings.textParsing.editorPanel'
+        );
 	}
 
 	/**
@@ -87,7 +96,8 @@ class BbCodeEditorViewHelper extends TextareaViewHelper {
 	 * @return string
 	 * @throws \TYPO3\CMS\Extbase\Object\InvalidClassException
 	 */
-	protected function initializeJavascriptSetupFromConfiguration($configurationPath) {
+	protected function initializeJavascriptSetupFromConfiguration($configurationPath)
+    {
 		$this->configuration = $this->typoscriptReader->loadTyposcriptFromPath($configurationPath);
 		if ($this->cache->has('bbcodeeditor-jsonconfig')) {
 			return $this->javascriptSetup = $this->cache->get('bbcodeeditor-jsonconfig');
@@ -118,8 +128,8 @@ class BbCodeEditorViewHelper extends TextareaViewHelper {
 	 * @return string HTML content
 	 *
 	 */
-	public function render() {
-
+	public function render()
+    {
 		$this->initializeJavascriptSetupFromConfiguration($this->arguments['configuration']);
 
 		return $this->javascriptSetup . parent::render();
@@ -130,7 +140,8 @@ class BbCodeEditorViewHelper extends TextareaViewHelper {
 	 *
 	 * @return array
 	 */
-	protected function getPanelSettings() {
+	protected function getPanelSettings()
+    {
 		$settings = [];
 		foreach ($this->panels as $panel) {
 			$items = $panel->getItems();

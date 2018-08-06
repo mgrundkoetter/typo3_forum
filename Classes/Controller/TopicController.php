@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Controller;
 
 /*                                                                      *
@@ -29,7 +30,8 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 
-class TopicController extends AbstractController {
+class TopicController extends AbstractController
+{
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AdRepository
@@ -105,7 +107,8 @@ class TopicController extends AbstractController {
 	/**
 	 *
 	 */
-	public function initializeObject() {
+	public function initializeObject()
+	{
 		$this->databaseConnection = $GLOBALS['TYPO3_DB'];
 	}
 
@@ -113,8 +116,8 @@ class TopicController extends AbstractController {
      *  Listing Action.
      * @return void
      */
-    public function listAction() {
-
+    public function listAction()
+	{
         $showPaginate = FALSE;
         switch ($this->settings['listTopics']) {
             case '2':
@@ -144,7 +147,8 @@ class TopicController extends AbstractController {
 	/**
 	 *  Listing Action.
 	 */
-	public function listLatestAction() {
+	public function listLatestAction()
+	{
 		if (!empty($this->settings['countLatestPost'])) {
 			$limit = (int)$this->settings['countLatestPost'];
 		} else {
@@ -162,7 +166,8 @@ class TopicController extends AbstractController {
 	 * @param Post $quote An optional post that will be quoted within the bodytext of the new post.
 	 * @param int $showForm ShowForm
 	 */
-	public function showAction(Topic $topic, Post $quote = NULL, $showForm = 0) {
+	public function showAction(Topic $topic, Post $quote = NULL, $showForm = 0)
+	{
 		$posts = $this->postRepository->findForTopic($topic);
 
 		if ($quote != FALSE) {
@@ -198,7 +203,8 @@ class TopicController extends AbstractController {
 	 *
 	 * @dontvalidate $post
 	 */
-	public function newAction(Forum $forum, Post $post = NULL, $subject = NULL) {
+	public function newAction(Forum $forum, Post $post = NULL, $subject = NULL)
+	{
 		$this->authenticationService->assertNewTopicAuthorization($forum);
 		$this->view->assignMultiple([
 			'criteria' => $forum->getCriteria(),
@@ -225,7 +231,8 @@ class TopicController extends AbstractController {
 	 * @validate $attachments \Mittwald\Typo3Forum\Domain\Validator\Forum\AttachmentPlainValidator
 	 * @validate $subject NotEmpty
 	 */
-	public function createAction(Forum $forum, Post $post, $subject, $attachments = [], $question = '', $criteria = [], $tags = '', $subscribe = '') {
+	public function createAction(Forum $forum, Post $post, $subject, $attachments = [], $question = '', $criteria = [], $tags = '', $subscribe = '')
+	{
 
 		// Assert authorization
 		$this->authenticationService->assertNewTopicAuthorization($forum);
@@ -270,7 +277,8 @@ class TopicController extends AbstractController {
 	 *
 	 * @throws NoAccessException
 	 */
-	public function solutionAction(Post $post) {
+	public function solutionAction(Post $post)
+	{
 		if (!$post->getTopic()->checkSolutionAccess($this->authenticationService->getUser())) {
 			throw new NoAccessException('Not allowed to set solution by current user.');
 		}
@@ -284,7 +292,8 @@ class TopicController extends AbstractController {
 	 * @param Topic $topic The topic that is to be marked as read.
 	 *
 	 */
-	protected function markTopicRead(Topic $topic) {
+	protected function markTopicRead(Topic $topic)
+	{
 		$currentUser = $this->getCurrentUser();
 		if ($currentUser === NULL || $currentUser->isAnonymous()) {
 			return;
@@ -295,5 +304,4 @@ class TopicController extends AbstractController {
 			}
 		}
 	}
-
 }

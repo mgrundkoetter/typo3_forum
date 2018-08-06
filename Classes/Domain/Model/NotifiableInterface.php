@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model;
 
 	/*                                                                    - *
@@ -29,7 +30,8 @@ namespace Mittwald\Typo3Forum\Domain\Model;
  * Interface definition for objects that can be subjects of notification
  * emails.
  */
-interface NotifiableInterface {
+interface NotifiableInterface
+{
 
 	/**
 	 * Gets this object's name (e.g. the topic subject or the forum title).

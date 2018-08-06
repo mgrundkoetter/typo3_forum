@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model;
 
 	/*                                                                      *
@@ -27,7 +28,8 @@ namespace Mittwald\Typo3Forum\Domain\Model;
 /**
  * Interface definition for objects that can be read by individual users.
  */
-interface ReadableInterface {
+interface ReadableInterface
+{
 
 	/**
 	 * Adds a reader to this object.

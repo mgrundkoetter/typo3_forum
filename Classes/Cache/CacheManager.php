@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Cache;
 
 /*                                                                    - *
@@ -27,7 +28,8 @@ namespace Mittwald\Typo3Forum\Cache;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
-class CacheManager {
+class CacheManager
+{
 
 	/**
 	 * @var array
@@ -37,7 +39,8 @@ class CacheManager {
 	/**
 	 *
 	 */
-	public function clearAll() {
+	public function clearAll()
+	{
 		/** @var ObjectManager $objectManager */
 		$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
 		$cache = $objectManager->get('Mittwald\\Typo3Forum\\Cache\\Cache');
@@ -48,7 +51,8 @@ class CacheManager {
 	/**
 	 *
 	 */
-	protected function deleteTemporaryFiles() {
+	protected function deleteTemporaryFiles()
+	{
 		foreach ($this->fileCachePaths as $fileCachePath) {
 			$files = glob(PATH_site . $fileCachePath . '/*');
 
@@ -64,5 +68,4 @@ class CacheManager {
 			}
 		}
 	}
-
 }

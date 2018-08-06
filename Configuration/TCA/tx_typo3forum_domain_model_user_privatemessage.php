@@ -70,7 +70,7 @@ return [
 			],
 		],
 		'crdate' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tstamp',
 			'config' => [
 				'type' => 'none',

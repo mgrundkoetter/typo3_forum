@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Scheduler;
 
 	/*                                                                    - *
@@ -29,7 +30,8 @@ use TYPO3\CMS\Scheduler\Task\AbstractTask;
 /**
  * Count all Topics, Posts and Users and write result into summary table
  */
-class StatsSummary extends AbstractTask {
+class StatsSummary extends AbstractTask
+{
 
 	/**
 	 * @var string
@@ -49,49 +51,56 @@ class StatsSummary extends AbstractTask {
 	/**
 	 * @return string
 	 */
-	public function getForumPids() {
+	public function getForumPids()
+    {
 		return $this->forumPids;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getUserPids() {
+	public function getUserPids()
+    {
 		return $this->userPids;
 	}
 
 	/**
 	 * @return int
 	 */
-	public function getStatsPid() {
+	public function getStatsPid()
+    {
 		return $this->statsPid;
 	}
 
 	/**
 	 * @param string $forumPids
 	 */
-	public function setForumPids($forumPids) {
+	public function setForumPids($forumPids)
+    {
 		$this->forumPids = $forumPids;
 	}
 
 	/**
 	 * @param string $userPids
 	 */
-	public function setUserPids($userPids) {
+	public function setUserPids($userPids)
+    {
 		$this->userPids = $userPids;
 	}
 
 	/**
 	 * @param int $statsPid
 	 */
-	public function setStatsPid($statsPid) {
+	public function setStatsPid($statsPid)
+    {
 		$this->statsPid = $statsPid;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function execute() {
+	public function execute()
+    {
 		if (!$this->getForumPids() || !$this->getUserPids() || !$this->getStatsPid()) {
 			return FALSE;
 		}

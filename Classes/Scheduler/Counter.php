@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Scheduler;
 
 /*                                                                    - *
@@ -36,7 +37,8 @@ use TYPO3\CMS\Scheduler\Task\AbstractTask;
  * @package  TYPO3
  * @subpackage  typo3_forum
  */
-class Counter extends AbstractTask {
+class Counter extends AbstractTask
+{
 
 	/**
 	 * @var int
@@ -57,35 +59,40 @@ class Counter extends AbstractTask {
 	/**
 	 * @return int
 	 */
-	public function getForumPid() {
+	public function getForumPid()
+    {
 		return $this->forumPid;
 	}
 
 	/**
 	 * @return int
 	 */
-	public function getUserPid() {
+	public function getUserPid()
+    {
 		return $this->userPid;
 	}
 
 	/**
 	 * @param int $forumPid
 	 */
-	public function setForumPid($forumPid) {
+	public function setForumPid($forumPid)
+    {
 		$this->forumPid = $forumPid;
 	}
 
 	/**
 	 * @param int $userPid
 	 */
-	public function setUserPid($userPid) {
+	public function setUserPid($userPid)
+    {
 		$this->userPid = $userPid;
 	}
 
 	/**
 	 * @return void
 	 */
-	public function setSettings() {
+	public function setSettings()
+    {
 		$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
 		/** @var ConfigurationManagerInterface $configurationManager */
 		$configurationManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface');
@@ -96,7 +103,8 @@ class Counter extends AbstractTask {
 	/**
 	 * @return bool
 	 */
-	public function execute() {
+	public function execute()
+    {
 		if ($this->getForumPid() == false || $this->getUserPid() == false) return false;
 		$this->setSettings();
 
@@ -109,7 +117,8 @@ class Counter extends AbstractTask {
 	/**
 	 * @return void
 	 */
-	private function updateTopic() {
+	private function updateTopic()
+    {
 		$topicCount = [];
 		$query = 'SELECT COUNT(*) AS counter, p.topic FROM tx_typo3forum_domain_model_forum_post AS p
 				  INNER JOIN tx_typo3forum_domain_model_forum_topic AS t ON t.uid = p.topic
@@ -136,7 +145,8 @@ class Counter extends AbstractTask {
 	/**
 	 * @return void
 	 */
-	private function updateUser() {
+	private function updateUser()
+    {
 		$forumPid = (int)$this->getForumPid();
 		$userUpdate = [];
 		$rankScore = $this->settings['rankScore.'];

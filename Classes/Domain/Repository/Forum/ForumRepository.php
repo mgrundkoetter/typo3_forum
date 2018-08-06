@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Repository\Forum;
 
 /*                                                                    - *
@@ -32,7 +33,8 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 /**
  * Repository class for forum objects.
  */
-class ForumRepository extends Repository {
+class ForumRepository extends Repository
+{
 
 	
 
@@ -48,7 +50,8 @@ class ForumRepository extends Repository {
      * @return \TYPO3\CMS\Extbase\Persistence\QueryInterface
      * @api
      */
-    public function createQuery() {
+    public function createQuery()
+    {
         $query = parent::createQuery();
 
         // don't add sys_language_uid constraint
@@ -59,17 +62,21 @@ class ForumRepository extends Repository {
 
 	/**
 	 * Finds all forums for the index view.
+     *
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Forum[] All forums for the index view.
 	 */
-	public function findForIndex() {
+	public function findForIndex()
+    {
 		return $this->findRootForums();
 	}
 
 	/**
 	 * Finds all root forums.
+     *
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Forum[] All forums for the index view.
 	 */
-	public function findRootForums() {
+	public function findRootForums()
+    {
 		$query = $this->createQuery();
 		$result = $query
 			->matching($query->equals('forum', 0))
@@ -82,9 +89,11 @@ class ForumRepository extends Repository {
 	/**
 	 * @param QueryResultInterface $objects
 	 * @param string $action
+     *
 	 * @return array
 	 */
-	protected function filterByAccess(QueryResultInterface $objects, $action = Access::TYPE_READ) {
+	protected function filterByAccess(QueryResultInterface $objects, $action = Access::TYPE_READ)
+    {
 		$result = [];
 		foreach ($objects as $forum) {
 			if ($this->authenticationService->checkAuthorization($forum, $action)) {
@@ -103,8 +112,8 @@ class ForumRepository extends Repository {
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[] The selected subset of topcis
 	 *
 	 */
-	public function findByUids($uids) {
-
+	public function findByUids($uids)
+    {
 		$query = $this->createQuery();
 		$constraints = [];
 		if (!empty($uids)) {
@@ -119,9 +128,11 @@ class ForumRepository extends Repository {
 
 	/**
 	 * @param FrontendUser $user
+     *
 	 * @return QueryResultInterface
 	 */
-	public function findBySubscriber(FrontendUser $user) {
+	public function findBySubscriber(FrontendUser $user)
+    {
 		$query = $this->createQuery();
 		$query
 			->matching($query->contains('subscribers', $user))
@@ -129,5 +140,4 @@ class ForumRepository extends Repository {
 
 		return $query->execute();
 	}
-
 }

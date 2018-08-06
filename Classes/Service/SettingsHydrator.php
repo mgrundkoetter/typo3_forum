@@ -1,5 +1,7 @@
 <?php
 
+namespace Mittwald\Typo3Forum\Service;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -22,9 +24,6 @@
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
-
-namespace Mittwald\Typo3Forum\Service;
-
 
 use Mittwald\Typo3Forum\Configuration\ConfigurationBuilder;
 use Mittwald\Typo3Forum\Domain\Model\ConfigurableInterface;

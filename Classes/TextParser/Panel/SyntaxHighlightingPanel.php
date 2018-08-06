@@ -1,5 +1,7 @@
 <?php
+
 namespace Mittwald\Typo3Forum\TextParser\Panel;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -23,7 +25,8 @@ namespace Mittwald\Typo3Forum\TextParser\Panel;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-class SyntaxHighlightingPanel extends \Mittwald\Typo3Forum\TextParser\Panel\AbstractPanel {
+class SyntaxHighlightingPanel extends \Mittwald\Typo3Forum\TextParser\Panel\AbstractPanel
+{
 
 	/**
 	 * TODO
@@ -42,14 +45,15 @@ class SyntaxHighlightingPanel extends \Mittwald\Typo3Forum\TextParser\Panel\Abst
 
 
 	public function initializeObject() {
-		$this->syntaxHighlightings          = $this->syntaxHighlightingRepository->findAll();
+		$this->syntaxHighlightings = $this->syntaxHighlightingRepository->findAll();
 	}
 
 	/**
 	 * TODO
 	 * @return array<array>
 	 */
-	public function getItems() {
+	public function getItems()
+    {
 		$result = [];
 
 		foreach ($this->syntaxHighlightings as $syntaxHighlighting) {

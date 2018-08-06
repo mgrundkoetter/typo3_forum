@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model;
 
 /*                                                                      *
@@ -24,7 +25,8 @@ namespace Mittwald\Typo3Forum\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-interface SubscribeableInterface {
+interface SubscribeableInterface
+{
 
 	/**
 	 * Returns all users that have subscribed to this object.

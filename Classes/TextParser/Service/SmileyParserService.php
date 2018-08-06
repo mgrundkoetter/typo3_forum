@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\TextParser\Service;
 
 /*                                                                      *
@@ -26,7 +27,8 @@ namespace Mittwald\Typo3Forum\TextParser\Service;
 
 use Mittwald\Typo3Forum\Domain\Model\Format\Smiley;
 
-class SmileyParserService extends AbstractTextParserService {
+class SmileyParserService extends AbstractTextParserService
+{
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Format\SmileyRepository
@@ -46,7 +48,8 @@ class SmileyParserService extends AbstractTextParserService {
 	 * @param string $text The text to be parsed.
 	 * @return string The parsed text.
 	 */
-	public function getParsedText($text) {
+	public function getParsedText($text)
+    {
 		if ($this->smileys === NULL) {
 			$this->smileys = $this->smileyRepository->findAll();
 		}
@@ -74,8 +77,6 @@ class SmileyParserService extends AbstractTextParserService {
 		return $text;
 	}
 
-
-
 	/**
 	 *
 	 * Renders a smiley icon.
@@ -86,8 +87,8 @@ class SmileyParserService extends AbstractTextParserService {
 	 *
 	 */
 
-	protected function getSmileyIcon(Smiley $smiley) {
+	protected function getSmileyIcon(Smiley $smiley)
+    {
 		return '<i class="' . $smiley->getIconClass() . '"></i>';
 	}
-
 }

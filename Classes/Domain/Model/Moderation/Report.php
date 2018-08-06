@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
 
 /*                                                                    - *
@@ -40,7 +41,8 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  * These report objects can be assigned to moderators ans be organized in
  * different workflow stages. Moderators can post comments to each report.
  */
-class Report extends AbstractEntity {
+class Report extends AbstractEntity
+{
 
 	/**
 	 * The frontend user that created this post.
@@ -75,7 +77,8 @@ class Report extends AbstractEntity {
 	/**
 	 * Creates a new report.
 	 */
-	public function __construct() {
+	public function __construct()
+    {
 		$this->comments = new ObjectStorage();
 	}
 
@@ -83,7 +86,8 @@ class Report extends AbstractEntity {
 	 * Gets the reporter of this report.
 	 * @return FrontendUser The reporter
 	 */
-	public function getReporter() {
+	public function getReporter()
+    {
 		if ($this->reporter instanceof LazyLoadingProxy) {
 			$this->reporter->_loadRealInstance();
 		}
@@ -100,7 +104,8 @@ class Report extends AbstractEntity {
 	 * @param FrontendUser $reporter The reporter.
 	 * @return void
 	 */
-	public function setReporter(FrontendUser $reporter) {
+	public function setReporter(FrontendUser $reporter)
+    {
 		$this->reporter = $reporter;
 	}
 
@@ -108,7 +113,8 @@ class Report extends AbstractEntity {
 	 * Gets the moderator that is assigned to this report.
 	 * @return FrontendUser The moderator
 	 */
-	public function getModerator() {
+	public function getModerator()
+    {
 		if ($this->moderator instanceof LazyLoadingProxy) {
 			$this->moderator->_loadRealInstance();
 		}
@@ -125,7 +131,8 @@ class Report extends AbstractEntity {
 	 * @param FrontendUser $moderator The moderator.
 	 * @return void
 	 */
-	public function setModerator(FrontendUser $moderator) {
+	public function setModerator(FrontendUser $moderator)
+    {
 		$this->moderator = $moderator;
 	}
 
@@ -133,7 +140,8 @@ class Report extends AbstractEntity {
 	 * Gets the current status of this report.
 	 * @return ReportWorkflowStatus The current workflow status of this report.
 	 */
-	public function getWorkflowStatus() {
+	public function getWorkflowStatus()
+    {
 		return $this->workflowStatus;
 	}
 
@@ -144,7 +152,8 @@ class Report extends AbstractEntity {
 	 *
 	 * @return void
 	 */
-	public function setWorkflowStatus(ReportWorkflowStatus $workflowStatus) {
+	public function setWorkflowStatus(ReportWorkflowStatus $workflowStatus)
+    {
 		If (!$this->workflowStatus || ($this->workflowStatus && $this->workflowStatus->hasFollowupStatus($workflowStatus))) {
 			$this->workflowStatus = $workflowStatus;
 		}
@@ -155,7 +164,8 @@ class Report extends AbstractEntity {
 	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment>
 	 *                             All comments for this report.
 	 */
-	public function getComments() {
+	public function getComments()
+    {
 		return $this->comments;
 	}
 
@@ -163,7 +173,8 @@ class Report extends AbstractEntity {
 	 * Returns the first comment for this report.
 	 * @return ReportComment The first comment.
 	 */
-	public function getFirstComment() {
+	public function getFirstComment()
+    {
 		return array_shift($this->comments->toArray());
 	}
 
@@ -171,7 +182,8 @@ class Report extends AbstractEntity {
 	 * Returns the creation time of this report.
 	 * @return \DateTime The creation time.
 	 */
-	public function getCrdate() {
+	public function getCrdate()
+    {
 		return $this->crdate;
 	}
 
@@ -182,7 +194,8 @@ class Report extends AbstractEntity {
 	 *
 	 * @return void
 	 */
-	public function addComment(ReportComment $comment) {
+	public function addComment(ReportComment $comment)
+    {
 		$comment->setReport($this);
 		$this->comments->attach($comment);
 	}
@@ -194,7 +207,8 @@ class Report extends AbstractEntity {
 	 * @return void
 	 * @throws InvalidOperationException
 	 */
-	public function removeComment(ReportComment $comment) {
+	public function removeComment(ReportComment $comment)
+    {
 		if (count($this->comments) === 1) {
 			throw new InvalidOperationException('You cannot delete the last remaining comment!', 1334687977);
 		}

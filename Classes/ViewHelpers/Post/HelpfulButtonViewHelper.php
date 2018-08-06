@@ -1,5 +1,7 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\Post;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -25,7 +27,8 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Post;
 
 use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 
-class HelpfulButtonViewHelper extends CObjectViewHelper {
+class HelpfulButtonViewHelper extends CObjectViewHelper
+{
 
 	/**
 	 * @var array
@@ -46,12 +49,14 @@ class HelpfulButtonViewHelper extends CObjectViewHelper {
 	 */
 	protected $authenticationService;
 
-	public function initialize() {
+	public function initialize()
+    {
 		parent::initialize();
 		$this->settings = $this->templateVariableContainer->get('settings');
 	}
 
-	public function initializeArguments() {
+	public function initializeArguments()
+    {
 		parent::initializeArguments();
 		$this->registerArgument('class', 'string', 'CSS class.');
 	}
@@ -63,7 +68,8 @@ class HelpfulButtonViewHelper extends CObjectViewHelper {
 	 * @param string $title
 	 * @return string
 	 */
-	public function render(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post, $countTarget = NULL, $countUserTarget = NULL, $title = '') {
+	public function render(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post, $countTarget = NULL, $countUserTarget = NULL, $title = '')
+    {
 		$class = $this->settings['forum']['post']['helpfulBtn']['iconClass'];
 
 		if ($this->hasArgument('class')) {

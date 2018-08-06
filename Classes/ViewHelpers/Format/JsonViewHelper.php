@@ -1,5 +1,7 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\Format;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -25,7 +27,8 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Format;
 
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
-class JsonViewHelper extends AbstractViewHelper {
+class JsonViewHelper extends AbstractViewHelper
+{
 
 	/**
 	 * render
@@ -34,7 +37,8 @@ class JsonViewHelper extends AbstractViewHelper {
 	 *
 	 * @return string
 	 */
-	public function render(array $data) {
+	public function render(array $data)
+    {
 		return json_encode($data);
 	}
 }

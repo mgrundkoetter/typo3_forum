@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Repository\User;
 
 /*                                                                    - *
@@ -27,7 +28,8 @@ namespace Mittwald\Typo3Forum\Domain\Repository\User;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
-class PrivateMessageRepository extends Repository {
+class PrivateMessageRepository extends Repository
+{
 
 	/**
 	 * Find all messages between user X and user Y
@@ -38,7 +40,8 @@ class PrivateMessageRepository extends Repository {
 	 *
 	 * @return \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessage[]
 	 */
-	public function findMessagesBetweenUser(FrontendUser $userX, FrontendUser $userY, $limit = 0) {
+	public function findMessagesBetweenUser(FrontendUser $userX, FrontendUser $userY, $limit = 0)
+    {
 		$query = $this->createQuery();
 		$query->matching($query->logicalAnd(
 			$query->equals('type', 1),
@@ -73,7 +76,8 @@ class PrivateMessageRepository extends Repository {
 	 *
 	 * @return FrontendUser[]
 	 */
-	public function findStartedConversations(FrontendUser $user, $limit = 0) {
+	public function findStartedConversations(FrontendUser $user, $limit = 0)
+    {
 		$query = $this->createQuery();
 		$constraintsX = [];
 		$constraintsY = [];
@@ -110,7 +114,8 @@ class PrivateMessageRepository extends Repository {
 	 *
 	 * @return \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessage[]
 	 */
-	public function findReceivedMessagesForUser(FrontendUser $user, $limit = 0) {
+	public function findReceivedMessagesForUser(FrontendUser $user, $limit = 0)
+    {
 		$query = $this->createQuery();
 		$constraints = [];
 		$constraints[] = $query->equals('opponent', $user);
@@ -124,5 +129,4 @@ class PrivateMessageRepository extends Repository {
 
 		return $query->execute();
 	}
-
 }

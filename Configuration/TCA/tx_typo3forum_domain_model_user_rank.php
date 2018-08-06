@@ -29,7 +29,7 @@ return [
 			],
 		],
 		'user_count' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'user_count',
 			'config' => [
 				'type' => 'none',

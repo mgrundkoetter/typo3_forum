@@ -49,7 +49,6 @@ jQuery(document).ready(function($) {
 		displayedForumMenusCount = displayedForumMenusCount + 1;
 	});
 
-
 	// topicIcons
 	var displayedTopics = [];
 	var displayedTopicsCount = 0;
@@ -59,7 +58,7 @@ jQuery(document).ready(function($) {
 	});
 
 	var displayOnlinebox = 0;
-	if($('.user_online_box').length > 0){
+	if ($('.user_online_box').length > 0) {
 		displayOnlinebox = 1;
 	}
 
@@ -70,7 +69,6 @@ jQuery(document).ready(function($) {
 		displayedPosts[displayedPostCount] = $(this).data('uid');
 		displayedPostCount = displayedPostCount + 1;
 	});
-
 
 	// ads
 	var displayedAds = {};
@@ -90,14 +88,14 @@ jQuery(document).ready(function($) {
 	/* 
 		support old layout versions
 	*/
-	if(typeof typo3_forum_ajaxUrl === 'undefined'
+	if (typeof typo3_forum_ajaxUrl === 'undefined'
 		&& typeof currentPageUid !== 'undefined'
-	){
+	) {
         typo3_forum_ajaxUrl = "?id=" + currentPageUid + "&eID=typo3_forum&language=de&tx_typo3forum_ajax[controller]=Ajax&tx_typo3forum_ajax[action]=main&tx_typo3forum_ajax[format]=json";
     }
-    if(typeof typo3_forum_ajaxUrl_helpful === 'undefined'
+    if (typeof typo3_forum_ajaxUrl_helpful === 'undefined'
     	&& typeof currentPageUid !== 'undefined'
-    ){
+    ) {
         typo3_forum_ajaxUrl_helpful = "index.php?id=" + currentPageUid +
             "&eID=" + "__typo3_forum_eid__" +
             "&tx_typo3forum_ajax[controller]=Post" +
@@ -129,15 +127,15 @@ jQuery(document).ready(function($) {
                 "tx_typo3forum_ajax[displayedAds]": JSON.stringify(displayedAds)
             },
             success: function (data) {
-                if (!data){
+                if (!data) {
                     $('.forum_menu[data-uid="' + $(this).data('uid') + '"]').html('<div>AJAX FEHLER: Keine Daten erhalten!</div>');
                     return false;
                 }
                 json = isValidJSON(data);
-                if(!json) {
+                if (!json) {
                     if ($('.forum_menu')) {
                         $('.forum_menu').each(function (index) {
-                            if($('.forum_menu[data-uid="' + $(this).data('uid') + '"]')){
+                            if ($('.forum_menu[data-uid="' + $(this).data('uid') + '"]')) {
                                 console.log(data);
                                 $('.forum_menu[data-uid="' + $(this).data('uid') + '"]').html('<div>AJAX FEHLER: Kein gültiges JSON erhalten!</div>');
                             }
@@ -243,6 +241,3 @@ jQuery(document).ready(function($) {
     }
 
 });
-
-
-

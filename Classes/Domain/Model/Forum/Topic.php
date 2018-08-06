@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 
 /*                                                                    - *
@@ -191,7 +192,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @param string $subject The topic's subject.
 	 */
-	public function __construct($subject = '') {
+	public function __construct($subject = '')
+    {
 		$this->posts = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->subscribers = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->readers = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
@@ -205,7 +207,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Gets the topic subject.
 	 * @return string The subject
 	 */
-	public function getSubject() {
+	public function getSubject()
+    {
 		return $this->subject;
 	}
 
@@ -213,7 +216,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Alias for getSubject. Necessary to implement the SubscribeableInterface.
 	 * @return string The subject
 	 */
-	public function getTitle() {
+	public function getTitle()
+	{
 		return $this->getSubject();
 	}
 
@@ -221,7 +225,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Alias for getSubject. Necessary to implement the NofifiableInterface.
 	 * @return string  The subject
 	 */
-	public function getName() {
+	public function getName()
+	{
 		return $this->getSubject();
 	}
 
@@ -231,7 +236,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @return string The description
 	 */
-	public function getDescription() {
+	public function getDescription()
+	{
 		/** @noinspection PhpUndefinedMethodInspection */
 		return $this->posts->current()->getText();
 	}
@@ -240,7 +246,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Gets the topic author.
 	 * @return FrontendUser author
 	 */
-	public function getAuthor() {
+	public function getAuthor()
+	{
 		if ($this->author === NULL) {
 			if (count($this->posts) > 0) {
 				$posts = $this->posts->toArray();
@@ -257,11 +264,13 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Gets all users who have subscribes to this forum.
 	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
 	 */
-	public function getSubscribers() {
+	public function getSubscribers()
+	{
 		return $this->subscribers;
 	}
 
-	public function getIsSolved() {
+	public function getIsSolved()
+	{
 		if ($this->isSolved == 1 || $this->getSolution() != null) {
 			return true;
 		}
@@ -273,7 +282,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Get the as solution marked post
 	 * @return Post
 	 */
-	public function getSolution() {
+	public function getSolution()
+	{
 		return $this->solution;
 	}
 
@@ -281,7 +291,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Gets all posts.
 	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Post> posts
 	 */
-	public function getPosts() {
+	public function getPosts()
+	{
 		return $this->posts;
 	}
 
@@ -289,7 +300,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Gets the post count.
 	 * @return integer Post count
 	 */
-	public function getPostCount() {
+	public function getPostCount()
+	{
 		return $this->postCount;
 	}
 
@@ -297,7 +309,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Gets the amount of pages of this topic.
 	 * @return integer Page count
 	 */
-	public function getPageCount() {
+	public function getPageCount()
+	{
 		return ceil($this->postCount / (int) $this->settings['pagebrowser']['topicShow']['itemsPerPage']);
 	}
 
@@ -305,7 +318,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Gets the reply count.
 	 * @return integer Reply count
 	 */
-	public function getReplyCount() {
+	public function getReplyCount()
+	{
 		if ($this->getPostCount() == 0) {
 			return 0;
 		} else {
@@ -317,7 +331,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Gets whether the topic is closed.
 	 * @return boolean
 	 */
-	public function isClosed() {
+	public function isClosed()
+	{
 		return $this->closed;
 	}
 
@@ -325,7 +340,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Gets the last post.
 	 * @return Post lastPost
 	 */
-	public function getLastPost() {
+	public function getLastPost()
+	{
 		return $this->lastPost;
 	}
 
@@ -333,7 +349,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Gets the forum.
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Forum A forum
 	 */
-	public function getForum() {
+	public function getForum()
+	{
 		return $this->forum;
 	}
 
@@ -341,7 +358,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Gets the creation time of this topic.
 	 * @return \DateTime
 	 */
-	public function getTimestamp() {
+	public function getTimestamp()
+	{
 		return $this->crdate;
 	}
 
@@ -349,7 +367,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Checks if this topic is sticky.
 	 * @return boolean
 	 */
-	public function isSticky() {
+	public function isSticky()
+	{
 		return $this->sticky;
 	}
 
@@ -357,7 +376,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Checks if this topic is a question.
 	 * @return int
 	 */
-	public function getQuestion() {
+	public function getQuestion()
+	{
 		return (int) $this->question;
 	}
 
@@ -365,7 +385,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Get all criteria options
 	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption>
 	 */
-	public function getCriteriaOptions() {
+	public function getCriteriaOptions()
+	{
 		return $this->criteriaOptions;
 	}
 
@@ -373,7 +394,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Get all tags of this topic
 	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Tag>
 	 */
-	public function getTags() {
+	public function getTags()
+	{
 		return $this->tags;
 	}
 
@@ -384,7 +406,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @return boolean                                           TRUE, if the user did read this topic, otherwise FALSE.
 	 */
-	public function hasBeenReadByUser(FrontendUser $reader = NULL) {
+	public function hasBeenReadByUser(FrontendUser $reader = NULL)
+	{
 		return $reader ? $this->readers->contains($reader) : TRUE;
 	}
 
@@ -396,7 +419,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @return array<\Mittwald\Typo3Forum\Domain\Model\Forum\Forum>
 	 */
-	public function getRootline($withSelf = TRUE) {
+	public function getRootline($withSelf = TRUE)
+	{
 		$rootline = $this->forum->getRootline(TRUE);
 
 		if ($withSelf === TRUE) {
@@ -410,7 +434,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Get the first post of a topic
 	 * @return Post
 	 */
-	public function getFirstPost() {
+	public function getFirstPost()
+	{
 		$this->getPosts()->rewind();
 
 		return $this->getPosts()->current();
@@ -421,7 +446,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * @return Post
 	 * @todo refactor (Lazyloading or something else)
 	 */
-	public function getMostSupportedPost() {
+	public function getMostSupportedPost()
+	{
 		$oPost = false;
 		foreach ($this->getPosts() as $post) {
 			if (($oPost == false || $post->getHelpfulCount() > $oPost->getHelpfulCount()) && $this->getSolution() !== $post && $post->getHelpfulCount() > 0 && $this->getAuthor() !== $post->getAuthor()) {
@@ -441,7 +467,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @return boolean
 	 */
-	public function checkAccess(FrontendUser $user = NULL, $accessType = Access::TYPE_READ) {
+	public function checkAccess(FrontendUser $user = NULL, $accessType = Access::TYPE_READ)
+	{
 		switch ($accessType) {
 			case Access::TYPE_NEW_POST:
 				return $this->checkNewPostAccess($user);
@@ -461,7 +488,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @return boolean
 	 */
-	public function checkNewPostAccess(FrontendUser $user = NULL) {
+	public function checkNewPostAccess(FrontendUser $user = NULL)
+	{
 		if ($user === NULL) {
 			return FALSE;
 		}
@@ -477,7 +505,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @return boolean
 	 */
-	public function checkModerationAccess(FrontendUser $user = NULL) {
+	public function checkModerationAccess(FrontendUser $user = NULL)
+	{
 		return ($user === NULL) ? FALSE : $this->getForum()->checkModerationAccess($user);
 	}
 
@@ -487,7 +516,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * @param FrontendUser $user
 	 * @return boolean
 	 */
-	public function checkSolutionAccess(FrontendUser $user = NULL) {
+	public function checkSolutionAccess(FrontendUser $user = NULL)
+	{
 		if($this->getAuthor()->getUid() == $user->getUid() || $this->checkModerationAccess($user)) {
 			return true;
 		} else {
@@ -502,7 +532,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * @param Post $post The Post to be added
 	 * @return void
 	 */
-	public function addPost(Post $post) {
+	public function addPost(Post $post)
+	{
 		$this->posts->attach($post);
 		$post->setTopic($this);
 		$this->postCount++;
@@ -534,7 +565,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @return void
 	 */
-	public function addCriteriaOption(\Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption $option) {
+	public function addCriteriaOption(\Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption $option)
+	{
 		$this->criteriaOptions->attach($option);
 	}
 
@@ -546,7 +578,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * @return void
 	 * @throws \Mittwald\Typo3Forum\Domain\Exception\InvalidOperationException
 	 */
-	public function removePost(Post $post) {
+	public function removePost(Post $post)
+	{
 		if ($this->postCount === 1) {
 			throw new \Mittwald\Typo3Forum\Domain\Exception\InvalidOperationException('You cannot delete the last post of a topic without deleting the topic itself (use \Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory::deleteTopic for that).', 1334603895);
 		}
@@ -575,7 +608,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @return void
 	 */
-	public function setAuthor(FrontendUser $author) {
+	public function setAuthor(FrontendUser $author)
+	{
 		$this->author = $author;
 	}
 
@@ -587,7 +621,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @return void
 	 */
-	protected function setLastPost(Post $lastPost) {
+	protected function setLastPost(Post $lastPost)
+	{
 		$this->lastPost = $lastPost;
 		$this->lastPostCrdate = $lastPost->getTimestamp();
 	}
@@ -599,7 +634,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @return void
 	 */
-	public function setSubject($subject) {
+	public function setSubject($subject)
+	{
 		$this->subject = $subject;
 	}
 
@@ -610,7 +646,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @return void
 	 */
-	public function setSolution(Post $solution) {
+	public function setSolution(Post $solution)
+	{
 		$this->solution = $solution;
 	}
 
@@ -621,7 +658,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @return void
 	 */
-	public function setForum(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum) {
+	public function setForum(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum)
+	{
 		$this->forum = $forum;
 	}
 
@@ -632,7 +670,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @return void
 	 */
-	public function setClosed($closed) {
+	public function setClosed($closed)
+	{
 		$this->closed = (boolean) $closed;
 	}
 
@@ -644,7 +683,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @return void
 	 */
-	public function setSticky($sticky) {
+	public function setSticky($sticky)
+	{
 		$this->sticky = (boolean) $sticky;
 	}
 
@@ -655,7 +695,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @return void
 	 */
-	public function setQuestion($question) {
+	public function setQuestion($question)
+	{
 		$this->question = (int) $question;
 	}
 
@@ -666,7 +707,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @return void
 	 */
-	public function setCriteriaOptions(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $criteriaOptions) {
+	public function setCriteriaOptions(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $criteriaOptions)
+	{
 		$this->criteriaOptions = $criteriaOptions;
 	}
 
@@ -677,7 +719,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @return void
 	 */
-	public function addTag(\Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag) {
+	public function addTag(\Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag)
+	{
 		$this->tags->attach($tag);
 	}
 
@@ -688,7 +731,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @return void
 	 */
-	public function removeTag(\Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag) {
+	public function removeTag(\Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag)
+	{
 		$this->tags->detach($tag);
 	}
 
@@ -699,7 +743,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @return void
 	 */
-	public function setTags(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $tags) {
+	public function setTags(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $tags)
+	{
 		$this->tags = $tags;
 	}
 
@@ -710,7 +755,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @return void
 	 */
-	public function addReader(FrontendUser $reader) {
+	public function addReader(FrontendUser $reader)
+	{
 		$this->readers->attach($reader);
 	}
 
@@ -721,7 +767,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @return void
 	 */
-	public function removeReader(FrontendUser $reader) {
+	public function removeReader(FrontendUser $reader)
+	{
 		$this->readers->detach($reader);
 	}
 
@@ -729,7 +776,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Mark this topic as unread for all users.
 	 * @return void
 	 */
-	public function removeAllReaders() {
+	public function removeAllReaders()
+	{
 		$this->readers = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
 
@@ -740,7 +788,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @return void
 	 */
-	public function addFavSubscriber(FrontendUser $user) {
+	public function addFavSubscriber(FrontendUser $user)
+	{
 		$this->favSubscribers->attach($user);
 	}
 
@@ -749,7 +798,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @param FrontendUser $user The subscriber to be removed.
 	 */
-	public function removeFavSubscriber(FrontendUser $user) {
+	public function removeFavSubscriber(FrontendUser $user)
+	{
 		$this->favSubscribers->detach($user);
 	}
 
@@ -760,7 +810,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @return void
 	 */
-	public function addSubscriber(FrontendUser $user) {
+	public function addSubscriber(FrontendUser $user)
+	{
 		$this->subscribers->attach($user);
 	}
 
@@ -770,7 +821,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @param FrontendUser $user The subscriber to be removed.
 	 */
-	public function removeSubscriber(FrontendUser $user) {
+	public function removeSubscriber(FrontendUser $user)
+	{
 		$this->subscribers->detach($user);
 	}
 }

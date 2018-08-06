@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model\User\Userfield;
 
 /*                                                                      *
@@ -29,7 +30,8 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
 /**
  * Abstract base class for additional user fields.
  */
-abstract class AbstractUserfield extends AbstractValueObject {
+abstract class AbstractUserfield extends AbstractValueObject
+{
 
 	/**
 	 * The name of the userfield.
@@ -49,7 +51,8 @@ abstract class AbstractUserfield extends AbstractValueObject {
 	 * Gets the field name.
 	 * @return string The field name.
 	 */
-	public function getName() {
+	public function getName()
+    {
 		return $this->name;
 	}
 
@@ -60,7 +63,8 @@ abstract class AbstractUserfield extends AbstractValueObject {
 	 *
 	 * @return void
 	 */
-	public function setName($name) {
+	public function setName($name)
+    {
 		$this->name = $name;
 	}
 
@@ -73,7 +77,8 @@ abstract class AbstractUserfield extends AbstractValueObject {
 	 *
 	 * @return string              The userfield value.
 	 */
-	public function getValueForUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
+	public function getValueForUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user)
+    {
 		if ($this->isMappedToUserObject()) {
 			$propertyNames = explode('|', $this->getUserObjectPropertyName());
 			$propertyValues = [];
@@ -98,7 +103,8 @@ abstract class AbstractUserfield extends AbstractValueObject {
 	 * @return boolean TRUE, if this userfield is mapped to a FrontendUser property,
 	 *                 otherwise FALSE.
 	 */
-	public function isMappedToUserObject() {
+	public function isMappedToUserObject()
+    {
 		return $this->mapToUserObject !== NULL;
 	}
 
@@ -107,7 +113,8 @@ abstract class AbstractUserfield extends AbstractValueObject {
 	 * name of the property this userfield is mapped to.
 	 * @return string The FrontendUser property name.
 	 */
-	public function getUserObjectPropertyName() {
+	public function getUserObjectPropertyName()
+    {
 		return $this->mapToUserObject;
 	}
 
@@ -118,7 +125,8 @@ abstract class AbstractUserfield extends AbstractValueObject {
 	 *
 	 * @return void
 	 */
-	public function setUserObjectPropertyName($property = NULL) {
+	public function setUserObjectPropertyName($property = NULL)
+    {
 		$this->mapToUserObject = $property;
 	}
 }

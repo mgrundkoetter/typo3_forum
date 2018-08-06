@@ -2,7 +2,6 @@
 
 namespace Mittwald\Typo3Forum\Domain\Model;
 
-
 use Mittwald\Typo3Forum\Configuration\ConfigurationBuilder;
 use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
 

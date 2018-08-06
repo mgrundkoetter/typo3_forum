@@ -1,5 +1,7 @@
 <?php
+
 namespace Mittwald\Typo3Forum\TextParser\Panel;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -23,7 +25,8 @@ namespace Mittwald\Typo3Forum\TextParser\Panel;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-class SmileyPanel extends AbstractPanel {
+class SmileyPanel extends AbstractPanel
+{
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Format\SmileyRepository
@@ -39,8 +42,8 @@ class SmileyPanel extends AbstractPanel {
 	/**
 	 * @return array
 	 */
-	public function getItems() {
-
+	public function getItems()
+    {
 		if ($this->smileys === NULL) {
 			$this->smileys = $this->smileyRepository->findAll();
 		}
@@ -58,5 +61,4 @@ class SmileyPanel extends AbstractPanel {
 			'replaceWith' => $this->smileys[0]->getSmileyShortcut(),
 			'dropMenu' => $result]];
 	}
-
 }

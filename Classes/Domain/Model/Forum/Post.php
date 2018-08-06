@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 
 /* *
@@ -36,7 +37,8 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  * A forum post. Forum posts are submitted to the access control mechanism and can be
  * subscribed by users.
  */
-class Post extends AbstractEntity implements AccessibleInterface, NotifiableInterface {
+class Post extends AbstractEntity implements AccessibleInterface, NotifiableInterface
+{
 
 	/**
 	 * The post text.
@@ -106,7 +108,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 *
 	 * @param string $text The post text.
 	 */
-	public function __construct($text = '') {
+	public function __construct($text = '')
+	{
 		$this->attachments = new ObjectStorage();
 		$this->supporters = new ObjectStorage();
 		$this->crdate = new \DateTime();
@@ -118,7 +121,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 *
 	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser> All subscribers of this forum.
 	 */
-	public function getSupporters() {
+	public function getSupporters()
+	{
 		return $this->supporters;
 	}
 
@@ -126,7 +130,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * Gets the helpful count of this post.
 	 * @return integer The helpful count.
 	 */
-	public function getHelpfulCount() {
+	public function getHelpfulCount()
+	{
 		return $this->helpfulCount;
 	}
 
@@ -134,7 +139,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * Gets the text.
 	 * @return string The text
 	 */
-	public function getText() {
+	public function getText()
+	{
 		return $this->text;
 	}
 
@@ -142,7 +148,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * Gets the post name. This is just an alias for the topic->getTitle method.
 	 * @return string The post name.
 	 */
-	public function getName() {
+	public function getName()
+	{
 		return $this->topic->getTitle();
 	}
 
@@ -150,7 +157,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * Alias for getText(). Necessary to implement the NotifiableInterface.
 	 * @return string The post text.
 	 */
-	public function getDescription() {
+	public function getDescription()
+	{
 		return $this->getText();
 	}
 
@@ -158,7 +166,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * Gets the post author.
 	 * @return FrontendUser author
 	 */
-	public function getAuthor() {
+	public function getAuthor()
+	{
 		if ($this->author instanceof LazyLoadingProxy) {
 			$this->author->_loadRealInstance();
 		}
@@ -178,7 +187,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * users.
 	 * @return string The author's username.
 	 */
-	public function getAuthorName() {
+	public function getAuthorName()
+	{
 		if ($this->getAuthor()->isAnonymous()) {
 			return $this->authorName;
 		} else {
@@ -190,7 +200,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * Gets the topic.
 	 * @return Topic A topic
 	 */
-	public function getTopic() {
+	public function getTopic()
+	{
 		return $this->topic;
 	}
 
@@ -198,7 +209,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * Gets the forum.
 	 * @return Forum
 	 */
-	public function getForum() {
+	public function getForum()
+	{
 		return $this->topic->getForum();
 	}
 
@@ -206,7 +218,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * Gets the post's timestamp.
 	 * @return \DateTime
 	 */
-	public function getTimestamp() {
+	public function getTimestamp()
+	{
 		return $this->crdate;
 	}
 
@@ -214,7 +227,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * Gets the post's crdate.
 	 * @return \DateTime
 	 */
-	public function getCrdate() {
+	public function getCrdate()
+	{
 		return $this->crdate;
 	}
 
@@ -222,7 +236,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * Gets the post's attachments.
 	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Attachment>
 	 */
-	public function getAttachments() {
+	public function getAttachments()
+	{
 		return $this->attachments;
 	}
 
@@ -235,7 +250,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 *
 	 * @return boolean
 	 */
-	protected function isPropertyDirty($previousValue, $currentValue) {
+	protected function isPropertyDirty($previousValue, $currentValue)
+	{
 		if ($currentValue InstanceOf Forum || $currentValue InstanceOf Topic) {
 			return FALSE;
 		} else {
@@ -252,7 +268,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * @param string $accessType
 	 * @return boolean
 	 */
-	public function checkAccess(FrontendUser $user = NULL, $accessType = Access::TYPE_READ) {
+	public function checkAccess(FrontendUser $user = NULL, $accessType = Access::TYPE_READ)
+	{
 		switch ($accessType) {
 			case Access::TYPE_EDIT_POST:
 			case Access::TYPE_DELETE_POST:
@@ -275,7 +292,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * @param string $operation
 	 * @return boolean TRUE, if the user is allowed to edit this post, otherwise FALSE.
 	 */
-	public function checkEditOrDeletePostAccess(FrontendUser $user, $operation) {
+	public function checkEditOrDeletePostAccess(FrontendUser $user, $operation)
+	{
 		if ($user === NULL || $user->isAnonymous()) {
 			return FALSE;
 		} else {
@@ -303,7 +321,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * @return void
 	 * @api
 	 */
-	public function setHelpfulCount($count) {
+	public function setHelpfulCount($count)
+	{
 		$this->helpfulCount = $count;
 	}
 
@@ -314,7 +333,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 *
 	 * @return void
 	 */
-	public function setAuthor(FrontendUser $author) {
+	public function setAuthor(FrontendUser $author)
+	{
 		if ($author->isAnonymous()) {
 			$this->author = NULL;
 		} else {
@@ -327,7 +347,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 *
 	 * @param $authorName string The author's name.
 	 */
-	public function setAuthorName($authorName) {
+	public function setAuthorName($authorName)
+	{
 		$this->authorName = $authorName;
 	}
 
@@ -338,7 +359,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 *
 	 * @return void
 	 */
-	public function setText($text) {
+	public function setText($text)
+	{
 		$this->text = $text;
 		// Reset the rendered text. It will be filled again when the post
 		// is rendered.
@@ -353,7 +375,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 *
 	 * @return void
 	 */
-	public function setAttachments(ObjectStorage $attachments) {
+	public function setAttachments(ObjectStorage $attachments)
+	{
 		$this->attachments = $attachments;
 	}
 
@@ -363,7 +386,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * @param Attachment $attachments The attachment.
 	 * @return void
 	 */
-	public function addAttachments(Attachment $attachments) {
+	public function addAttachments(Attachment $attachments)
+	{
 		/* @var Attachment */
 		$this->attachments->attach($attachments);
 	}
@@ -374,7 +398,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * @param Attachment $attachment The attachment.
 	 * @return void
 	 */
-	public function removeAttachment(Attachment $attachment) {
+	public function removeAttachment(Attachment $attachment)
+	{
 		if (file_exists($attachment->getAbsoluteFilename())) {
 			unlink($attachment->getAbsoluteFilename());
 		}
@@ -387,7 +412,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * @param FrontendUser $supporter The user who is to be checked.
 	 * @return boolean TRUE, if the user did read this topic, otherwise FALSE.
 	 */
-	public function hasBeenSupportedByUser(FrontendUser $supporter = NULL) {
+	public function hasBeenSupportedByUser(FrontendUser $supporter = NULL)
+	{
 		return $supporter ? $this->supporters->contains($supporter) : TRUE;
 	}
 
@@ -395,7 +421,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * @param Topic $topic
 	 * @return void
 	 */
-	public function setTopic(Topic $topic) {
+	public function setTopic(Topic $topic)
+	{
 		$this->topic = $topic;
 	}
 
@@ -405,7 +432,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * @param FrontendUser $supporter The user who read this topic.
 	 * @return void
 	 */
-	public function addSupporter(FrontendUser $supporter) {
+	public function addSupporter(FrontendUser $supporter)
+	{
 		$this->setHelpfulCount($this->getHelpfulCount() + 1);
 		$this->supporters->attach($supporter);
 	}
@@ -417,7 +445,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 *
 	 * @return void
 	 */
-	public function removeSupporter(FrontendUser $supporter) {
+	public function removeSupporter(FrontendUser $supporter)
+	{
 		$this->setHelpfulCount($this->getHelpfulCount() - 1);
 		$this->supporters->detach($supporter);
 	}
@@ -426,8 +455,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * Mark this topic as unread for all users.
 	 * @return void
 	 */
-	public function removeAllSupporters() {
+	public function removeAllSupporters()
+	{
 		$this->supporters = new ObjectStorage();
 	}
-
 }

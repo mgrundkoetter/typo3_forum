@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Validator\Forum;
 
 /*                                                                      *
@@ -26,8 +27,8 @@ namespace Mittwald\Typo3Forum\Domain\Validator\Forum;
 
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 
-class TagValidator extends AbstractValidator {
-
+class TagValidator extends AbstractValidator
+{
 
 	/**
 	 * An instance of the tag repository.
@@ -43,7 +44,8 @@ class TagValidator extends AbstractValidator {
 	 * @param string $name
 	 * @return bool
 	 */
-	protected function isValid($name = "") {
+	protected function isValid($name = "")
+    {
 		$result = TRUE;
 
 		if (trim($name) === '') {

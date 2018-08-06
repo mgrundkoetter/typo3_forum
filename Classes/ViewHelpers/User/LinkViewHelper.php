@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\User;
 
 /*                                                                    - *
@@ -29,7 +30,8 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup;
 
-class LinkViewHelper extends AbstractViewHelper {
+class LinkViewHelper extends AbstractViewHelper
+{
 
 	/**
 	 * @var array
@@ -41,7 +43,8 @@ class LinkViewHelper extends AbstractViewHelper {
      *
      * @throws \TYPO3\CMS\Fluid\Core\ViewHelper\Exception\InvalidVariableException
      */
-	public function initialize() {
+	public function initialize()
+    {
 		parent::initialize();
 		$this->settings = $this->templateVariableContainer->get('settings');
 	}
@@ -51,7 +54,8 @@ class LinkViewHelper extends AbstractViewHelper {
      *
      * @throws \TYPO3\CMS\Fluid\Core\ViewHelper\Exception
      */
-	public function initializeArguments() {
+	public function initializeArguments()
+    {
 		parent::initializeArguments();
 		$this->registerArgument('class', 'string', 'CSS class.');
 		$this->registerArgument('style', 'string', 'CSS inline styles.');
@@ -63,7 +67,8 @@ class LinkViewHelper extends AbstractViewHelper {
      * @param bool $showOnline
      * @return string
      */
-	public function render(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL, $showOnlineStatus = TRUE, $showOnline = FALSE) {
+	public function render(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL, $showOnlineStatus = TRUE, $showOnline = FALSE)
+    {
 		// if user anonymous: show only the username
 		if ($user->isAnonymous()) {
 			return $user->getUsername();
@@ -110,4 +115,3 @@ class LinkViewHelper extends AbstractViewHelper {
 		return $link;
 	}
 }
-

@@ -31,7 +31,7 @@ return [
 	],
 	'columns' => [
 		'sys_language_uid' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.language',
 			'config' => [
 				'type' => 'select',
@@ -43,6 +43,12 @@ return [
 					['LLL:EXT:lang/locallang_general.php:LGL.default_value', 0],
 				],
 			],
+            'default' => 0,
+            'fieldWizard' => [
+                'selectIcons' => [
+                    'disabled' => false,
+                ],
+            ],
 		],
 		't3ver_label' => [
 			'displayCond' => 'FIELD:t3ver_label:REQ:true',
@@ -53,14 +59,14 @@ return [
 			],
 		],
 		'hidden' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
 			'config' => [
 				'type' => 'check'
 			],
 		],
 		'crdate' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.crdate',
 			'config' => [
 				'type' => 'passthrough'
@@ -73,14 +79,14 @@ return [
 			],
 		],
 		'rendered_text' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'rendered_text',
 			'config' => [
 				'type' => 'text'
 			],
 		],
 		'author' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'author',
 			'config' => [
 				'type' => 'select',
@@ -91,14 +97,14 @@ return [
 			],
 		],
 		'author_name' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'author_name',
 			'config' => [
 				'type' => 'text'
 			],
 		],
 		'topic' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'topic',
 			'config' => [
 				'type' => 'select',
@@ -109,7 +115,7 @@ return [
 			],
 		],
 		'attachments' => [
-			'exclude' => 1,
+			'exclude' => true,
 			'label' => $lllPath . 'attachments',
 			'config' => [
 				'type' => 'inline',

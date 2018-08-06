@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\User;
 
 /*                                                                      *
@@ -46,8 +47,19 @@ class IfSubscribedViewHelper extends IfViewHelper
     public function initializeArguments()
     {
         parent::initializeArguments();
-        $this->registerArgument('object', 'Mittwald\\Typo3Forum\\Domain\\Model\\SubscribeableInterface', 'Object to check', true);
-        $this->registerArgument('user', 'Mittwald\\Typo3Forum\\Domain\\Model\\User\\FrontendUser', 'className which object has to be', false, null);
+        $this->registerArgument(
+            'object',
+            \Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface::class,
+            'Object to check',
+            true
+        );
+        $this->registerArgument(
+            'user',
+            \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser::class,
+            'className which object has to be',
+            false,
+            null
+        );
     }
 
     /**

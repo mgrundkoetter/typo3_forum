@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\TextParser\Panel;
 
 /*                                                                      *
@@ -24,7 +25,8 @@ namespace Mittwald\Typo3Forum\TextParser\Panel;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-interface MarkItUpExportableInterface {
+interface MarkItUpExportableInterface
+{
 
 	/**
 	 * @return array

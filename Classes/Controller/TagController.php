@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Controller;
 
 /*                                                                      *
@@ -27,7 +28,8 @@ namespace Mittwald\Typo3Forum\Controller;
 use Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Tag;
 
-class TagController extends AbstractController {
+class TagController extends AbstractController
+{
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository
@@ -45,7 +47,8 @@ class TagController extends AbstractController {
 	 * Listing all tags of this forum.
 	 * @param int $mine
 	 */
-	public function listAction($mine = 0) {
+	public function listAction($mine = 0)
+	{
 		$user = $this->getCurrentUser();
 		if ($mine == 0) {
 			$tags = $this->tagRepository->findAllOrderedByCounter();
@@ -63,7 +66,8 @@ class TagController extends AbstractController {
 	 * Show all topics of a given tag
 	 * @param Tag $tag
 	 */
-	public function showAction(Tag $tag) {
+	public function showAction(Tag $tag)
+	{
 		$this->view->assign('tag', $tag);
 		$this->view->assign('topics', $this->topicRepository->findAllTopicsWithGivenTag($tag));
 	}
@@ -71,7 +75,8 @@ class TagController extends AbstractController {
 	/**
 	 * @throws NotLoggedInException
 	 */
-	public function newAction() {
+	public function newAction()
+	{
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
 			throw new NotLoggedInException('You need to be logged in.', 1288084981);
@@ -85,7 +90,8 @@ class TagController extends AbstractController {
 	 * @validate $name \Mittwald\Typo3Forum\Domain\Validator\Forum\TagValidator
 	 * @throws NotLoggedInException
 	 */
-	public function createAction($name = '', $subscribe = '') {
+	public function createAction($name = '', $subscribe = '')
+	{
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
 			throw new NotLoggedInException("You need to be logged in.", 1288084981);
@@ -110,7 +116,8 @@ class TagController extends AbstractController {
 	 * List all subscribed tags of a user
 	 * @throws NotLoggedInException
 	 */
-	public function listUserTagsAction() {
+	public function listUserTagsAction()
+	{
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
 			throw new NotLoggedInException("You need to be logged in.", 1288084981);
@@ -123,7 +130,8 @@ class TagController extends AbstractController {
 	 * @param int $mine
 	 * @throws NotLoggedInException
 	 */
-	public function newUserTagAction(Tag $tag, $mine) {
+	public function newUserTagAction(Tag $tag, $mine)
+	{
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
 			throw new NotLoggedInException("You need to be logged in.", 1288084981);
@@ -138,7 +146,8 @@ class TagController extends AbstractController {
 	 * @param int $mine
 	 * @throws NotLoggedInException
 	 */
-	public function deleteUserTagAction(Tag $tag, $mine) {
+	public function deleteUserTagAction(Tag $tag, $mine)
+	{
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
 			throw new NotLoggedInException("You need to be logged in.", 1288084981);
@@ -152,7 +161,8 @@ class TagController extends AbstractController {
 	 * @param string $value
 	 * @return string as json array
 	 */
-	public function autoCompleteAction($value) {
+	public function autoCompleteAction($value)
+	{
 		$result = [];
 		$tagObj = $this->tagRepository->findTagLikeAName($value);
 		foreach ($tagObj as $tag) {
@@ -160,5 +170,4 @@ class TagController extends AbstractController {
 		}
 		return json_encode($result);
 	}
-
 }

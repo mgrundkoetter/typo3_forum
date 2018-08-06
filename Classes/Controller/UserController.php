@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Controller;
 
 /*                                                                      *
@@ -35,7 +36,8 @@ use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
-class UserController extends AbstractController {
+class UserController extends AbstractController
+{
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
@@ -82,14 +84,16 @@ class UserController extends AbstractController {
 	/**
 	 * Displays a list of all existing users.
 	 */
-	public function indexAction() {
+	public function indexAction()
+	{
 		$this->view->assign('users', $this->frontendUserRepository->findForIndex());
 	}
 
 	/**
 	 *  Listing Action.
 	 */
-	public function listAction() {
+	public function listAction()
+	{
 		$showPaginate = false;
 		switch ($this->settings['listUsers']) {
 			case 'activeUserWidget':
@@ -137,7 +141,8 @@ class UserController extends AbstractController {
 	 *
 	 * @throws NotLoggedInException
 	 */
-	public function listPostsAction(FrontendUser $user = NULL) {
+	public function listPostsAction(FrontendUser $user = NULL)
+	{
 		if ($user === NULL) {
 			$user = $this->getCurrentUser();
 		}
@@ -156,7 +161,8 @@ class UserController extends AbstractController {
 	 *
 	 * @throws NotLoggedInException
 	 */
-	public function listFavoritesAction(FrontendUser $user = NULL) {
+	public function listFavoritesAction(FrontendUser $user = NULL)
+	{
 		if ($user === NULL) {
 			$user = $this->getCurrentUser();
 		}
@@ -175,7 +181,8 @@ class UserController extends AbstractController {
 	 *
 	 * @throws NotLoggedInException
 	 */
-	public function listTopicsAction(FrontendUser $user = NULL) {
+	public function listTopicsAction(FrontendUser $user = NULL)
+	{
 		if ($user === NULL) {
 			$user = $this->getCurrentUser();
 		}
@@ -194,7 +201,8 @@ class UserController extends AbstractController {
 	 *
 	 * @throws NotLoggedInException
 	 */
-	public function listQuestionsAction(FrontendUser $user = NULL) {
+	public function listQuestionsAction(FrontendUser $user = NULL)
+	{
 		if ($user === NULL) {
 			$user = $this->getCurrentUser();
 		}
@@ -213,7 +221,8 @@ class UserController extends AbstractController {
 	 *
 	 * @throws NotLoggedInException
 	 */
-	public function listMessagesAction(FrontendUser $opponent = NULL) {
+	public function listMessagesAction(FrontendUser $opponent = NULL)
+	{
 		$user = $this->getCurrentUser();
 		if (!$user instanceof FrontendUser || $user->isAnonymous()) {
 			throw new NotLoggedInException('You need to be logged in to view your own posts.', 1288084981);
@@ -255,7 +264,8 @@ class UserController extends AbstractController {
 	 * @throws NotLoggedInException
 	 * @return void
 	 */
-	public function newMessageAction(FrontendUser $recipient = NULL) {
+	public function newMessageAction(FrontendUser $recipient = NULL)
+	{
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
 			throw new NotLoggedInException("You need to be logged in.", 1288084981);
@@ -276,7 +286,8 @@ class UserController extends AbstractController {
 	 * @throws NotLoggedInException
 	 * @validate $recipient \Mittwald\Typo3Forum\Domain\Validator\User\PrivateMessageRecipientValidator
 	 */
-	public function createMessageAction($recipient, $text) {
+	public function createMessageAction($recipient, $text)
+	{
 		$user = $this->getCurrentUser();
 		$recipient = $this->frontendUserRepository->findOneByUsername($recipient);
 		if ($user->isAnonymous()) {
@@ -298,7 +309,8 @@ class UserController extends AbstractController {
 	 *
 	 * @throws NotLoggedInException
 	 */
-	public function listNotificationsAction() {
+	public function listNotificationsAction()
+	{
 		/** @var FrontendUser $user */
 		$user = $this->authenticationService->getUser();
 		if ($user->isAnonymous()) {
@@ -327,7 +339,8 @@ class UserController extends AbstractController {
 	 * @throws NotLoggedInException
 	 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
 	 */
-	public function disableUserAction(FrontendUser $user = NULL) {
+	public function disableUserAction(FrontendUser $user = NULL)
+	{
 
 		$currentUser = $this->getCurrentUser();
 		if ($currentUser->isAnonymous()) {
@@ -353,7 +366,8 @@ class UserController extends AbstractController {
 	 *
 	 * @param FrontendUser $user The user whose profile is to be displayed.
 	 */
-	public function showAction(FrontendUser $user = NULL) {
+	public function showAction(FrontendUser $user = NULL)
+	{
 		if ($user === NULL) {
 			$this->redirect('show', NULL, NULL, ['user' => $this->getCurrentUser()]);
 		}
@@ -384,7 +398,8 @@ class UserController extends AbstractController {
 	 * @throws NotLoggedInException
 	 * @throws InvalidArgumentValueException
 	 */
-	public function subscribeAction(Forum $forum = NULL, Topic $topic = NULL, $unsubscribe = FALSE) {
+	public function subscribeAction(Forum $forum = NULL, Topic $topic = NULL, $unsubscribe = FALSE)
+	{
 
 		// Validate arguments
 		if ($forum === NULL && $topic === NULL) {
@@ -423,7 +438,8 @@ class UserController extends AbstractController {
 	 * @throws InvalidArgumentValueException
 	 * @throws NotLoggedInException
 	 */
-	public function favSubscribeAction(Forum $forum = NULL, Topic $topic = NULL, $unsubscribe = FALSE) {
+	public function favSubscribeAction(Forum $forum = NULL, Topic $topic = NULL, $unsubscribe = FALSE)
+	{
 
 		// Validate arguments
 		if ($forum === NULL && $topic === NULL) {
@@ -460,7 +476,8 @@ class UserController extends AbstractController {
 	 *
 	 * @throws NotLoggedInException
 	 */
-	public function listSubscriptionsAction() {
+	public function listSubscriptionsAction()
+	{
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
 			throw new NotLoggedInException('You need to be logged in to view your own subscriptions!', 1335120249);
@@ -479,7 +496,8 @@ class UserController extends AbstractController {
 	 * @return void
 	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
 	 */
-	public function dashboardAction() {
+	public function dashboardAction()
+	{
         $user = $this->getCurrentUser();
         if (!is_object($user) || $user->isAnonymous()) {
 			throw new NotLoggedInException('You need to be logged in to view your dashboard!', 1335120249);
@@ -499,7 +517,8 @@ class UserController extends AbstractController {
 	 * @param int $order
 	 * @return void
 	 */
-	public function searchUserAction($searchValue = NULL, $filter = NULL, $order = NULL) {
+	public function searchUserAction($searchValue = NULL, $filter = NULL, $order = NULL)
+	{
 	}
 
 	/**
@@ -509,7 +528,8 @@ class UserController extends AbstractController {
 	 *
 	 * @param SubscribeableInterface $object A subscribeable object, i.e. either a forum or a topic.
 	 */
-	protected function redirectToSubscriptionObject(SubscribeableInterface $object) {
+	protected function redirectToSubscriptionObject(SubscribeableInterface $object)
+	{
 		if ($object instanceof Forum) {
 			$this->redirect('show', 'Forum', NULL, ['forum' => $object]);
 		}
@@ -526,10 +546,10 @@ class UserController extends AbstractController {
 	 * @param bool $unsubscribe
 	 * @return string A flash message.
 	 */
-	protected function getSubscriptionFlashMessage(SubscribeableInterface $object, $unsubscribe = FALSE) {
+	protected function getSubscriptionFlashMessage(SubscribeableInterface $object, $unsubscribe = FALSE)
+	{
 		$type = array_pop(explode('_', get_class($object)));
 		$key = 'User_' . ($unsubscribe ? 'Uns' : 'S') . 'ubscribe_' . $type . '_Success';
 		return LocalizationUtility::translate($key, 'Typo3Forum', [$object->getTitle()]);
 	}
-
 }

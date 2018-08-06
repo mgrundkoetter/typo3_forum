@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Exception;
 
 /*                                                                      *
@@ -24,8 +25,8 @@ namespace Mittwald\Typo3Forum\Domain\Exception;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-class InvalidOperationException extends AbstractException {
-
+class InvalidOperationException extends AbstractException
+{
 
 	/**
 	 * Exception message.

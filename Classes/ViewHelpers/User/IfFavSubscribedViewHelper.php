@@ -1,5 +1,7 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\User;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -26,13 +28,14 @@ namespace Mittwald\Typo3Forum\ViewHelpers\User;
 use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\ViewHelpers\IfViewHelper;
+use TYPO3Fluid\Fluid\ViewHelpers\IfViewHelper;
 
 /**
  * ViewHelper that renders its contents, when a certain user has subscribed
  * a specific object.
  */
-class IfFavSubscribedViewHelper extends IfViewHelper {
+class IfFavSubscribedViewHelper extends IfViewHelper
+{
 
 	/**
 	 * Renders the contents of this view helper, when a user has subscribed a
@@ -44,7 +47,7 @@ class IfFavSubscribedViewHelper extends IfViewHelper {
 	 */
 	public function render(SubscribeableInterface $object, FrontendUser $user = NULL) {
 		if ($user === NULL) {
-			$user =& GeneralUtility::makeInstance('Mittwald\\Typo3Forum\\Domain\\Repository\\User\\FrontendUserRepository')->findCurrent();
+			$user =& GeneralUtility::makeInstance(\Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository::class)->findCurrent();
 		}
 		foreach ($object->getSubscribers() As $subscriber) {
 			if ($subscriber->getUid() == $user->getUid()) {

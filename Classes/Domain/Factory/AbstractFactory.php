@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Factory;
 
 /*                                                                    - *
@@ -28,7 +29,8 @@ use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject;
 
-abstract class AbstractFactory implements SingletonInterface {
+abstract class AbstractFactory implements SingletonInterface
+{
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
@@ -57,7 +59,8 @@ abstract class AbstractFactory implements SingletonInterface {
 	/**
 	 *
 	 */
-	public function initializeObject() {
+	public function initializeObject()
+	{
 		$this->settings = $this->configurationBuilder->getSettings();
 	}
 
@@ -66,7 +69,8 @@ abstract class AbstractFactory implements SingletonInterface {
 	 *
 	 * @return string The class name
 	 */
-	protected function getClassName() {
+	protected function getClassName()
+	{
 		$thisClass = get_class($this);
 		$thisClass = preg_replace('/Factory/', 'Model', $thisClass);
 		$thisClass = preg_replace('/Model$/', '', $thisClass);
@@ -79,7 +83,8 @@ abstract class AbstractFactory implements SingletonInterface {
 	 *
 	 * @return AbstractDomainObject An instance of the domain object.
 	 */
-	protected function getClassInstance() {
+	protected function getClassInstance()
+	{
 		return $this->objectManager->get($this->getClassName());
 	}
 
@@ -89,8 +94,8 @@ abstract class AbstractFactory implements SingletonInterface {
 	 *
 	 * @return FrontendUser The user that is currently logged in.
 	 */
-	protected function getCurrentUser() {
+	protected function getCurrentUser()
+	{
 		return $this->frontendUserRepository->findCurrent();
 	}
-
 }

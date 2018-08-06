@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Scheduler;
 
 /*                                                                    - *
@@ -30,7 +31,8 @@ use TYPO3\CMS\Scheduler\Controller\SchedulerModuleController;
 /**
  * Additional field provider for the notification generator task
  */
-class StatsSummaryAdditionalFieldProvider implements AdditionalFieldProviderInterface {
+class StatsSummaryAdditionalFieldProvider implements AdditionalFieldProviderInterface
+{
 
 	/**
 	 * @param  array $taskInfo : reference to the array containing the info used in the add/edit form
@@ -40,7 +42,8 @@ class StatsSummaryAdditionalFieldProvider implements AdditionalFieldProviderInte
 	 *                                    The array is multidimensional, keyed to the task class name and each field's id
 	 *                                    For each field it provides an associative sub-array with the following:
 	 */
-	public function getAdditionalFields(array &$taskInfo, $task, SchedulerModuleController $schedulerModule) {
+	public function getAdditionalFields(array &$taskInfo, $task, SchedulerModuleController $schedulerModule)
+    {
 		$additionalFields = [];
 
 		if ($schedulerModule->CMD == 'add') {
@@ -87,7 +90,8 @@ class StatsSummaryAdditionalFieldProvider implements AdditionalFieldProviderInte
 	 * @param  SchedulerModuleController $schedulerModule : reference to the calling object (Scheduler's BE module)
 	 * @return  boolean True if validation was ok (or selected class is not relevant), FALSE otherwise
 	 */
-	public function validateAdditionalFields(array &$submittedData, SchedulerModuleController $schedulerModule) {
+	public function validateAdditionalFields(array &$submittedData, SchedulerModuleController $schedulerModule)
+    {
 		$submittedData['StatsSummary_forumPids'] = htmlspecialchars($submittedData['StatsSummary_forumPids']);
 		$submittedData['StatsSummary_userPids'] = htmlspecialchars($submittedData['StatsSummary_userPids']);
 		$submittedData['StatsSummary_statsPid'] = (int)$submittedData['StatsSummary_statsPid'];
@@ -101,7 +105,8 @@ class StatsSummaryAdditionalFieldProvider implements AdditionalFieldProviderInte
 	 * @param array $submittedData : array containing the data submitted by the user
 	 * @param \TYPO3\CMS\Scheduler\Task\AbstractTask $task : reference to the current task object
 	 */
-	public function saveAdditionalFields(array $submittedData, \TYPO3\CMS\Scheduler\Task\AbstractTask $task) {
+	public function saveAdditionalFields(array $submittedData, \TYPO3\CMS\Scheduler\Task\AbstractTask $task)
+    {
 		$task->setUserPids($submittedData['StatsSummary_userPids']);
 		$task->setForumPids($submittedData['StatsSummary_forumPids']);
 		$task->setStatsPid($submittedData['StatsSummary_statsPid']);

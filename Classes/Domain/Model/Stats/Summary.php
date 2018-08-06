@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model\Stats;
 
 /*                                                                    - *
@@ -26,7 +27,8 @@ namespace Mittwald\Typo3Forum\Domain\Model\Stats;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-class Summary extends AbstractEntity {
+class Summary extends AbstractEntity
+{
 
 	/**
 	 * Type of summary
@@ -52,14 +54,16 @@ class Summary extends AbstractEntity {
 	 * Get the type of this summary
 	 * @return string
 	 */
-	public function getType() {
+	public function getType()
+    {
 		return $this->type;
 	}
 
 	/**
 	 * @param string $type
 	 */
-	public function setType($type) {
+	public function setType($type)
+    {
 		$this->type = $type;
 	}
 
@@ -67,14 +71,16 @@ class Summary extends AbstractEntity {
 	 * Get the amount of this summary
 	 * @return int
 	 */
-	public function getAmount() {
+	public function getAmount()
+    {
 		return $this->amount;
 	}
 
 	/**
 	 * @param int $amount
 	 */
-	public function setAmount($amount) {
+	public function setAmount($amount)
+    {
 		$this->amount = $amount;
 	}
 
@@ -82,7 +88,8 @@ class Summary extends AbstractEntity {
 	 * Get the amount of this summary nicely formatted
 	 * @return string
 	 */
-	public function getAmountNice() {
+	public function getAmountNice()
+    {
 		return number_format($this->amount, 0, '', '.');
 	}
 
@@ -90,7 +97,8 @@ class Summary extends AbstractEntity {
 	 * Get the timestamp of this summary
 	 * @return int
 	 */
-	public function getTstamp() {
+	public function getTstamp()
+    {
 		return $this->tstamp;
 	}
 }

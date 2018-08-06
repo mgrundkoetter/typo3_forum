@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
 
 /*                                                                    - *
@@ -33,7 +34,8 @@ namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
  * These report objects can be assigned to moderators ans be organized in
  * different workflow stages. Moderators can post comments to each report.
  */
-class PostReport extends Report {
+class PostReport extends Report
+{
 
 	/**
 	 * A set of comments that are assigned to this report.
@@ -45,7 +47,8 @@ class PostReport extends Report {
 	 * Gets the topic to which the reported post belongs to.
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic The topic.
 	 */
-	public function getTopic() {
+	public function getTopic()
+    {
 		return $this->post->getTopic();
 	}
 
@@ -53,7 +56,8 @@ class PostReport extends Report {
 	 * Gets the topic to which the reported post belongs to.
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Post The topic.
 	 */
-	public function getPost() {
+	public function getPost()
+    {
 		return $this->post;
 	}
 
@@ -62,8 +66,8 @@ class PostReport extends Report {
 	 *
 	 * @return void
 	 */
-	public function setPost(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post) {
+	public function setPost(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post)
+    {
 		$this->post = $post;
 	}
-
 }

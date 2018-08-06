@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Scheduler;
 
 /*                                                                    - *
@@ -31,7 +32,8 @@ use TYPO3\CMS\Scheduler\Task\AbstractTask;
 /**
  * Additional field provider for the notification generator task
  */
-class NotificationAdditionalFieldProvider implements AdditionalFieldProviderInterface {
+class NotificationAdditionalFieldProvider implements AdditionalFieldProviderInterface
+{
 
 	/**
 	 *
@@ -42,7 +44,8 @@ class NotificationAdditionalFieldProvider implements AdditionalFieldProviderInte
 	 *                                    The array is multidimensional, keyed to the task class name and each field's id
 	 *                                    For each field it provides an associative sub-array with the following:
 	 */
-	public function getAdditionalFields(array &$taskInfo, $task, SchedulerModuleController $schedulerModule) {
+	public function getAdditionalFields(array &$taskInfo, $task, SchedulerModuleController $schedulerModule)
+    {
 		$additionalFields = [];
 
 		if ($schedulerModule->CMD == 'add') {
@@ -89,7 +92,8 @@ class NotificationAdditionalFieldProvider implements AdditionalFieldProviderInte
 	 * @param SchedulerModuleController $schedulerModule : reference to the calling object (Scheduler's BE module)
 	 * @return boolean True if validation was ok (or selected class is not relevant), FALSE otherwise
 	 */
-	public function validateAdditionalFields(array &$submittedData, SchedulerModuleController $schedulerModule) {
+	public function validateAdditionalFields(array &$submittedData, SchedulerModuleController $schedulerModule)
+    {
 		$submittedData['Notification_forumPids'] = htmlspecialchars($submittedData['Notification_forumPids']);
 		$submittedData['Notification_userPids'] = htmlspecialchars($submittedData['Notification_userPids']);
 		$submittedData['Notification_notificationPid'] = (int)$submittedData['Notification_notificationPid'];
@@ -103,7 +107,8 @@ class NotificationAdditionalFieldProvider implements AdditionalFieldProviderInte
 	 * @param array $submittedData : array containing the data submitted by the user
 	 * @param AbstractTask $task : reference to the current task object
 	 */
-	public function saveAdditionalFields(array $submittedData, AbstractTask $task) {
+	public function saveAdditionalFields(array $submittedData, AbstractTask $task)
+    {
 		$task->setUserPids($submittedData['Notification_userPids']);
 		$task->setForumPids($submittedData['Notification_forumPids']);
 		$task->setNotificationPid($submittedData['Notification_notificationPid']);

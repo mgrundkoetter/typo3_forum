@@ -1,10 +1,12 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Scheduler;
 
 use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Scheduler\Task\AbstractTask;
 
-class DatabaseMigrator extends AbstractTask {
+class DatabaseMigrator extends AbstractTask
+{
 
 	/**
 	 * @var DatabaseConnection
@@ -119,7 +121,8 @@ class DatabaseMigrator extends AbstractTask {
 	/**
 	 *
 	 */
-	protected function migrateTables() {
+	protected function migrateTables()
+    {
 		foreach ($this->legacyTableNames as $legacyTableName) {
 			$newTableName = str_replace('_mmforum_', '_typo3forum_', $legacyTableName);
 			// special case for tx_typo3forum_domain_model_moderation_reportworkflowstatus_followup which is too long for MySQL (>64 characters)
@@ -158,7 +161,8 @@ class DatabaseMigrator extends AbstractTask {
 	/**
 	 *
 	 */
-	protected function migrateFeUsersFields() {
+	protected function migrateFeUsersFields()
+    {
 		$users = $this->databaseConnection->exec_SELECTgetRows('*', 'fe_users', '1=1');
 		foreach ($users as $user) {
 			foreach($this->legacyFeUsersFields as $legacyFeUsersField) {
@@ -175,7 +179,8 @@ class DatabaseMigrator extends AbstractTask {
 	/**
 	 *
 	 */
-	protected function migrateFeGroupsFields() {
+	protected function migrateFeGroupsFields()
+    {
 		$groups = $this->databaseConnection->exec_SELECTgetRows('*', 'fe_groups', '1=1');
 		foreach ($groups as $group) {
 			foreach($this->legacyFeGroupsFields as $legacyFeGroupsField) {
@@ -192,7 +197,8 @@ class DatabaseMigrator extends AbstractTask {
 	/**
 	 *
 	 */
-	protected function migrateFeUsersTypes() {
+	protected function migrateFeUsersTypes()
+    {
 		$users = $this->databaseConnection->exec_SELECTgetRows('*', 'fe_users', '1=1');
 		foreach ($users as $user) {
 			foreach($this->legacyFeUsersTypes as $legacyFeUsersType) {
@@ -212,7 +218,8 @@ class DatabaseMigrator extends AbstractTask {
 	/**
 	 *
 	 */
-	protected function migrateTtContentPlugins() {
+	protected function migrateTtContentPlugins()
+    {
 		$contentElements = $this->databaseConnection->exec_SELECTgetRows('*', 'tt_content', '1=1');
 		foreach ($contentElements as $contentElement) {
 			foreach ($this->legacyTtContentListTypes as $legacyTtContentListType) {
@@ -229,7 +236,8 @@ class DatabaseMigrator extends AbstractTask {
 	 * @param string $tableName
 	 * @return bool
 	 */
-	protected function tableExists($tableName) {
+	protected function tableExists($tableName)
+    {
 		$res = $this->databaseConnection->sql_query(sprintf('SHOW TABLES LIKE \'%s\'', $tableName));
 		return (bool) $this->databaseConnection->sql_num_rows($res);
 	}
@@ -238,15 +246,15 @@ class DatabaseMigrator extends AbstractTask {
 	 * @param string $tableName
 	 * @return bool
 	 */
-	protected function tableIsEmpty($tableName) {
+	protected function tableIsEmpty($tableName)
+    {
 		return 0 === $this->databaseConnection->exec_SELECTcountRows('*', $tableName);
 	}
 
 	/**
 	 * @param string $message
 	 */
-	protected function log($message) {
-
+	protected function log($message)
+    {
 	}
-
 }

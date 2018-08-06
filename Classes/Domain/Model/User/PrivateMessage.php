@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Domain\Model\User;
 
 /*                                                                      *
@@ -27,7 +28,8 @@ namespace Mittwald\Typo3Forum\Domain\Model\User;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 
-class PrivateMessage extends AbstractEntity {
+class PrivateMessage extends AbstractEntity
+{
 
 	const TYPE_SENDER = 0;
 
@@ -80,7 +82,8 @@ class PrivateMessage extends AbstractEntity {
 	 * Get the date this message has been sent
 	 * @return \DateTime
 	 */
-	public function getCrdate() {
+	public function getCrdate()
+    {
 		return $this->crdate;
 	}
 
@@ -90,7 +93,8 @@ class PrivateMessage extends AbstractEntity {
 	 * @param \DateTime $crdate
 	 * @return void
 	 */
-	public function setCrdate(\DateTime $crdate) {
+	public function setCrdate(\DateTime $crdate)
+    {
 		$this->crdate = $crdate;
 	}
 
@@ -98,7 +102,8 @@ class PrivateMessage extends AbstractEntity {
 	 * Get the type of this pm
 	 * @return int
 	 */
-	public function getType() {
+	public function getType()
+    {
 		return $this->type;
 	}
 
@@ -108,7 +113,8 @@ class PrivateMessage extends AbstractEntity {
 	 * @param int $type
 	 * @return void
 	 */
-	public function setType($type) {
+	public function setType($type)
+    {
 		$this->type = $type;
 	}
 
@@ -116,7 +122,8 @@ class PrivateMessage extends AbstractEntity {
 	 * Get the User who read this message
 	 * @return FrontendUser The User who read this message
 	 */
-	public function getFeuser() {
+	public function getFeuser()
+    {
 		if ($this->feuser instanceof LazyLoadingProxy) {
 			$this->feuser->_loadRealInstance();
 		}
@@ -134,7 +141,8 @@ class PrivateMessage extends AbstractEntity {
 	 *
 	 * @return void
 	 */
-	public function setFeuser(FrontendUser $feuser) {
+	public function setFeuser(FrontendUser $feuser)
+    {
 		$this->feuser = $feuser;
 	}
 
@@ -147,7 +155,8 @@ class PrivateMessage extends AbstractEntity {
 	 * Get the other User who is involved in this message
 	 * @return FrontendUser The other User who is involved in this message
 	 */
-	public function getOpponent() {
+	public function getOpponent()
+    {
 		if ($this->opponent instanceof LazyLoadingProxy) {
 			$this->opponent->_loadRealInstance();
 		}
@@ -165,7 +174,8 @@ class PrivateMessage extends AbstractEntity {
 	 *
 	 * @return void
 	 */
-	public function setOpponent(FrontendUser $opponent) {
+	public function setOpponent(FrontendUser $opponent)
+    {
 		$this->opponent = $opponent;
 	}
 
@@ -173,7 +183,8 @@ class PrivateMessage extends AbstractEntity {
 	 * Get if the recipient already read this message
 	 * @return int The flag
 	 */
-	public function getUserRead() {
+	public function getUserRead()
+    {
 		return (int) $this->userRead;
 	}
 
@@ -184,7 +195,8 @@ class PrivateMessage extends AbstractEntity {
 	 *
 	 * @return void
 	 */
-	public function setUserRead($userRead) {
+	public function setUserRead($userRead)
+    {
 		$this->userRead = $userRead;
 	}
 
@@ -192,7 +204,8 @@ class PrivateMessage extends AbstractEntity {
 	 * Gets the message of this pm
 	 * @return PrivateMessageText
 	 */
-	public function getMessage() {
+	public function getMessage()
+    {
 		return $this->message;
 	}
 
@@ -201,7 +214,8 @@ class PrivateMessage extends AbstractEntity {
 	 *
 	 * @param PrivateMessageText $message
 	 */
-	public function setMessage(PrivateMessageText $message) {
+	public function setMessage(PrivateMessageText $message)
+    {
 		$this->message = $message;
 	}
 }
