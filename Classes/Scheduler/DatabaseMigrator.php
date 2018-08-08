@@ -115,7 +115,7 @@ class DatabaseMigrator extends AbstractTask
 		$this->migrateFeUsersFields();
 		$this->migrateFeUsersTypes();
 		$this->migrateTtContentPlugins();
-		return TRUE;
+		return true;
 	}
 
 	/**

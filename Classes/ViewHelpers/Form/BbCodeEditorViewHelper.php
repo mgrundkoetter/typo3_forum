@@ -150,15 +150,16 @@ class BbCodeEditorViewHelper extends TextareaViewHelper
 				$settings[] = ['separator' => '---------------'];
 			}
 		}
-
-		$settings[] = ['name'      => 'Preview',
-		                    'className' => 'preview',
-		                    'call'      => 'preview'];
-
+		$settings[] = [
+            'name'      => 'Preview',
+		    'className' => 'preview',
+		    'call'      => 'preview'
+        ];
 		$editorSettings = [
 			'previewParserPath' => 'index.php?eID=typo3_forum&tx_typo3forum_ajax[controller]=Post&tx_typo3forum_ajax[action]=preview&id=' . $GLOBALS['TSFE']->id,
 			'previewParserVar'  => 'tx_typo3forum_ajax[text]',
-			'markupSet'         => $settings];
+			'markupSet'         => $settings
+        ];
 
 		if (isset($this->configuration['editorSettings.']) && is_array($this->configuration['editorSettings.'])) {
 			$editorSettings = array_merge($editorSettings, $this->configuration['editorSettings.']);

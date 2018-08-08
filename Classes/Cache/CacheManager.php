@@ -27,6 +27,7 @@ namespace Mittwald\Typo3Forum\Cache;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
+use Mittwald\Typo3Forum\Cache\Cache;
 
 class CacheManager
 {
@@ -34,7 +35,10 @@ class CacheManager
 	/**
 	 * @var array
 	 */
-	protected $fileCachePaths = ['typo3temp/typo3_forum', 'typo3temp/typo3_forum/gravatar'];
+	protected $fileCachePaths = [
+        'typo3temp/typo3_forum',
+        'typo3temp/typo3_forum/gravatar'
+    ];
 
 	/**
 	 *
@@ -42,8 +46,8 @@ class CacheManager
 	public function clearAll()
 	{
 		/** @var ObjectManager $objectManager */
-		$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-		$cache = $objectManager->get('Mittwald\\Typo3Forum\\Cache\\Cache');
+		$objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+		$cache = $objectManager->get(Cache::class);
 		$cache->flush();
 		$this->deleteTemporaryFiles();
 	}

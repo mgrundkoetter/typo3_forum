@@ -24,13 +24,13 @@ namespace Mittwald\Typo3Forum\ViewHelpers\User;
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
+
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield;
 use Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield;
-use Mittwald\Typo3Forum\ViewHelpers\CObjectAwareViewHelperTrait;
+use Mittwald\Typo3Forum\ViewHelpers\CObjectAwareViewHelperTrait; // TODO: needed?
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
-
 
 /**
  *
@@ -41,13 +41,12 @@ class UserfieldViewHelper extends AbstractViewHelper
 {
 
 	/**
-	 *
 	 * Renders the userfield value.
 	 *
 	 * @param FrontendUser $user The user for whom the userfield value is to be rendered.
 	 * @param AbstractUserfield $userfield The userfield
-	 * @return string HTML content
 	 *
+	 * @return string HTML content
 	 */
 	public function render(FrontendUser $user, AbstractUserfield $userfield)
     {
@@ -56,16 +55,19 @@ class UserfieldViewHelper extends AbstractViewHelper
 		}
 		$data = $userfield->getValueForUser($user);
 		$data = $this->convertDataToString($data);
-		return $this->getCObjectViewHelper()->render($userfield->getTyposcriptPath() . '.output', implode(' ', $data));
+		return $this->getCObjectViewHelper()
+            ->render(
+                $userfield->getTyposcriptPath() . '.output',
+                implode(' ', $data)
+            );
 	}
 
 	/**
-	 *
 	 * Helper method that converts any type of variable to a string.
 	 *
 	 * @param mixed $data Anything
-	 * @return string Anything converted to a string
 	 *
+	 * @return string Anything converted to a string
 	 */
 	protected function convertDataToString($data)
     {
@@ -88,6 +90,6 @@ class UserfieldViewHelper extends AbstractViewHelper
 	 */
 	protected function getCObjectViewHelper()
 	{
-		return $this->objectManager->get('TYPO3\\CMS\\Fluid\\ViewHelpers\\CObjectViewHelper');
+		return $this->objectManager->get(CObjectViewHelper::class);
 	}
 }

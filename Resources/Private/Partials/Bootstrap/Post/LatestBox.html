@@ -13,7 +13,7 @@
 											 alt="{post.author.username}"
 											 class="tx-typo3forum-topic-show-post-user-icon img-polaroid img-rounded pull-left"/>
 
-							<f:format.date format="d.m.Y H:i">{post.timestamp}</f:format.date> - <f:translate key="Generic_By"/> <mmf:user.link user="{post.author}"/>
+							<f:format.date format="d.m.Y H:i">{post.timestamp}</f:format.date> - <f:translate key="Generic_By"/> <f:format.html><mmf:user.link user="{post.author}"/></f:format.html>
 							<h4><small><f:translate key="Post_In"/>:</small>
 								<f:link.action controller="Topic" action="show" arguments="{topic: post.topic}"
 											   pageUid="{settings.pids.Forum}">{post.topic.subject}

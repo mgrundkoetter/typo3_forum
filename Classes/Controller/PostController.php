@@ -32,6 +32,8 @@ use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use Mittwald\Typo3Forum\Utility\Localization;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+
 class PostController extends AbstractController
 {
 
@@ -77,7 +79,6 @@ class PostController extends AbstractController
      */
     public function listAction()
 	{
-
         $showPaginate = FALSE;
         switch($this->settings['listPosts']){
             case '2':
@@ -239,8 +240,11 @@ class PostController extends AbstractController
 		$this->topicRepository->update($topic);
 
 		// All potential listeners (Signal-Slot FTW!)
-		$this->signalSlotDispatcher->dispatch('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Post', 'postCreated',
-			['post' => $post]);
+		$this->signalSlotDispatcher->dispatch(
+            Post::class,
+            'postCreated',
+			['post' => $post]
+        );
 
 		// Display flash message and redirect to topic->show action.
 		$this->controllerContext->getFlashMessageQueue()->enqueue(
@@ -294,8 +298,11 @@ class PostController extends AbstractController
 		}
 		$this->postRepository->update($post);
 
-		$this->signalSlotDispatcher->dispatch('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Post', 'postUpdated',
-			['post' => $post]);
+		$this->signalSlotDispatcher->dispatch(
+            Post::class,
+            'postUpdated',
+			['post' => $post]
+        );
 		$this->controllerContext->getFlashMessageQueue()->enqueue(
 			new FlashMessage(Localization::translate('Post_Update_Success'))
 		);
@@ -336,7 +343,7 @@ class PostController extends AbstractController
 
 		// Notify observers and clear cache.
 		$this->signalSlotDispatcher->dispatch(
-			'Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Post',
+			Post::class,
 			'postDeleted',
 			['post' => $post]
 		);
@@ -371,7 +378,7 @@ class PostController extends AbstractController
 		$this->attachmentRepository->update($attachment);
 
 		//Enforce persistence, since it will not happen regularly because of die() at the end
-		$persistenceManager = $this->objectManager->get("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
+		$persistenceManager = $this->objectManager->get(TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager::class);
 		$persistenceManager->persistAll();
 
         header('Content-type: ' . $attachment->getMimeType());

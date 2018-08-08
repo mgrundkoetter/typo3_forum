@@ -30,6 +30,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+
 class AjaxController extends AbstractController
 {
 
@@ -114,8 +116,18 @@ class AjaxController extends AbstractController
 	 * @param string $displayedAds
 	 * @return void
 	 */
-	public function mainAction($displayedUser = "", $postSummarys = "", $topicIcons = "", $forumIcons = "", $displayedTopics = "", $displayOnlinebox = 0, $displayedPosts = "", $displayedForumMenus = "", $displayedAds = "")
-	{
+	public function mainAction(
+        $displayedUser = "",
+        $postSummarys = "",
+        $topicIcons = "",
+        $forumIcons = "",
+        $displayedTopics = "",
+        $displayOnlinebox = 0,
+        $displayedPosts = "",
+        $displayedForumMenus = "",
+        $displayedAds = ""
+    ) {
+#DebuggerUtility::var_dump($_POST,__METHOD__ . '::$_POST');
 		// json array
 		$content = [];
 		if (!empty($displayedUser)) {
@@ -373,6 +385,7 @@ class AjaxController extends AbstractController
 	 */
 	private function _getPosts($displayedPosts)
 	{
+#DebuggerUtility::var_dump($displayedPosts,__METHOD__);
 		$data = [];
 		$displayedPosts = json_decode($displayedPosts);
 		if (count($displayedPosts) < 1) {
@@ -401,6 +414,7 @@ class AjaxController extends AbstractController
 			$data[$counter]['postEditLink'] = $standaloneViews['PostEditLink']->render();
 			$counter++;
 		}
+#DebuggerUtility::var_dump($data,__METHOD__);
 		return $data;
 	}
 

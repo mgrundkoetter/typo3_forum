@@ -1,6 +1,7 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 <f:layout name="default"/>
 <f:section name="main">
+    <!-- template: Standard/Post/List.html -->
 	<f:if condition="{showPaginate}">
 		<f:then>
 			<f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.pagebrowser.default}">

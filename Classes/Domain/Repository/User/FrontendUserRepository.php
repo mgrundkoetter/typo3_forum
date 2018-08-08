@@ -30,6 +30,8 @@ use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use Mittwald\Typo3Forum\Domain\Repository\AbstractRepository;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
+# use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+
 /**
  *
  * Repository class for frontend suers.

@@ -2,6 +2,7 @@
 
 namespace Mittwald\Typo3Forum\Service;
 
+use Mittwald\Typo3Forum\Domain\Model\Forum\Tag;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
@@ -13,7 +14,7 @@ class TagService implements SingletonInterface
 	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
 	 * @inject
 	 */
-	protected $objectManager = NULL;
+	protected $objectManager = null;
 
 	/**
 	 * An instance of the tag repository
@@ -24,12 +25,14 @@ class TagService implements SingletonInterface
 
 	/**
 	 * Converts string of tags to an object
+     *
 	 * @param string $tags
+     *
 	 * @return ObjectStorage
 	 */
 	public function initTags($tags)
     {
-		/* @var \Mittwald\Typo3Forum\Domain\Model\Forum\Tag */
+		/* @var $objTags Tag */
 		$objTags = new ObjectStorage();
 
 		$tagArray = array_unique(explode(',', $tags));
@@ -43,8 +46,8 @@ class TagService implements SingletonInterface
 				$searchResult[0]->increaseTopicCount();
 				$objTags->attach($searchResult[0]);
 			} else {
-				/* @var \Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag */
-				$tag = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Tag');
+				/* @var $tag Tag */
+				$tag = $this->objectManager->get(Tag::class);
 				$tag->setName($tagName);
 				$tag->setCrdate(new \DateTime());
 				$tag->increaseTopicCount();

@@ -2,7 +2,7 @@
 <f:layout name="default"/>
 <f:section name="main">
 	<h2>
-		<f:translate key="Topic_All_Questions_Of" /> <mmf:user.link user="{user}" />
+		<f:translate key="Topic_All_Questions_Of" /> <f:format.html><mmf:user.link user="{user}" /></f:format.html>
 	</h2>
 	<f:if condition="{showPaginate}">
 		<f:then>

@@ -23,7 +23,7 @@
                 <mmf:user.avatar user="{user}" width="36" alt=""/>
             </td>
             <td>
-                <mmf:user.link user="{user}"/>
+                <f:format.html><mmf:user.link user="{user}"/></f:format.html>
             </td>
             <td>
                 <f:format.date format="d. m. Y">{user.timestamp}</f:format.date>

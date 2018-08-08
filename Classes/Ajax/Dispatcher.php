@@ -26,11 +26,15 @@ namespace Mittwald\Typo3Forum\Ajax;
  *                                                                      */
 
 use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\TypoScript\ExtendedTemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\CMS\Frontend\Page\PageRepository;
 use TYPO3\CMS\Frontend\Utility\EidUtility;
 use TYPO3\CMS\Extbase\Core\Bootstrap;
-use TYPO3\CMS\Extbase\Mvc\Dispatcher as ExtbaseDispatcher;
-use TYPO3\CMS\Extbase\Mvc\Web\RequestBuilder;
+use TYPO3\CMS\Extbase\Mvc\Dispatcher as ExtbaseDispatcher; // required?
+use TYPO3\CMS\Extbase\Mvc\Web\RequestBuilder; // required?
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
 final class Dispatcher implements SingletonInterface
@@ -82,7 +86,7 @@ final class Dispatcher implements SingletonInterface
     {
         // @see https://github.com/mittwald/typo3_forum/commit/fddad2f0f960e025d0e31776c8e9de73ad6c6b94
 		$GLOBALS['TSFE'] = GeneralUtility::makeInstance(
-            'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController',
+            TypoScriptFrontendController::class,
             null, // $GLOBALS['TYPO3_CONF_VARS']
             GeneralUtility::_GP('id'),
             GeneralUtility::_GP('type'),
@@ -94,7 +98,7 @@ final class Dispatcher implements SingletonInterface
 		EidUtility::initTCA();
 		$GLOBALS['TSFE']->checkAlternativeIdMethods();
 		$GLOBALS['TSFE']->determineId();
-		$GLOBALS['TSFE']->sys_page =  GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\Page\PageRepository::class);
+		$GLOBALS['TSFE']->sys_page =  GeneralUtility::makeInstance(PageRepository::class);
 		$GLOBALS['TSFE']->initTemplate();
 		$GLOBALS['TSFE']->newCObj();
 	}
@@ -154,13 +158,13 @@ final class Dispatcher implements SingletonInterface
 	 */
 	protected function initExtbase()
     {
-		$this->extbaseBootstap = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Core\Bootstrap::class);
+		$this->extbaseBootstap = GeneralUtility::makeInstance(Bootstrap::class);
 		$this->extbaseBootstap->initialize([
             'extensionName' => $this->extensionKey,
             'pluginName' => 'Ajax',
             'vendorName' => 'Mittwald'
         ]);
-		$this->objectManager = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class);
+		$this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 	}
 
 	/**
@@ -168,11 +172,11 @@ final class Dispatcher implements SingletonInterface
 	 */
 	protected function loadTS($pageUid = 0)
     {
-		$sysPageObj =  GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\Page\PageRepository::class);
+		$sysPageObj =  GeneralUtility::makeInstance(PageRepository::class);
 
 		$rootLine = $sysPageObj->getRootLine($pageUid);
 
-		$typoscriptParser = GeneralUtility::makeInstance(\TYPO3\CMS\Core\TypoScript\ExtendedTemplateService::class);
+		$typoscriptParser = GeneralUtility::makeInstance(ExtendedTemplateService::class);
 		$typoscriptParser->tt_track = 0;
 		$typoscriptParser->init();
 		$typoscriptParser->runThroughTemplates($rootLine);

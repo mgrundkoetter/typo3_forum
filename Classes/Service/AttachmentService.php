@@ -27,24 +27,24 @@ class AttachmentService implements SingletonInterface
 
 		foreach($attachments as $attachmentID => $attachment) {
 			if($attachment['name'] == '') continue;
-			$attachmentObj = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Attachment');
-			$tmp_name = $_FILES['tx_typo3forum_pi1']['tmp_name']['attachments'][$attachmentID];
+            $tmp_name = $_FILES['tx_typo3forum_pi1']['tmp_name']['attachments'][$attachmentID];
 			$mime_type = mime_content_type($tmp_name);
 
 			//Save in ObjectStorage and in file system
+			$attachmentObj = $this->objectManager->get(\Mittwald\Typo3Forum\Domain\Model\Forum\Attachment::class);
 			$attachmentObj->setFilename($attachment['name']);
-			$attachmentObj->setRealFilename(sha1($attachment['name'].time()));
+			$attachmentObj->setRealFilename(sha1($attachment['name'] . time()));
 			$attachmentObj->setMimeType($mime_type);
 
 			//Create dir if not exists
 			$tca = $attachmentObj->getTCAConfig();
 			$path = $tca['columns']['real_filename']['config']['uploadfolder'];
 			if(!file_exists($path)) {
-				mkdir($path, 0777 ,true);
+				mkdir($path, 0777, true);
 			}
 
 			//upload file and put in object storage
-			$res = \TYPO3\CMS\Core\Utility\GeneralUtility::upload_copy_move($tmp_name,$attachmentObj->getAbsoluteFilename());
+			$res = \TYPO3\CMS\Core\Utility\GeneralUtility::upload_copy_move($tmp_name, $attachmentObj->getAbsoluteFilename());
 			if($res === true) {
 				$objAttachments->attach($attachmentObj);
 			}

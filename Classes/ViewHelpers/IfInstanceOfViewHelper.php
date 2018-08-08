@@ -25,6 +25,7 @@ namespace Mittwald\Typo3Forum\ViewHelpers;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject;
 use TYPO3Fluid\Fluid\ViewHelpers\IfViewHelper;
 
 /**
@@ -42,7 +43,7 @@ class IfInstanceOfViewHelper extends IfViewHelper
         parent::initializeArguments();
         $this->registerArgument(
             'object',
-            'TYPO3\\CMS\\Extbase\\DomainObject\\AbstractDomainObject',
+            AbstractDomainObject::class,
             'Object to check',
             true
         );

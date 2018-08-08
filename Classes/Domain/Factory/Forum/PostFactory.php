@@ -57,6 +57,7 @@ class PostFactory extends AbstractFactory
 	 */
 	public function createEmptyPost()
 	{
+\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($this,__METHOD__);
 		return $this->getClassInstance();
 	}
 

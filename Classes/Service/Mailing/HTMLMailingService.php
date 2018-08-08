@@ -25,8 +25,9 @@ namespace Mittwald\Typo3Forum\Service\Mailing;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
+use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
 
 /**
  * Service class for sending HTML mails.
@@ -41,6 +42,7 @@ class HTMLMailingService extends AbstractMailingService
      * @param FrontendUser $recipient The recipient of the mail. This is a plain frontend user.
      * @param string $subject The mail's subject
      * @param string $bodyText The mail's bodytext
+     *
      * @return void
      */
     public function sendMail(FrontendUser $recipient, $subject, $bodyText)
@@ -49,11 +51,10 @@ class HTMLMailingService extends AbstractMailingService
             return;
         }
 
-        $typo3Mail = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
+        $typo3Mail = GeneralUtility::makeInstance(MailMessage::class);
         $typo3Mail->setFrom([
                 $this->getDefaultSenderAddress() => $this->getDefaultSenderName()
-            ]
-        )
+            ])
             ->setTo($recipient->getEmail())
             ->setSubject($subject)
             ->setBody($bodyText, 'text/html')

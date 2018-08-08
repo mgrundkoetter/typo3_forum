@@ -2,19 +2,14 @@
 <f:layout name="default"/>
 
 <f:section name="main">
-
-    <h2>
-        <f:translate key="User_Show"/>
-        <small>{user.username}</small>
-    </h2>
+    <!-- template: Standard/User/Show.html -->
+    <h2><f:translate key="User_Show"/> <small>{user.username}</small></h2>
 
     <div>
         <div>
 
             <fieldset>
-                <legend>
-                    <f:translate key="User_Show_GeneralInformation"/>
-                </legend>
+                <legend><f:translate key="User_Show_GeneralInformation"/></legend>
 
                 <table>
                     <colgroup>
@@ -58,6 +53,4 @@
 
 </f:section>
 
-<f:section name="menu">
-
-</f:section>
+<f:section name="menu" />

@@ -68,7 +68,7 @@
             </f:then>
             <f:else>
                 <f:translate key="User_Show_Messages_Conversation_With"/>
-                <mmf:user.link user="{partner}"/>
+                <f:format.html><mmf:user.link user="{partner}"/></f:format.html>
                 </h4>
                 <f:widget.paginate objects="{dialog}" as="paginatedMessages"
                                    configuration="{settings.pagebrowser.default}">
@@ -80,7 +80,7 @@
                                                      alt="{message.feuser.username}"
                                                      class="img-rounded"/>
                                     <div>
-                                        <mmf:user.link user="{message.feuser}"/>
+                                        <f:format.html><mmf:user.link user="{message.feuser}"/></f:format.html>
                                     </div>
                                 </div>
                             </div>

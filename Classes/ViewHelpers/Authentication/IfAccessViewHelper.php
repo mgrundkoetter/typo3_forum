@@ -29,6 +29,8 @@ use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Access;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
+# use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+
 /**
  *
  * ViewHelper that renders its contents if the current user has access to a

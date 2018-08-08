@@ -738,7 +738,7 @@ CREATE TABLE tx_typo3forum_cache (
   lifetime int(11) unsigned DEFAULT '0',
   PRIMARY KEY (id),
   KEY cache_id (identifier)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 
 #
@@ -751,4 +751,4 @@ CREATE TABLE tx_typo3forum_cache_tags (
   PRIMARY KEY (id),
   KEY cache_id (identifier),
   KEY cache_tag (tag)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);

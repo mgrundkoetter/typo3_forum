@@ -19,7 +19,7 @@
 								<f:format.date format="H:i">{notification.post.timestamp}</f:format.date>
 								<f:translate key="Date_Clock" />,
 							</span>
-							<mmf:user.link user="{notification.post.author}"/>
+							<f:format.html><mmf:user.link user="{notification.post.author}"/></f:format.html>
 						</div>
 						<div>
 							<f:if condition="{notification.tag} != {NULL}">

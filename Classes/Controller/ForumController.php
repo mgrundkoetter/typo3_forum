@@ -31,6 +31,8 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
+# use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+
 class ForumController extends AbstractController
 {
 
@@ -78,10 +80,15 @@ class ForumController extends AbstractController
 	public function indexAction()
 	{
 		if(($forum = $this->forumRepository->findOneByForum(0))) {
-			$this->forward('show', 'Forum', 'Typo3Forum',[
-				'forum' => $forum
-			]);
-		}
+			$this->forward(
+                'show',
+                'Forum',
+                'Typo3Forum',
+                ['forum' => $forum]
+            );
+        } else {
+            // TODO: messsage or configurable or just nothing?
+        }
 	}
 
 	/**
@@ -129,7 +136,12 @@ class ForumController extends AbstractController
 			$this->forumRepository->update($checkForum);
 		}
 
-		$this->redirect('show', 'Forum', NULL, ['forum' => $forum]);
+		$this->redirect(
+            'show',
+            'Forum',
+            null,
+            ['forum' => $forum]
+        );
 	}
 
 	/**
@@ -154,7 +166,9 @@ class ForumController extends AbstractController
 		if (!empty($unreadTopics)) {
 			$topics = $this->topicRepository->findByUids($unreadTopics);
 		}
-
-		$this->view->assign('forum', $forum)->assign('topics', $topics);
+		$this->view->assignMultiple([
+			'forum' => $forum,
+			'topics' => $topics,
+		]);
 	}
 }

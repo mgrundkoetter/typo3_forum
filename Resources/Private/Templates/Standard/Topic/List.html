@@ -2,9 +2,10 @@
 
 <f:layout name="default"/>
 
-<f:debug>{_all}</f:debug>
-
 <f:section name="main">
+    <!-- template: Standard/Topic/List.html -->
+
+    <f:debug>{_all}</f:debug>
 	<f:if condition="{showPaginate}">
 		<f:then>
 			<f:widget.paginate objects="{topics}" as="paginatedTopics" configuration="{settings.pagebrowser.default}">

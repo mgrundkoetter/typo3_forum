@@ -23,7 +23,7 @@
 						<f:translate key="Report_Edit_Reporter" />
 					</div>
 					<div class="controls">
-						<mmf:user.link user="{report.reporter}" class="nav-pills-condensed" />
+						<f:format.html><mmf:user.link user="{report.reporter}" class="nav-pills-condensed" /></f:format.html>
 					</div>
 				</div>
 				<div class="control-group">
@@ -71,7 +71,7 @@
 						<f:translate key="Report_Edit_Reportee" />
 					</div>
 					<div class="controls">
-						<mmf:user.link user="{report.post.author}" class="nav-pills-condensed" />
+						<f:format.html><mmf:user.link user="{report.post.author}" class="nav-pills-condensed" /></f:format.html>
 					</div>
 				</div>
 
@@ -107,7 +107,7 @@
 							<tr>
 								<td>{comment.uid}</td>
 								<td>
-									<mmf:user.link user="{comment.author}" class="nav-pills-inline" />
+									<f:format.html><mmf:user.link user="{comment.author}" class="nav-pills-inline" /></f:format.html>
 								</td>
 								<td>
 									<div class="tx-typo3forum-topic-show-post-date">

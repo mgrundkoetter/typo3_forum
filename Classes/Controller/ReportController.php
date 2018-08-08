@@ -27,6 +27,7 @@ namespace Mittwald\Typo3Forum\Controller;
 
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport;
+use Mittwald\Typo3Forum\Domain\Model\Moderation\Report;
 use Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment;
 use Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
@@ -87,7 +88,10 @@ class ReportController extends AbstractController
 	public function newPostReportAction(Post $post, ReportComment $firstComment = NULL)
 	{
 		$this->authenticationService->assertReadAuthorization($post);
-		$this->view->assign('firstComment', $firstComment)->assign('post', $post);
+		$this->view->assignMultiple([
+            'firstComment' => $firstComment
+            'post' => $post
+        ]);
 	}
 
 	/**
@@ -105,13 +109,23 @@ class ReportController extends AbstractController
 		$this->userReportRepository->add($report);
 
 		// Notify observers.
-		$this->signalSlotDispatcher->dispatch('Mittwald\\Typo3Forum\\Domain\\Model\\Moderation\\Report', 'reportCreated', ['report' => $report]);
+		$this->signalSlotDispatcher->dispatch(
+            Report::class,
+            'reportCreated',
+            ['report' => $report]
+        );
 
 		// Display success message and redirect to topic->show action.
 		$this->controllerContext->getFlashMessageQueue()->enqueue(
 			new FlashMessage(LocalizationUtility::translate('Report_New_Success', 'Typo3Forum'))
 		);
-		$this->redirect('show', 'User', NULL, ['user' => $user], $this->settings['pids']['UserShow']);
+		$this->redirect(
+            'show',
+            'User',
+            NULL,
+            ['user' => $user],
+            $this->settings['pids']['UserShow']
+        );
 	}
 
 	/**
@@ -131,12 +145,21 @@ class ReportController extends AbstractController
 		$this->postReportRepository->add($report);
 
 		// Notify observers.
-		$this->signalSlotDispatcher->dispatch('Mittwald\\Typo3Forum\\Domain\\Model\\Moderation\\Report', 'reportCreated', ['report' => $report]);
+		$this->signalSlotDispatcher->dispatch(
+            Report::class,
+            'reportCreated',
+            ['report' => $report]
+        );
 
 		// Display success message and redirect to topic->show action.
 		$this->controllerContext->getFlashMessageQueue()->enqueue(
 			new FlashMessage(LocalizationUtility::translate('Report_New_Success', 'Typo3Forum'))
 		);
-		$this->redirect('show', 'Topic', NULL, ['topic' => $post->getTopic()]);
+		$this->redirect(
+            'show',
+            'Topic',
+            NULL,
+            ['topic' => $post->getTopic()]
+        );
 	}
 }

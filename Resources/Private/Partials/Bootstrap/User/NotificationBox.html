@@ -16,7 +16,7 @@
 												 alt="{notification.post.author.username}"
 												 class="tx-typo3forum-topic-show-post-user-icon img-polaroid img-rounded pull-left"/>
 							</div>
-							<mmf:user.link user="{notification.post.author}"/>
+							<f:format.html><mmf:user.link user="{notification.post.author}"/></f:format.html>
 						</div>
 						<div>
 							<f:if condition="{notification.tag} != {NULL}">

@@ -208,10 +208,18 @@ jQuery(document).ready(function($) {
                     }
                     $.ajax({
                         type: "GET",
-                        url: typo3_forum_ajaxUrl_helpful
+                        url: "index.php?id=" + currentPageUid + 
+                              "&eID=" + $(this).attr('data-eid') + 
+                              "&tx_typo3forum_ajax[controller]=Post" + 
+                              "&tx_typo3forum_ajax[action]=" + type + "Supporter" + 
+                              "&tx_typo3forum_ajax[post]=" + $(this).attr('data-post') + 
+                              '&no_cache=1',
+                              /*
+                              typo3_forum_ajaxUrl_helpful
                                 .replace('__typo3_forum_eid__', eID)
                                 .replace('__typo3_forum_action__', action)
                                 .replace('__typo3_forum_post__',post),
+                              */
                         async: false,
                         beforeSend: function (msg) {
                             $('.' + $(targetElement).attr('data-counttarget')).html('<div class="tx-typo3forum-ajax-loader"></div>');

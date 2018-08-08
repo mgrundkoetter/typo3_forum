@@ -26,6 +26,7 @@ namespace Mittwald\Typo3Forum\Domain\Factory\Moderation;
  *                                                                      */
 
 use Mittwald\Typo3Forum\Domain\Factory\AbstractFactory;
+use Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport;
 use Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment;
 use Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus;
 use Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport;
@@ -53,7 +54,7 @@ class ReportFactory extends AbstractFactory
 		$user = &$this->getCurrentUser();
 		$firstComment->setAuthor($user);
 		/** @var UserReport $report */
-		$report = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\Moderation\\UserReport');
+		$report = $this->objectManager->get(UserReport::class);
 		$report->setWorkflowStatus($this->getInitialWorkflowStatus());
 		$report->setReporter($user);
 		$report->addComment($firstComment);
@@ -73,7 +74,7 @@ class ReportFactory extends AbstractFactory
 	{
 		$user = &$this->getCurrentUser();
 		$firstComment->setAuthor($user);
-		$report = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\Moderation\\PostReport');
+		$report = $this->objectManager->get(PostReport::class);
 		$report->setWorkflowStatus($this->getInitialWorkflowStatus());
 		$report->setReporter($user);
 		$report->addComment($firstComment);

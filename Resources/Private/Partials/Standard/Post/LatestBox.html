@@ -16,7 +16,7 @@
                             <f:format.date format="d.m.Y H:i">{post.timestamp}</f:format.date>
                             -
                             <f:translate key="Generic_By"/>
-                            <mmf:user.link user="{post.author}"/>
+                            <f:format.html><mmf:user.link user="{post.author}"/></f:format.html>
                             <h4>
                                 <small>
                                     <f:translate key="Post_In"/>

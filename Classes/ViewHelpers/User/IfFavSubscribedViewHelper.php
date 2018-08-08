@@ -27,6 +27,7 @@ namespace Mittwald\Typo3Forum\ViewHelpers\User;
 
 use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\ViewHelpers\IfViewHelper;
 
@@ -43,11 +44,12 @@ class IfFavSubscribedViewHelper extends IfViewHelper
 	 *
 	 * @param SubscribeableInterface $object The object that needs to be subscribed in order for the contents to be rendered.
 	 * @param FrontendUser $user
+     *
 	 * @return string
 	 */
-	public function render(SubscribeableInterface $object, FrontendUser $user = NULL) {
-		if ($user === NULL) {
-			$user =& GeneralUtility::makeInstance(\Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository::class)->findCurrent();
+	public function render(SubscribeableInterface $object, FrontendUser $user = null) {
+		if ($user === null) {
+			$user =& GeneralUtility::makeInstance(FrontendUserRepository::class)->findCurrent();
 		}
 		foreach ($object->getSubscribers() As $subscriber) {
 			if ($subscriber->getUid() == $user->getUid()) {
