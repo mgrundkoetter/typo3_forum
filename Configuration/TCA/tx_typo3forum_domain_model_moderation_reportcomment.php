@@ -2,6 +2,13 @@
 
 $lllPath = 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_reportcomment.';
 
+if (version_compare(TYPO3_branch, '8.5', '<')) {
+    // die('Die Extension benötigt TYPO3 8.5.0 oder höher.');
+    $systemLLLPath = 'lang/Resources/Private/Language/';
+} else {
+    $systemLLLPath = 'lang/';
+}
+
 return [
 	'ctrl' => [
 		'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_reportcomment',
@@ -22,14 +29,14 @@ return [
 	'columns' => [
 		'hidden' => [
 			'exclude' => true,
-			'label'   => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
+			'label'   => 'LLL:EXT:'.$systemLLLPath.'locallang_general.xml:LGL.hidden',
 			'config'  => [
 				'type' => 'check',
 			],
 		],
 		'tstamp' => [
 			'exclude' => true,
-			'label'   => 'LLL:EXT:lang/locallang_general.xml:LGL.tstamp',
+			'label'   => 'LLL:EXT:'.$systemLLLPath.'locallang_general.xml:LGL.tstamp',
 			'config'  => [
 				'type' => 'passthrough',
 			],

@@ -7,6 +7,13 @@
 
 $lllPath = 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_attachment.';
 
+if (version_compare(TYPO3_branch, '8.5', '<')) {
+    // die('Die Extension benötigt TYPO3 8.5.0 oder höher.');
+    $systemLLLPath = 'lang/Resources/Private/Language/';
+} else {
+    $systemLLLPath = 'lang/';
+}
+
 return [
 	'ctrl' => [
 		'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_attachment',
@@ -26,7 +33,7 @@ return [
 	'columns' => [
 		't3ver_label' => [
 			'displayCond' => 'FIELD:t3ver_label:REQ:true',
-			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.versionLabel',
+			'label' => 'LLL:EXT:'.$systemLLLPath.'locallang_general.php:LGL.versionLabel',
 			'config' => [
 				'type' => 'none',
 				'cols' => 27
@@ -34,14 +41,14 @@ return [
 		],
 		'hidden' => [
 			'exclude' => true,
-			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
+			'label' => 'LLL:EXT:'.$systemLLLPath.'locallang_general.xml:LGL.hidden',
 			'config' => [
 				'type' => 'check'
 			],
 		],
 		'crdate' => [
 			'exclude' => true,
-			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.crdate',
+			'label' => 'LLL:EXT:'.$systemLLLPath.'locallang_general.xml:LGL.crdate',
 			'config' => [
 				'type' => 'passthrough'
 			],

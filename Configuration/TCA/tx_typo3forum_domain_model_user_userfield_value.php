@@ -7,6 +7,13 @@
 
 $lllPath = 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_value.';
 
+if (version_compare(TYPO3_branch, '8.5', '<')) {
+    // die('Die Extension benötigt TYPO3 8.5.0 oder höher.');
+    $systemLLLPath = 'lang/Resources/Private/Language/';
+} else {
+    $systemLLLPath = 'lang/';
+}
+
 return [
 	'ctrl' => [
 		'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_value',
@@ -34,15 +41,15 @@ return [
 	'columns' => [
 		'sys_language_uid' => [
 			'exclude' => true,
-			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.language',
+			'label' => 'LLL:EXT:'.$systemLLLPath.'locallang_general.php:LGL.language',
 			'config' => [
 				'type' => 'select',
 				'renderType' => 'selectSingle',
 				'foreign_table' => 'sys_language',
 				'foreign_table_where' => 'ORDER BY sys_language.title',
 				'items' => [
-					['LLL:EXT:lang/locallang_general.php:LGL.allLanguages', -1],
-					['LLL:EXT:lang/locallang_general.php:LGL.default_value', 0],
+					['LLL:EXT:'.$systemLLLPath.'locallang_general.php:LGL.allLanguages', -1],
+					['LLL:EXT:'.$systemLLLPath.'locallang_general.php:LGL.default_value', 0],
 				],
 			],
             'default' => 0,
@@ -55,7 +62,7 @@ return [
 		'l18n_parent' => [
 			'displayCond' => 'FIELD:sys_language_uid:>:0',
 			'exclude' => true,
-			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.l18n_parent',
+			'label' => 'LLL:EXT:'.$systemLLLPath.'locallang_general.php:LGL.l18n_parent',
 			'config' => [
 				'type' => 'select',
 				'renderType' => 'selectSingle',
@@ -73,7 +80,7 @@ return [
 		],
 		't3ver_label' => [
 			'displayCond' => 'FIELD:t3ver_label:REQ:true',
-			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.versionLabel',
+			'label' => 'LLL:EXT:'.$systemLLLPath.'locallang_general.php:LGL.versionLabel',
 			'config' => [
 				'type' => 'none',
 				'cols' => 27
@@ -81,7 +88,7 @@ return [
 		],
 		'hidden' => [
 			'exclude' => true,
-			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
+			'label' => 'LLL:EXT:'.$systemLLLPath.'locallang_general.xml:LGL.hidden',
 			'config' => [
 				'type' => 'check'
 			],
