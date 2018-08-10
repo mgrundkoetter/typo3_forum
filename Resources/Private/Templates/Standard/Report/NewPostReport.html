@@ -23,7 +23,7 @@
 			</b:form.row>
 			<b:form.row llLabel="Report_New_OriginalText">
 				<div >
-					<mmf:format.textParser content="{post.text}" />
+                    <f:format.html><mmf:format.textParser content="{post.text}" /></f:format.html>
 				</div>
 			</b:form.row>
 			<b:form.row llLabel="Report_New_Reason" error="firstComment.text" errorLLPrefix="Report_New_Error_Reason">

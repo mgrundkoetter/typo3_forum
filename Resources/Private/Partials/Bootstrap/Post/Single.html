@@ -13,7 +13,8 @@
 		</f:else>
 	</f:if>
 	<div class="tx-typo3forum-topic-show-post-text">
-		<mmf:format.textParser post="{post}"/>
+
+        <f:format.html><mmf:format.textParser post="{post}"/></f:format.html>
 
 		<f:if condition="{post.attachments}">
 			<div class="tx-typo3forum-topic-show-post-attachments">
@@ -46,7 +47,7 @@
 	</div>
 	<f:if condition="{post.author.signature}">
 		<div class="tx-typo3forum-topic-show-post-signature">
-			<mmf:format.textParser content="{post.author.signature}"/>
+			<f:format.html><mmf:format.textParser content="{post.author.signature}"/></f:format.html>
 		</div>
 	</f:if>
 	<div class="tx-typo3forum-topic-show-post-date">

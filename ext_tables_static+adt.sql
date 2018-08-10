@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS tx_typo3forum_domain_model_format_textparser;
 CREATE TABLE tx_typo3forum_domain_model_format_textparser (
   uid int(11) NOT NULL auto_increment,
   pid int(11) NOT NULL default '0',
-  type varchar(64) NOT NULL default 'Mittwald\\Typo3Forum\\Domain\\Model\\Format\\BBCode',
+  type varchar(64) NOT NULL default 'Mittwald\Typo3Forum\Domain\Model\Format\BBCode',
   name tinytext,
   icon_class tinytext,
   bbcode_wrap varchar(64) default '',

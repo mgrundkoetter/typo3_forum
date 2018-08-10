@@ -93,7 +93,7 @@ class PostController extends AbstractController
         }
         $this->view->assign('showPaginate', $showPaginate);
         $this->view->assign('partial', $partial);
-        $this->view->assign('posts',$dataset);
+        $this->view->assign('posts',$dataset->toArray());
     }
 
 	/**

@@ -38,6 +38,41 @@ use TYPO3\CMS\Fluid\ViewHelpers\ImageViewHelper;
  */
 class AvatarViewHelper extends ImageViewHelper
 {
+    /**
+     * Names of all registered tag attributes
+     *
+     * @var array
+     */
+    private static $tagAttributes = [];
+
+    /**
+     * @var string
+     */
+    protected $tagName = 'img';
+
+    /**
+     * @var \TYPO3\CMS\Extbase\Service\ImageService
+     */
+    protected $imageService;
+
+    /**
+     * @param \TYPO3\CMS\Extbase\Service\ImageService $imageService
+     */
+    public function injectImageService(\TYPO3\CMS\Extbase\Service\ImageService $imageService)
+    {
+        $this->imageService = $imageService;
+    }
+
+
+    /**
+     * Initialize arguments.
+     */
+    public function initializeArguments()
+    {
+        $this->registerArgument('alt', 'string', 'Specifies an alternate text for an image', false);
+        $this->registerArgument('class', 'string', 'CSS class(es) for this element');
+        # parent::initializeArguments();
+    }
 
     /**
      * Avatar of user object
@@ -82,8 +117,9 @@ class AvatarViewHelper extends ImageViewHelper
         if ($avatarFilename === null) {
             $avatarFilename = ExtensionManagementUtility::siteRelPath('typo3_forum').'Resources/Public/Images/Icons/AvatarEmpty.png';
         }
+        $this->arguments['src'] = $avatarFilename;
         if ($height === null) {
-            $height = $width;
+            $this->arguments['height'] = $width;
         }
 
         return parent::render($avatarFilename, $width, $height);

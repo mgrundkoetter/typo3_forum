@@ -115,6 +115,25 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 		$this->crdate = new \DateTime();
 		$this->text = $text;
 	}
+    
+    public function toArray(){
+        return [
+            'text' => $this->getText(),
+            'renderedText' => $this->renderedText,
+            'author' => $this->getAuthor(),
+            'authorName' => $this->getAuthorName(),
+            'topic' => $this->getTopic(),
+            'crdate' => $this->getCrdate(),
+            'supporters' => $this->getSupporters(),
+            'attachments' => $this->getAttachments(),
+            'helpfulCount' => $this->getHelpfulCount(),
+            'uid' => $this->getUid(),
+            '_localizedUid' => $this->_localizedUid,
+            '_languageUid' => $this->_languageUid,
+            '_versionedUid' => $this->_versionedUid,
+            'pid' => $this->getPid(),
+        ];
+    }
 
 	/**
 	 * Gets all users who have subscribed to this forum.

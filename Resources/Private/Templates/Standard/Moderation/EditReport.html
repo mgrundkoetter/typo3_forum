@@ -113,7 +113,7 @@
 									<div class="tx-typo3forum-topic-show-post-date">
 										<f:format.date format="{settings.format.dateTimeFormat}">{comment.timestamp}</f:format.date>
 									</div>
-									<mmf:format.textParser content="{comment.text}" />
+									<f:format.html><mmf:format.textParser content="{comment.text}" /></f:format.html>
 								</td>
 							</tr>
 						</f:for>

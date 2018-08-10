@@ -30,6 +30,8 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+
 class TopicController extends AbstractController
 {
 
@@ -190,6 +192,16 @@ class TopicController extends AbstractController
 
 		$this->authenticationService->assertReadAuthorization($topic);
 		$this->markTopicRead($topic);
+        
+        // TODO: this seems for a very weird reason in the template required, remove it again if possible
+        //       in detail, only the first post is rendered in <f:for each="{posts}" as="post">...</f:for>
+        //       then  also the method Mittwald\Typo3Forum\Domain\Model\Forum\Post::toArray could be removed
+        /*
+        $posts = $posts->toArray();
+        foreach ($posts as $count => $post) {
+            $posts[$count] = $post->toArray();
+        }
+        */
 		$this->view->assignMultiple([
 			'posts' => $posts,
 			'showForm' => $showForm,
