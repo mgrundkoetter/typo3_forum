@@ -395,15 +395,18 @@ plugin.tx_typo3forum.view {
     widget.TYPO3\CMS\Fluid\ViewHelpers\Widget\PaginateViewHelper.templateRootPath = {$plugin.tx_typo3forum.view.templateRootPath}
 
     templateRootPaths {
-        10 = {$plugin.tx_typo3forum.view.templateRootPath}
+        0 = {$plugin.tx_typo3forum.view.templateRootPath}
+        10 = {$plugin.tx_typo3forum.view.templateRootPath.10}
     }
 
     partialRootPaths {
-        10 = {$plugin.tx_typo3forum.view.partialRootPath}
+        0 = {$plugin.tx_typo3forum.view.partialRootPath}
+        10 = {$plugin.tx_typo3forum.view.partialRootPath.10}
     }
 
     layoutRootPaths {
-        10 = {$plugin.tx_typo3forum.view.layoutRootPath}
+        0 = {$plugin.tx_typo3forum.view.layoutRootPath}
+        10 = {$plugin.tx_typo3forum.view.layoutRootPath.10}
     }
 }
 

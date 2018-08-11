@@ -1,11 +1,15 @@
 plugin.tx_typo3forum {
     view {
-        # cat=typo3_forum: config/100/100; type=string; label=TemplateRootPath
         templateRootPath = EXT:typo3_forum/Resources/Private/Templates/Standard
-        # cat=typo3_forum: config/100/110; type=string; label=PartialRootPath
         partialRootPath = EXT:typo3_forum/Resources/Private/Partials/Standard
-        # cat=typo3_forum: config/100/120; type=string; label=LayoutRootPath
         layoutRootPath = EXT:typo3_forum/Resources/Private/Layouts/Standard
+
+        # cat=typo3_forum: config/100/100; type=string; label=TemplateRootPath
+        templateRootPath.10 = EXT:typo3_forum/Resources/Private/Templates/Standard
+        # cat=typo3_forum: config/100/110; type=string; label=PartialRootPath
+        partialRootPath.10 = EXT:typo3_forum/Resources/Private/Partials/Standard
+        # cat=typo3_forum: config/100/120; type=string; label=LayoutRootPath
+        layoutRootPath.10 = EXT:typo3_forum/Resources/Private/Layouts/Standard
     }
 
     persistence {
