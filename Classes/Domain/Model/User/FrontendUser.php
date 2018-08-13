@@ -621,13 +621,15 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 */
 	public function getImagePath()
     {
-		if ($this->image) {
-			$imageDirectoryName = $this->getSettings()['images']['avatar']['uploadDir'];
-			$imageFilename = rtrim($imageDirectoryName, '/') . '/' . $this->image;
-
-			return file_exists($imageFilename) ? $imageFilename : NULL;
-		}
-
+        if ($this->image) {
+            $imageDirectoryName = $this->settings['images']['avatar']['uploadDir'];
+            foreach ($this->image as $image) {
+                /* @var FileReference $image */
+                $singleImage = $image->getOriginalFile();
+                $imageFilename = rtrim($imageDirectoryName, '/') . '/' . $singleImage->getPublicUrl();
+                return file_exists($imageFilename) ? $imageFilename : NULL;
+            }
+        }
 		// If the user enabled the use of "Gravatars", then load this user's
 		// gravatar using the official API (it's quite simple, actually: Just
 		// use the MD5 checksum of the user's email address in the gravatar URL
