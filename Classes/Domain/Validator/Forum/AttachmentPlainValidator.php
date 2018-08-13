@@ -49,7 +49,7 @@ class AttachmentPlainValidator extends AbstractValidator
 	public function isValid($value)
     {
 		$result = TRUE;
-		$attachmentObj = $this->objectManager->get(Attachment::classs);
+		$attachmentObj = $this->objectManager->get(Attachment::class);
 		foreach ($value as $attachment) {
 			if (empty($attachment['name']))
 				continue;
