@@ -110,7 +110,7 @@ class AjaxController extends AbstractController
 	 * @param string $topicIcons
 	 * @param string $forumIcons
 	 * @param string $displayedTopics
-	 * @param int $displayOnlinebox
+	 * @param int    $displayOnlinebox
 	 * @param string $displayedPosts
 	 * @param string $displayedForumMenus
 	 * @param string $displayedAds

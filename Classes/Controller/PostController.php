@@ -179,7 +179,7 @@ class PostController extends AbstractController
 		}
 
 		// Redirect to the topic->show action.
-		$this->redirect('show', 'Topic', NULL, $redirectArguments);
+        $this->redirect('show', 'Topic', NULL, $redirectArguments);
 	}
 
 	/**
@@ -257,7 +257,7 @@ class PostController extends AbstractController
 		if ($pageNumber > 1) {
 			$redirectArguments['@widget_0'] = ['currentPage' => $pageNumber];
 		}
-		$this->redirect('show', 'Topic', NULL, $redirectArguments);
+        $this->redirect('show', 'Topic', NULL, $redirectArguments);
 	}
 
 	/**
@@ -307,7 +307,8 @@ class PostController extends AbstractController
 			new FlashMessage(Localization::translate('Post_Update_Success'))
 		);
 		$this->clearCacheForCurrentPage();
-		$this->redirect('show', 'Topic', NULL, ['topic' => $post->getTopic()]);
+		
+        $this->redirect('show', 'Topic', NULL, ['topic' => $post->getTopic()]);
 	}
 
 	/**
@@ -378,7 +379,7 @@ class PostController extends AbstractController
 		$this->attachmentRepository->update($attachment);
 
 		//Enforce persistence, since it will not happen regularly because of die() at the end
-		$persistenceManager = $this->objectManager->get(TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager::class);
+		$persistenceManager = $this->objectManager->get(\TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager::class);
 		$persistenceManager->persistAll();
 
         header('Content-type: ' . $attachment->getMimeType());
