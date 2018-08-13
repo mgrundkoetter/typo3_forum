@@ -89,7 +89,7 @@ class ReportController extends AbstractController
 	{
 		$this->authenticationService->assertReadAuthorization($post);
 		$this->view->assignMultiple([
-            'firstComment' => $firstComment
+            'firstComment' => $firstComment,
             'post' => $post
         ]);
 	}
