@@ -51,6 +51,8 @@ class SummaryRepository extends Repository
 		$query->setOrderings($ordering);
 		$query->setLimit($this->summaryItems);
 
+        // $this->debugSql($query, __METHOD__);
+
 		return $query->execute();
 	}
 }

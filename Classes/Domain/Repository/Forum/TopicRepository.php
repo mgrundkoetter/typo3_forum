@@ -70,6 +70,9 @@ class TopicRepository extends AbstractRepository
 		if (!empty($orderings)) {
 			$query->setOrderings($orderings);
 		}
+
+        // $this->debugSql($query, __METHOD__);
+
 		return $query->execute();
 	}
 
@@ -92,6 +95,8 @@ class TopicRepository extends AbstractRepository
 			$query->matching($query->logicalAnd($constraints));
 		}
 
+        // $this->debugSql($query, __METHOD__);
+
 		return $query->execute();
 	}
 
@@ -109,6 +114,8 @@ class TopicRepository extends AbstractRepository
 			->matching($query->equals('forum', $forum))
 			->setOrderings(['sticky' => 'DESC',
 				'last_post_crdate' => 'DESC']);
+
+        // $this->debugSql($query, __METHOD__);
 
 		return $query->execute();
 	}
@@ -142,6 +149,8 @@ class TopicRepository extends AbstractRepository
 		}
 		$query->matching($query->logicalAnd($constraint));
 
+        // $this->debugSql($query, __METHOD__);
+
 		return $query->execute();
 	}
 
@@ -164,6 +173,8 @@ class TopicRepository extends AbstractRepository
 			$query->setLimit($limit);
 		}
 
+        // $this->debugSql($query, __METHOD__);
+
 		return $query->execute();
 	}
 
@@ -183,6 +194,9 @@ class TopicRepository extends AbstractRepository
 		if ($limit > 0) {
 			$query->setLimit($limit);
 		}
+
+        // $this->debugSql($query, __METHOD__);
+
 		return $query->execute();
 	}
 
@@ -210,6 +224,9 @@ class TopicRepository extends AbstractRepository
     {
 		$query = $this->createQuery();
 		$query->matching($query->equals('posts.author', $user))->setOrderings(['posts.crdate' => 'DESC']);
+
+        // $this->debugSql($query, __METHOD__);
+
 		return $query->execute();
 	}
 
@@ -227,6 +244,8 @@ class TopicRepository extends AbstractRepository
 			->matching($query->contains('subscribers', $user))
 			->setOrderings(['lastPost.crdate' => 'ASC']);
 
+        // $this->debugSql($query, __METHOD__);
+
 		return $query->execute();
 	}
 
@@ -243,6 +262,8 @@ class TopicRepository extends AbstractRepository
 		$query
 			->matching($query->contains('tags', $tag))
 			->setOrderings(['lastPost.crdate' => 'ASC']);
+
+        // $this->debugSql($query, __METHOD__);
 
 		return $query->execute();
 	}
@@ -270,6 +291,8 @@ class TopicRepository extends AbstractRepository
 			$query->setLimit($displayLimit);
 		}
 
+        // $this->debugSql($query, __METHOD__);
+
 		return $query->execute();
 	}
 
@@ -289,6 +312,8 @@ class TopicRepository extends AbstractRepository
 		if ($offset > 0) {
 			$query->setOffset($offset);
 		}
+
+        // $this->debugSql($query, __METHOD__);
 
 		return $query->execute()->getFirst();
 	}
@@ -310,12 +335,16 @@ class TopicRepository extends AbstractRepository
 			$query->setOffset($offset);
 		}
 
+        // $this->debugSql($query, __METHOD__);
+
 		return $query->execute();
 	}
 
 	/**
 	 * @param Forum $forum
 	 * @param FrontendUser $user
+     *
+     * @TODO replace SQL-syntax
      *
 	 * @return array
 	 */
@@ -329,6 +358,16 @@ class TopicRepository extends AbstractRepository
 		/** @var Query $query */
 		$query = $this->createQuery();
 		$query->statement($sql);
+
+        // $this->debugSql($query, __METHOD__);
+
+        // TODO: is "->toArray()" required?
 		return $query->execute()->toArray();
 	}
+    
+    public function add($object)
+    {
+        parent::add($object);
+        $this->persistenceManager->persistAll();
+    }
 }

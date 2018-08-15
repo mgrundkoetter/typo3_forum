@@ -63,6 +63,8 @@ class PrivateMessageRepository extends Repository
 			$query->setLimit($limit);
 		}
 
+        // $this->debugSql($query, __METHOD__);
+
 		return $query->execute();
 	}
 
@@ -95,6 +97,9 @@ class PrivateMessageRepository extends Repository
 		}
 		$query->setOrderings(['crdate' => 'DESC']);
 		$result = $query->execute();
+
+        // $this->debugSql($query, __METHOD__);
+
 		//Parse result for the user ListBox
 		foreach ($result as $entry) {
 			if (array_search($entry->getOpponent()->getUid(), $userInArray) === false) {
@@ -126,6 +131,8 @@ class PrivateMessageRepository extends Repository
 		if ($limit > 0) {
 			$query->setLimit($limit);
 		}
+
+        // $this->debugSql($query, __METHOD__);
 
 		return $query->execute();
 	}

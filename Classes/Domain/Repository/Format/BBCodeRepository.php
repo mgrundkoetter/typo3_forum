@@ -42,6 +42,8 @@ class BBCodeRepository extends AbstractRepository
 		$query = $this->createQueryWithFallbackStoragePage();
 		$query->setOrderings(['uid' => 'ASC']);
 
+        // $this->debugSql($query, __METHOD__);
+
 		return $query->execute();
 	}
 }

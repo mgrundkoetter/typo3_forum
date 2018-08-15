@@ -50,6 +50,8 @@ class PostRepository extends AbstractRepository
 			$query->setOrderings($orderings);
 		}
 
+        // $this->debugSql($query, __METHOD__);
+
 		return $query->execute();
 	}
 
@@ -73,6 +75,8 @@ class PostRepository extends AbstractRepository
 			$query->matching($query->logicalAnd($constraints));
 		}
 
+        // $this->debugSql($query, __METHOD__);
+
 		return $query->execute();
 	}
 
@@ -91,10 +95,14 @@ class PostRepository extends AbstractRepository
 		$query = $this->createQuery();
 		$query->getQuerySettings()->setRespectSysLanguage(FALSE);
 
-		return $query->matching($query->equals('topic', $topic))
+		$result = $query->matching($query->equals('topic', $topic))
 			->setOrderings(['crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING])
 			->setLimit(1000000)
 			->execute();
+
+        // $this->debugSql($query, __METHOD__);
+
+        return $result;
 	}
 
 
@@ -116,6 +124,8 @@ class PostRepository extends AbstractRepository
 		if ($offset > 0) {
 			$query->setOffset($offset);
 		}
+
+        // $this->debugSql($query, __METHOD__);
 
 		return $query->execute()->getFirst();
 	}
@@ -139,6 +149,8 @@ class PostRepository extends AbstractRepository
 		if ($offset > 0) {
 			$query->setOffset($offset);
 		}
+
+        // $this->debugSql($query, __METHOD__);
 
 		return $query->execute()->getFirst();
 	}

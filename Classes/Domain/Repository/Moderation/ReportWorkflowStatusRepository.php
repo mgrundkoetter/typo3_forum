@@ -43,7 +43,11 @@ class ReportWorkflowStatusRepository extends AbstractRepository
 	public function findInitial()
     {
 		$query = $this->createQueryWithFallbackStoragePage();
-		return $query->matching($query->equals('initial', TRUE))->setLimit(1)->execute()->getFirst();
+		$query->matching($query->equals('initial', TRUE))->setLimit(1);
+
+        // $this->debugSql($query, __METHOD__);
+
+        return $query->execute()->getFirst();
 	}
 
 
@@ -58,6 +62,9 @@ class ReportWorkflowStatusRepository extends AbstractRepository
 		$storagePageIds[] = 0;
 
 		$query->getQuerySettings()->setStoragePageIds($storagePageIds);
+
+        // $this->debugSql($query, __METHOD__);
+
 		return $query;
 	}
 }

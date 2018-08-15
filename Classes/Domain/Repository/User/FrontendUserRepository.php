@@ -101,6 +101,8 @@ class FrontendUserRepository extends AbstractRepository
 			$query->matching($query->logicalAnd($constraints));
 		}
 
+        // $this->debugSql($query, __METHOD__);
+
 
 		return $query->execute();
 	}
@@ -112,6 +114,8 @@ class FrontendUserRepository extends AbstractRepository
 		if (!empty($onlyOnline)) {
 			$query->matching($query->greaterThan('is_online', time() - $this->settings['widgets']['onlinebox']['timeInterval']));
 		}
+
+        // $this->debugSql($query, __METHOD__);
 
 		return $query->execute()->count();
 	}
@@ -146,6 +150,9 @@ class FrontendUserRepository extends AbstractRepository
 		} else {
 			$query->setOrderings([$filter => $order]);
 		}
+
+        // $this->debugSql($query, __METHOD__);
+
 		return $query->execute();
 	}
 
@@ -177,6 +184,8 @@ class FrontendUserRepository extends AbstractRepository
 			'username' => QueryInterface::ORDER_ASCENDING,
 		]);
 		$query->setLimit($limit);
+
+        // $this->debugSql($query, __METHOD__);
 
 		return $query->execute();
 	}

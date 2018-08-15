@@ -70,6 +70,8 @@ class AdRepository extends Repository {
 		$query->getQuerySettings()->setReturnRawQueryResult(TRUE);
 		$query->statement($sql);
 
+        // $this->debugSql($query, __METHOD__);
+
 		return $query->execute();
 	}
 

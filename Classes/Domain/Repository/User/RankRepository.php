@@ -46,6 +46,8 @@ class RankRepository extends Repository
 		$query->setOrderings(['point_limit' => 'DESC']);
 		$query->setLimit(1);
 
+        // $this->debugSql($query, __METHOD__);
+
 		return $query->execute();
 	}
 
@@ -63,6 +65,8 @@ class RankRepository extends Repository
 		$query->matching($query->greaterThan('point_limit', (int)$points));
 		$query->setOrderings(['point_limit' => 'ASC']);
 		$query->setLimit(1);
+
+        // $this->debugSql($query, __METHOD__);
 
 		return $query->execute();
 	}
@@ -82,6 +86,9 @@ class RankRepository extends Repository
 		$query->setLimit(1);
 
 		$result = $query->execute();
+
+        // $this->debugSql($query, __METHOD__);
+
 		if ($result instanceof QueryResultInterface) {
 			return $result->getFirst();
 		} elseif (is_array($result)) {
@@ -99,6 +106,8 @@ class RankRepository extends Repository
     {
 		$query = $this->createQuery();
 		$query->setOrderings(['point_limit' => 'ASC']);
+
+        // $this->debugSql($query, __METHOD__);
 
 		return $query->execute();
 	}

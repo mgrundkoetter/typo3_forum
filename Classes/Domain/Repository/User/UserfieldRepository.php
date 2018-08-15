@@ -83,6 +83,8 @@ class UserfieldRepository extends AbstractRepository
     {
 		$query = $this->createQueryWithFallbackStoragePage();
 
+        // $this->debugSql($query, __METHOD__);
+
 		return array_merge($this->findCoreUserfields(), $query->execute()->toArray());
 	}
 

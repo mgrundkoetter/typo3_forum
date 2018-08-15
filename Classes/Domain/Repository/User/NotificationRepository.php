@@ -48,6 +48,8 @@ class NotificationRepository extends Repository
 			$query->setLimit($limit);
 		}
 
+        // $this->debugSql($query, __METHOD__);
+
 		return $query->execute();
 	}
 }

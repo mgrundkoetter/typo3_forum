@@ -40,6 +40,8 @@ class TagRepository extends Repository
 		$query = $this->createQuery();
 		$query->setOrderings(['topic_count' => 'DESC']);
 
+        // $this->debugSql($query, __METHOD__);
+
 		return $query->execute();
 	}
 
@@ -55,6 +57,8 @@ class TagRepository extends Repository
 		$query = $this->createQuery();
 		$query->matching($query->equals('name', $name));
 		$query->setLimit(1);
+
+        // $this->debugSql($query, __METHOD__);
 
 		return $query->execute();
 	}
@@ -78,6 +82,8 @@ class TagRepository extends Repository
 
 		$query->matching($query->logicalAnd($constraints));
 
+        // $this->debugSql($query, __METHOD__);
+
 		return $query->execute();
 	}
 
@@ -93,6 +99,8 @@ class TagRepository extends Repository
 		$query = $this->createQuery();
 		$query->matching($query->contains('feuser', $user));
 		$query->setOrderings(['name' => 'ASC']);
+
+        // $this->debugSql($query, __METHOD__);
 
 		return $query->execute();
 	}

@@ -36,6 +36,10 @@ class SmileyRepository extends AbstractRepository
 	 */
 	public function findAll()
     {
-		return $this->createQueryWithFallbackStoragePage()->execute();
+        $query = $this->createQueryWithFallbackStoragePage();
+
+        // $this->debugSql($query, __METHOD__);
+
+		return $query->execute();
 	}
 }

@@ -26,8 +26,10 @@ namespace Mittwald\Typo3Forum\Domain\Repository;
  *                                                                      */
 
 use TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\Storage\Typo3DbQueryParser;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  *
@@ -101,5 +103,18 @@ abstract class AbstractRepository extends Repository
     private function getQuerySettings()
     {
         return $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\QuerySettingsInterface');
+    }
+
+    /**
+     * dumping the sql of any query
+     *
+     * @param object $query
+     * @param string $method for displaying the method where the command is called
+     */
+    public function debugSql($query, $method)
+    {
+        $dbParser = $this->objectManager->get(Typo3DbQueryParser::class);
+        $sql = $dbParser->convertQueryToDoctrineQueryBuilder($query)->getSQL();
+        DebuggerUtility::var_dump($sql, $method);
     }
 }
