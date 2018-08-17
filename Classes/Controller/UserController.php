@@ -36,6 +36,8 @@ use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+
 class UserController extends AbstractController
 {
 
@@ -341,7 +343,6 @@ class UserController extends AbstractController
 	 */
 	public function disableUserAction(FrontendUser $user = NULL)
 	{
-
 		$currentUser = $this->getCurrentUser();
 		if ($currentUser->isAnonymous()) {
 			throw new NotLoggedInException("You need to be logged in.", 1288084981);
@@ -400,7 +401,6 @@ class UserController extends AbstractController
 	 */
 	public function subscribeAction(Forum $forum = NULL, Topic $topic = NULL, $unsubscribe = FALSE)
 	{
-
 		// Validate arguments
 		if ($forum === NULL && $topic === NULL) {
 			throw new InvalidArgumentValueException("You need to subscribe a Forum or Topic!", 1285059341);
@@ -440,7 +440,6 @@ class UserController extends AbstractController
 	 */
 	public function favSubscribeAction(Forum $forum = NULL, Topic $topic = NULL, $unsubscribe = FALSE)
 	{
-
 		// Validate arguments
 		if ($forum === NULL && $topic === NULL) {
 			throw new InvalidArgumentValueException("You need to subscribe a Forum or Topic!", 1285059341);
@@ -512,6 +511,8 @@ class UserController extends AbstractController
 	}
 
 	/**
+     * @TODO: Is this empty to avoid usage in upper class?
+     *
 	 * @param string $searchValue
 	 * @param string $filter
 	 * @param int $order
@@ -541,6 +542,9 @@ class UserController extends AbstractController
 	/**
 	 * Generates a flash message for when a subscription has successfully been
 	 * created or removed.
+     *
+     * @TODO: delimiter depends on version,
+     *        probably '_' is not used anymore at all (was for versions 4 + 6 ...), remove condition and '_' then
 	 *
 	 * @param SubscribeableInterface $object
 	 * @param bool $unsubscribe
@@ -548,8 +552,16 @@ class UserController extends AbstractController
 	 */
 	protected function getSubscriptionFlashMessage(SubscribeableInterface $object, $unsubscribe = FALSE)
 	{
-		$type = array_pop(explode('_', get_class($object)));
-		$key = 'User_' . ($unsubscribe ? 'Uns' : 'S') . 'ubscribe_' . $type . '_Success';
-		return LocalizationUtility::translate($key, 'Typo3Forum', [$object->getTitle()]);
+		$class = get_class($object);
+        if (strpos($class, '\\')) {
+            $delimiter = '\\';
+        } elseif (strpos($class, '_')) {
+            $delimiter = '_';
+        }
+        $type = array_pop(explode($delimiter, $class));
+        $userAction = ($unsubscribe ? 'Unsubscribe' : 'Subscribe');
+		$key = 'User_' .$userAction . '_' . $type . '_Success';
+		$subscriptionFlashMessage = LocalizationUtility::translate($key, 'Typo3Forum', [$object->getTitle()]);
+        return $subscriptionFlashMessage;
 	}
 }

@@ -192,17 +192,8 @@ class TopicController extends AbstractController
 
 		$this->authenticationService->assertReadAuthorization($topic);
 		$this->markTopicRead($topic);
-        
-        // TODO: this seems for a very weird reason in the template required, remove it again if possible
-        //       in detail, only the first post is rendered in <f:for each="{posts}" as="post">...</f:for>
-        //       then  also the method Mittwald\Typo3Forum\Domain\Model\Forum\Post::toArray could be removed
-        /*
-        $posts = $posts->toArray();
-        foreach ($posts as $count => $post) {
-            $posts[$count] = $post->toArray();
-        }
-        */
-		$this->view->assignMultiple([
+
+        $this->view->assignMultiple([
 			'posts' => $posts,
 			'showForm' => $showForm,
 			'topic' => $topic,
@@ -291,8 +282,14 @@ class TopicController extends AbstractController
                 'tx_typo3forum_pi1[action]' => 'show'
             ])->build();
 		$this->purgeUrl('http://' . $_SERVER['HTTP_HOST'] . '/' . $uri);
-		// Redirect to single forum display view
-		$this->redirect('show', 'Forum', NULL, ['forum' => $forum]);
+
+        // Redirect to single forum display view
+		$this->redirect(
+            'show',
+            'Forum',
+            NULL,
+            ['forum' => $forum]
+        );
 	}
 
 	/**
@@ -308,7 +305,13 @@ class TopicController extends AbstractController
 			throw new NoAccessException('Not allowed to set solution by current user.');
 		}
 		$this->topicFactory->setPostAsSolution($post->getTopic(), $post);
-		$this->redirect('show', 'Topic', NULL, ['topic' => $post->getTopic()]);
+
+        $this->redirect(
+            'show',
+            'Topic',
+            NULL,
+            ['topic' => $post->getTopic()]
+        );
 	}
 
 	/**

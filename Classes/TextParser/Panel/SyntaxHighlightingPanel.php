@@ -29,7 +29,7 @@ class SyntaxHighlightingPanel extends \Mittwald\Typo3Forum\TextParser\Panel\Abst
 {
 
 	/**
-	 * TODO
+	 * @TODO: what to do?
 	 *
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Format\SyntaxHighlightingRepository
 	 * @inject
@@ -37,7 +37,7 @@ class SyntaxHighlightingPanel extends \Mittwald\Typo3Forum\TextParser\Panel\Abst
 	protected $syntaxHighlightingRepository = NULL;
 
 	/**
-	 * TODO
+	 * @TODO: what to do?
 	 *
 	 * @var array<\Mittwald\Typo3Forum\Domain\Model\Format\SyntaxHighlighting>
 	 */
@@ -49,7 +49,7 @@ class SyntaxHighlightingPanel extends \Mittwald\Typo3Forum\TextParser\Panel\Abst
 	}
 
 	/**
-	 * TODO
+	 * @TODO: what to do?
 	 * @return array<array>
 	 */
 	public function getItems()
@@ -59,10 +59,12 @@ class SyntaxHighlightingPanel extends \Mittwald\Typo3Forum\TextParser\Panel\Abst
 		foreach ($this->syntaxHighlightings as $syntaxHighlighting) {
 			$result[] = $syntaxHighlighting->exportForMarkItUp();
 		}
-		return [['name'      => $this->settings['title'],
-		                   'className' => $this->settings['iconClassName'],
-		                   'openWith'  => '[code]',
-		                   'closeWith' => '[/code]',
-		                   'dropMenu'  => $result]];
+		return [[
+            'name'      => $this->settings['title'],
+            'className' => $this->settings['iconClassName'],
+            'openWith'  => '[code]',
+            'closeWith' => '[/code]',
+            'dropMenu'  => $result
+        ]];
 	}
 }
