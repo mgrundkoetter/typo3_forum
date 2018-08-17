@@ -33,90 +33,90 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 class RootlineViewHelper extends AbstractTagBasedViewHelper
 {
 
-	/**
-	 * @var string
-	 */
-	protected $tagName = 'ul';
+    /**
+     * @var string
+     */
+    protected $tagName = 'ul';
 
-	/**
-	 * @var array
-	 */
-	protected $settings = NULL;
+    /**
+     * @var array
+     */
+    protected $settings = null;
 
-	public function initializeArguments()
+    public function initializeArguments()
     {
-		parent::initializeArguments();
-		$this->registerUniversalTagAttributes();
-	}
+        parent::initializeArguments();
+        $this->registerUniversalTagAttributes();
+    }
 
-	public function initialize()
+    public function initialize()
     {
-		parent::initialize();
-		$this->settings = $this->templateVariableContainer->get('settings');
-	}
+        parent::initialize();
+        $this->settings = $this->templateVariableContainer->get('settings');
+    }
 
-	/**
-	 * render
-	 *
-	 * @param array $rootline
-	 * @param bool|FALSE $reverse
-	 *
-	 * @return string
-	 */
-	public function render(array $rootline, $reverse = FALSE)
+    /**
+     * render
+     *
+     * @param array $rootline
+     * @param bool|FALSE $reverse
+     *
+     * @return string
+     */
+    public function render(array $rootline, $reverse = false)
     {
-		if ($reverse) {
-			array_reverse($rootline);
-		}
+        if ($reverse) {
+            array_reverse($rootline);
+        }
 
-		$class = 'nav nav-pills nav-pills-condensed';
-		if ($this->arguments['class']) {
-			$class .= ' ' . $this->arguments['class'];
-		}
-		$this->tag->addAttribute('class', $class);
+        $class = 'nav nav-pills nav-pills-condensed';
+        if ($this->arguments['class']) {
+            $class .= ' ' . $this->arguments['class'];
+        }
+        $this->tag->addAttribute('class', $class);
 
-		$content = '';
-		foreach ($rootline as $element) {
-			$content .= $this->renderNavigationNode($element);
-		}
-		$content .= '';
+        $content = '';
+        foreach ($rootline as $element) {
+            $content .= $this->renderNavigationNode($element);
+        }
+        $content .= '';
 
-		$this->tag->setContent($content);
-		return $this->tag->render();
-	}
+        $this->tag->setContent($content);
+        return $this->tag->render();
+    }
 
-	/**
-	 * renderNavigationNode
-	 *
-	 * @param $object
-	 *
-	 * @return string
-	 */
-	protected function renderNavigationNode($object)
+    /**
+     * renderNavigationNode
+     *
+     * @param $object
+     *
+     * @return string
+     */
+    protected function renderNavigationNode($object)
     {
-		$extensionName = 'typo3forum';
-		$pluginName = 'pi1';
-		if ($object instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Forum) {
-			$controller = 'Forum';
-			$arguments = ['forum' => $object];
-			$icon = 'iconset-22-folder';
-		} else {
-			$controller = 'Topic';
-			$arguments = ['topic' => $object];
-			$icon = 'iconset-22-balloon';
-		}
-		$fullTitle = htmlspecialchars($object->getTitle());
-		$limit = (int)$this->settings['cutBreadcrumbOnChar'];
-		if ($limit == 0 || strlen($fullTitle) < $limit) {
-			$title = $fullTitle;
-		} else {
-			$title = substr($fullTitle, 0, $limit) . "...";
-		}
+        $extensionName = 'typo3forum';
+        $pluginName = 'pi1';
+        if ($object instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Forum) {
+            $controller = 'Forum';
+            $arguments = ['forum' => $object];
+            $icon = 'iconset-22-folder';
+        } else {
+            $controller = 'Topic';
+            $arguments = ['topic' => $object];
+            $icon = 'iconset-22-balloon';
+        }
+        $fullTitle = htmlspecialchars($object->getTitle());
+        $limit = (int)$this->settings['cutBreadcrumbOnChar'];
+        if ($limit == 0 || strlen($fullTitle) < $limit) {
+            $title = $fullTitle;
+        } else {
+            $title = substr($fullTitle, 0, $limit) . '...';
+        }
 
-		$uriBuilder = $this->controllerContext->getUriBuilder();
-		$uri = $uriBuilder->reset()->setTargetPageUid((int)$this->settings['pids']['Forum'])
-			->uriFor('show', $arguments, $controller, $extensionName, $pluginName);
+        $uriBuilder = $this->controllerContext->getUriBuilder();
+        $uri = $uriBuilder->reset()->setTargetPageUid((int)$this->settings['pids']['Forum'])
+            ->uriFor('show', $arguments, $controller, $extensionName, $pluginName);
 
-		return '<li><a href="' . $uri . '" title="' . $fullTitle . '"><i class="' . $icon . '"></i>' . $title . '</a></li>';
-	}
+        return '<li><a href="' . $uri . '" title="' . $fullTitle . '"><i class="' . $icon . '"></i>' . $title . '</a></li>';
+    }
 }

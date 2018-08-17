@@ -37,35 +37,35 @@ namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
 class UserReport extends Report
 {
 
-	/**
-	 * A set of comments that are assigned to this report.
-	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
-	 */
-	protected $feuser;
+    /**
+     * A set of comments that are assigned to this report.
+     * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
+     */
+    protected $feuser;
 
-	/**
-	 * Gets the topic to which the reported post belongs to.
-	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser Frontend User
-	 */
-	public function getUser()
+    /**
+     * Gets the topic to which the reported post belongs to.
+     * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser Frontend User
+     */
+    public function getUser()
     {
-		if ($this->feuser instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
-			$this->feuser->_loadRealInstance();
-		}
-		if ($this->feuser === NULL) {
-			$this->feuser = new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser();
-		}
+        if ($this->feuser instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+            $this->feuser->_loadRealInstance();
+        }
+        if ($this->feuser === null) {
+            $this->feuser = new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser();
+        }
 
-		return $this->feuser;
-	}
+        return $this->feuser;
+    }
 
-	/**
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user .
-	 *
-	 * @return void
-	 */
-	public function setUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user)
+    /**
+     * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user .
+     *
+     * @return void
+     */
+    public function setUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user)
     {
-		$this->feuser = $user;
-	}
+        $this->feuser = $user;
+    }
 }

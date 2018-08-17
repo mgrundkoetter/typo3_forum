@@ -31,34 +31,35 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 /**
  * Utility module for TypoScript related functions.
  */
-class TypoScript {
+class TypoScript
+{
 
-	/**
-	 * The extbase configuration manager.
-	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
-	 * @inject
-	 */
-	protected $configurationManager = NULL;
+    /**
+     * The extbase configuration manager.
+     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
+     * @inject
+     */
+    protected $configurationManager = null;
 
-	/**
-	 * Loads the typoscript configuration from a certain setup path.
-	 *
-	 * @param string $configurationPath The typoscript path
-	 * @return array The typoscript configuration for the specified path.
-	 * @throws Exception
-	 */
-	public function loadTyposcriptFromPath($configurationPath) {
-		$setup = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
-		$pathSegments = GeneralUtility::trimExplode('.', $configurationPath);
-		$lastSegment = array_pop($pathSegments);
-		foreach ($pathSegments As $segment) {
-			if (!array_key_exists($segment . '.', $setup)
-			) {
-				throw new Exception ('TypoScript object path "' . htmlspecialchars($configurationPath) . '" does not exist', 1253191023);
-			}
-			$setup = $setup[$segment . '.'];
-		}
-		return $setup[$lastSegment . '.'];
-	}
-
+    /**
+     * Loads the typoscript configuration from a certain setup path.
+     *
+     * @param string $configurationPath The typoscript path
+     * @return array The typoscript configuration for the specified path.
+     * @throws Exception
+     */
+    public function loadTyposcriptFromPath($configurationPath)
+    {
+        $setup = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+        $pathSegments = GeneralUtility::trimExplode('.', $configurationPath);
+        $lastSegment = array_pop($pathSegments);
+        foreach ($pathSegments as $segment) {
+            if (!array_key_exists($segment . '.', $setup)
+            ) {
+                throw new Exception('TypoScript object path "' . htmlspecialchars($configurationPath) . '" does not exist', 1253191023);
+            }
+            $setup = $setup[$segment . '.'];
+        }
+        return $setup[$lastSegment . '.'];
+    }
 }

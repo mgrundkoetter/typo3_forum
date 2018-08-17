@@ -28,26 +28,26 @@ namespace Mittwald\Typo3Forum\Controller;
 class StatsController extends AbstractController
 {
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Stats\SummaryRepository
-	 * @inject
-	 */
-	protected $summaryRepository;
+    /**
+     * @var \Mittwald\Typo3Forum\Domain\Repository\Stats\SummaryRepository
+     * @inject
+     */
+    protected $summaryRepository;
 
-	/**
-	 * Listing Action.
-	 * @return void
-	 */
-	public function listAction()
+    /**
+     * Listing Action.
+     * @return void
+     */
+    public function listAction()
     {
-		switch ($this->settings['listStats']) {
-			default:
-			case 'summary':
-				$dataset['items'] = $this->summaryRepository->findLatestSummaryItems();
-				$partial = 'Stats/Summary';
-				break;
-		}
-		$this->view->assign('partial', $partial);
-		$this->view->assign('dataset', $dataset);
-	}
+        switch ($this->settings['listStats']) {
+            default:
+            case 'summary':
+                $dataset['items'] = $this->summaryRepository->findLatestSummaryItems();
+                $partial = 'Stats/Summary';
+                break;
+        }
+        $this->view->assign('partial', $partial);
+        $this->view->assign('dataset', $dataset);
+    }
 }

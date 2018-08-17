@@ -28,37 +28,37 @@ namespace Mittwald\Typo3Forum\TextParser\Panel;
 class SmileyPanel extends AbstractPanel
 {
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Format\SmileyRepository
-	 * @inject
-	 */
-	protected $smileyRepository = NULL;
+    /**
+     * @var \Mittwald\Typo3Forum\Domain\Repository\Format\SmileyRepository
+     * @inject
+     */
+    protected $smileyRepository = null;
 
-	/**
-	 * @var array<\Mittwald\Typo3Forum\Domain\Model\Format\Smiley>
-	 */
-	protected $smileys = NULL;
+    /**
+     * @var array<\Mittwald\Typo3Forum\Domain\Model\Format\Smiley>
+     */
+    protected $smileys = null;
 
-	/**
-	 * @return array
-	 */
-	public function getItems()
+    /**
+     * @return array
+     */
+    public function getItems()
     {
-		if ($this->smileys === NULL) {
-			$this->smileys = $this->smileyRepository->findAll();
-		}
+        if ($this->smileys === null) {
+            $this->smileys = $this->smileyRepository->findAll();
+        }
 
-		if (count($this->smileys) === 0) {
-			return FALSE;
-		}
+        if (count($this->smileys) === 0) {
+            return false;
+        }
 
-		$result = [];
-		foreach ($this->smileys as $smiley) {
-			$result[] = $smiley->exportForMarkItUp();
-		}
-		return [['name' => $this->settings['title'],
-			'className' => $this->settings['iconClassName'],
-			'replaceWith' => $this->smileys[0]->getSmileyShortcut(),
-			'dropMenu' => $result]];
-	}
+        $result = [];
+        foreach ($this->smileys as $smiley) {
+            $result[] = $smiley->exportForMarkItUp();
+        }
+        return [['name' => $this->settings['title'],
+            'className' => $this->settings['iconClassName'],
+            'replaceWith' => $this->smileys[0]->getSmileyShortcut(),
+            'dropMenu' => $result]];
+    }
 }

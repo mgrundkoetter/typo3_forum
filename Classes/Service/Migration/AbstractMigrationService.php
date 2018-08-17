@@ -33,7 +33,6 @@ namespace Mittwald\Typo3Forum\Service\Migration;
  * Date: 28.02.17
  * Time: 14:45
  */
-
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -83,7 +82,6 @@ abstract class AbstractMigrationService
      * @return string
      */
     abstract public function getTitle();
-
 
     /**
      * @return string
@@ -156,7 +154,6 @@ abstract class AbstractMigrationService
         }
     }
 
-
     /**
      * Add flash message to message array
      *
@@ -166,7 +163,7 @@ abstract class AbstractMigrationService
      */
     protected function addMessage($status, $title, $message)
     {
-        array_push($this->messages, array($status, $title, $message));
+        array_push($this->messages, [$status, $title, $message]);
     }
 
     /**
@@ -177,7 +174,6 @@ abstract class AbstractMigrationService
     protected function generateOutput()
     {
         if (!empty($this->messages)) {
-
             foreach ($this->messages as $messageItem) {
                 /** @var FlashMessage $flashMessage */
                 $flashMessage = GeneralUtility::makeInstance(

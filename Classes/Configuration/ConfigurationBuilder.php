@@ -25,7 +25,8 @@ namespace Mittwald\Typo3Forum\Configuration;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-#use TYPO3\CMS\Extbase\Service\TypoScriptService;
+
+//use TYPO3\CMS\Extbase\Service\TypoScriptService;
 
 class ConfigurationBuilder implements SingletonInterface
 {

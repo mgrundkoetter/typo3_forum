@@ -30,17 +30,15 @@ use Mittwald\Typo3Forum\Domain\Exception\AbstractException;
 class Exception extends AbstractException
 {
 
-	/**
-	 * Exception message.
-	 * @var string
-	 */
-	protected $message = "Textparser error.";
+    /**
+     * Exception message.
+     * @var string
+     */
+    protected $message = 'Textparser error.';
 
-
-	/**
-	 * Exception code
-	 * @var int
-	 */
-	protected $code = 1284730638;
-
+    /**
+     * Exception code
+     * @var int
+     */
+    protected $code = 1284730638;
 }

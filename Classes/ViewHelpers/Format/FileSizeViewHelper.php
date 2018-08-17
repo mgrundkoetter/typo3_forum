@@ -35,38 +35,38 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 class FileSizeViewHelper extends AbstractViewHelper
 {
 
-	/**
-	 * Diffentently scaled units for file sizes.
-	 * @var array
-	 */
-	protected $suffixes = [0 => 'B',
-	                            1 => 'KiB',
-	                            2 => 'MiB',
-	                            3 => 'GiB',
-	                            4 => 'TiB'];
+    /**
+     * Diffentently scaled units for file sizes.
+     * @var array
+     */
+    protected $suffixes = [0 => 'B',
+                                1 => 'KiB',
+                                2 => 'MiB',
+                                3 => 'GiB',
+                                4 => 'TiB'];
 
-	/**
-	 * Renders the file size.
-	 *
-	 * @param int    $decimals
-	 * @param string $decimalSeparator
-	 * @param string $thousandsSeparator
-	 *
-	 * @return string
-	 */
-	public function render($decimals = 2, $decimalSeparator = ',', $thousandsSeparator = '.')
+    /**
+     * Renders the file size.
+     *
+     * @param int    $decimals
+     * @param string $decimalSeparator
+     * @param string $thousandsSeparator
+     *
+     * @return string
+     */
+    public function render($decimals = 2, $decimalSeparator = ',', $thousandsSeparator = '.')
     {
-		$fileSize = $this->renderChildren();
-		$suffix   = 0;
-		while ($fileSize >= 1024) {
-			$fileSize /= 1024;
-			$suffix++;
-		}
-		return number_format(
+        $fileSize = $this->renderChildren();
+        $suffix   = 0;
+        while ($fileSize >= 1024) {
+            $fileSize /= 1024;
+            $suffix++;
+        }
+        return number_format(
             $fileSize,
             $decimals,
             $decimalSeparator,
-		    $thousandsSeparator
+            $thousandsSeparator
         ) . ' ' . $this->suffixes[$suffix];
-	}
+    }
 }

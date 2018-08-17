@@ -27,7 +27,6 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Core\SingletonInterface;
 
-
 /**
  * A virtual root forum.
  * This class models a virtual root forum that is the parent forum of all
@@ -36,24 +35,24 @@ use TYPO3\CMS\Core\SingletonInterface;
 class RootForum extends Forum implements SingletonInterface
 {
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
-	 * @inject
-	 */
-	protected $forumRepository = NULL;
+    /**
+     * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
+     * @inject
+     */
+    protected $forumRepository = null;
 
-	public function __construct()
-	{
-		$this->uid = 0;
-	}
+    public function __construct()
+    {
+        $this->uid = 0;
+    }
 
-	public function getChildren()
-	{
-		return $this->forumRepository->findRootForums();
-	}
+    public function getChildren()
+    {
+        return $this->forumRepository->findRootForums();
+    }
 
-	public function checkAccess(FrontendUser $user = NULL, $accessType = Access::TYPE_READ)
-	{
-		return $accessType === Access::TYPE_READ;
-	}
+    public function checkAccess(FrontendUser $user = null, $accessType = Access::TYPE_READ)
+    {
+        return $accessType === Access::TYPE_READ;
+    }
 }

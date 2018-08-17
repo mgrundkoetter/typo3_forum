@@ -37,17 +37,17 @@ use Mittwald\Typo3Forum\Utility\Localization;
 class NotificationService extends AbstractService implements NotificationServiceInterface
 {
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Service\Mailing\HTMLMailingService
-	 * @inject
-	 */
-	protected $htmlMailingService;
+    /**
+     * @var \Mittwald\Typo3Forum\Service\Mailing\HTMLMailingService
+     * @inject
+     */
+    protected $htmlMailingService;
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder
-	 * @inject
-	 */
-	protected $uriBuilder;
+    /**
+     * @var \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder
+     * @inject
+     */
+    protected $uriBuilder;
 
     /**
      * @var \Mittwald\Typo3Forum\Configuration\ConfigurationBuilder
@@ -55,79 +55,79 @@ class NotificationService extends AbstractService implements NotificationService
      */
     protected $configurationBuilder;
 
-	/**
-	 * Whole TypoScript typo3_forum settings
-	 * @var array
-	 */
-	protected $settings;
+    /**
+     * Whole TypoScript typo3_forum settings
+     * @var array
+     */
+    protected $settings;
 
-	public function initializeObject()
+    public function initializeObject()
     {
-		$this->settings = $this->configurationBuilder->getSettings();
-	}
+        $this->settings = $this->configurationBuilder->getSettings();
+    }
 
-	/**
-	 *
-	 * Notifies subscribers of a subscribeable objects about a new notifiable object
-	 * within the subscribeable object, e.g. of a new post within a subscribed topic.
-	 *
-	 * @param SubscribeableInterface $subscriptionObject The subscribed object. This may for example be a forum or a topic.
-	 * @param NotifiableInterface $notificationObject The object that the subscriber is notified about. This may for example be a new post within an observed topic or forum or a new topic within an observed forum.
-	 * @return void
-	 *
-	 */
-	public function notifySubscribers(SubscribeableInterface $subscriptionObject, NotifiableInterface $notificationObject)
+    /**
+     *
+     * Notifies subscribers of a subscribeable objects about a new notifiable object
+     * within the subscribeable object, e.g. of a new post within a subscribed topic.
+     *
+     * @param SubscribeableInterface $subscriptionObject The subscribed object. This may for example be a forum or a topic.
+     * @param NotifiableInterface $notificationObject The object that the subscriber is notified about. This may for example be a new post within an observed topic or forum or a new topic within an observed forum.
+     * @return void
+     *
+     */
+    public function notifySubscribers(SubscribeableInterface $subscriptionObject, NotifiableInterface $notificationObject)
     {
-		$topic = $subscriptionObject;
-		$post  = $notificationObject;
+        $topic = $subscriptionObject;
+        $post  = $notificationObject;
 
-		$subject = Localization::translate('Mail_Subscribe_NewPost_Subject');
-		$messageTemplate = Localization::translate('Mail_Subscribe_NewPost_Body');
-		$postAuthor = $post->getAuthor()->getUsername();
-		$arguments = [
-			'tx_typo3forum_pi1[controller]' => 'Topic',
-			'tx_typo3forum_pi1[action]' => 'show',
-			'tx_typo3forum_pi1[topic]' => $topic->getUid()
-		];
-		$pageNumber = $post->getTopic()->getPageCount();
-		if ($pageNumber > 1) {
-			$arguments['@widget_0']['currentPage'] = $pageNumber;
-		}
+        $subject = Localization::translate('Mail_Subscribe_NewPost_Subject');
+        $messageTemplate = Localization::translate('Mail_Subscribe_NewPost_Body');
+        $postAuthor = $post->getAuthor()->getUsername();
+        $arguments = [
+            'tx_typo3forum_pi1[controller]' => 'Topic',
+            'tx_typo3forum_pi1[action]' => 'show',
+            'tx_typo3forum_pi1[topic]' => $topic->getUid()
+        ];
+        $pageNumber = $post->getTopic()->getPageCount();
+        if ($pageNumber > 1) {
+            $arguments['@widget_0']['currentPage'] = $pageNumber;
+        }
 
-		$topicLink = $this->uriBuilder
-			->setTargetPageUid($this->settings['pids']['Forum'])
-			->setArguments($arguments)
-			->setCreateAbsoluteUri(true)
-			->build();
-		$topicLink = '<a href="' . $topicLink . '">' . $topic->getTitle() . '</a>';
-		$this->uriBuilder->reset();
-		$unSubscribeLink = $this->uriBuilder
-			->setTargetPageUid($this->settings['pids']['Forum'])
-			->setArguments([
-				'tx_typo3forum_pi1[topic]' => $topic->getUid(),
-				'tx_typo3forum_pi1[controller]' => 'User',
-				'tx_typo3forum_pi1[action]' => 'subscribe',
-				'tx_typo3forum_pi1[unsubscribe]' => 1,
-			])
-			->setCreateAbsoluteUri(true)
-			->build();
+        $topicLink = $this->uriBuilder
+            ->setTargetPageUid($this->settings['pids']['Forum'])
+            ->setArguments($arguments)
+            ->setCreateAbsoluteUri(true)
+            ->build();
+        $topicLink = '<a href="' . $topicLink . '">' . $topic->getTitle() . '</a>';
+        $this->uriBuilder->reset();
+        $unSubscribeLink = $this->uriBuilder
+            ->setTargetPageUid($this->settings['pids']['Forum'])
+            ->setArguments([
+                'tx_typo3forum_pi1[topic]' => $topic->getUid(),
+                'tx_typo3forum_pi1[controller]' => 'User',
+                'tx_typo3forum_pi1[action]' => 'subscribe',
+                'tx_typo3forum_pi1[unsubscribe]' => 1,
+            ])
+            ->setCreateAbsoluteUri(true)
+            ->build();
 
-		$unSubscribeLink = '<a href="' . $unSubscribeLink . '">' . $unSubscribeLink . '</a>';
-		foreach ($topic->getSubscribers() as $subscriber) {
-			if ($subscriber->getUid() != $post->getAuthor()->getUid() ) {
-				$marker = [
-					'###RECIPIENT###' => $subscriber->getUsername(),
-					'###POST_AUTHOR###' => $postAuthor,
-					'###TOPIC_LINK###' => $topicLink,
-					'###UNSUBSCRIBE_LINK###' => $unSubscribeLink,
-					'###FORUM_NAME###' => $this->settings['mailing']['sender']['name']
-				];
-				$message = $messageTemplate;
-				foreach ($marker As $name => $value) {
-					$message = str_replace($name, $value, $message);
-				}
-				$this->htmlMailingService->sendMail($subscriber, $subject, nl2br($message));
-			}
-		}
-	}
+        $unSubscribeLink = '<a href="' . $unSubscribeLink . '">' . $unSubscribeLink . '</a>';
+        foreach ($topic->getSubscribers() as $subscriber) {
+            if ($subscriber->getUid() != $post->getAuthor()->getUid()) {
+                $marker = [
+                    '###RECIPIENT###' => $subscriber->getUsername(),
+                    '###POST_AUTHOR###' => $postAuthor,
+                    '###TOPIC_LINK###' => $topicLink,
+                    '###UNSUBSCRIBE_LINK###' => $unSubscribeLink,
+                    '###FORUM_NAME###' => $this->settings['mailing']['sender']['name']
+                ];
+                $message = $messageTemplate;
+                foreach ($marker as $name => $value) {
+                    $message = str_replace($name, $value, $message);
+                }
+                $this->htmlMailingService->sendMail($subscriber, $subject, nl2br($message));
+            }
+        }
+    }
 }

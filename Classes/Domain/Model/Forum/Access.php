@@ -41,193 +41,185 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
  */
 class Access extends AbstractValueObject
 {
+    const TYPE_READ = 'read';
+    const TYPE_NEW_TOPIC = 'newTopic';
+    const TYPE_NEW_POST = 'newPost';
+    const TYPE_EDIT_POST = 'editPost';
+    const TYPE_DELETE_POST = 'deletePost';
+    const TYPE_MODERATE = 'moderate';
+    const TYPE_SOLUTION = 'solution';
 
-	const TYPE_READ = 'read';
-	const TYPE_NEW_TOPIC = 'newTopic';
-	const TYPE_NEW_POST = 'newPost';
-	const TYPE_EDIT_POST = 'editPost';
-	const TYPE_DELETE_POST = 'deletePost';
-	const TYPE_MODERATE = 'moderate';
-	const TYPE_SOLUTION = 'solution';
+    /**
+     * Anyone.
+     */
+    const LOGIN_LEVEL_EVERYONE = 0;
 
-	/**
-	 * Anyone.
-	 */
-	const LOGIN_LEVEL_EVERYONE = 0;
+    /**
+     * Any logged in user
+     */
+    const LOGIN_LEVEL_ANYLOGIN = 1;
 
+    /**
+     * A specifiy user group
+     */
+    const LOGIN_LEVEL_SPECIFIC = 2;
 
-	/**
-	 * Any logged in user
-	 */
-	const LOGIN_LEVEL_ANYLOGIN = 1;
+    /**
+     * The operation that is to be granted or denied.
+     * @var string
+     */
+    protected $operation;
 
+    /**
+     * Whether this entry is negated
+     * @var bool
+     */
+    protected $negate;
 
-	/**
-	 * A specifiy user group
-	 */
-	const LOGIN_LEVEL_SPECIFIC = 2;
+    /**
+     * The required login level. See the LOGIN_LEVEL_* constants.
+     * @var int
+     */
+    protected $loginLevel;
 
-	/**
-	 * The operation that is to be granted or denied.
-	 * @var string
-	 */
-	protected $operation;
+    /**
+     * The user group that is affected by this ACL entry. This property is only
+     * relevant if $loginLevel == LOGIN_LEVEL_SPECIFIC.
+     *
+     * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup
+     */
+    protected $affectedGroup;
 
+    public function __construct($operation = null, $level = null, \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup $group = null)
+    {
+        $this->operation = $operation;
+        $this->loginLevel = $level;
+        $this->affectedGroup = $group;
+    }
 
-	/**
-	 * Whether this entry is negated
-	 * @var boolean
-	 */
-	protected $negate;
+    /**
+     * Gets the affected operation.
+     * @return string The affected operation.
+     */
+    public function getOperation()
+    {
+        return $this->operation;
+    }
 
+    /**
+     * Sets the affected operation.
+     *
+     * @param string $operation The affected operation
+     *
+     * @return void
+     */
+    public function setOperation($operation)
+    {
+        $this->operation = $operation;
+    }
 
-	/**
-	 * The required login level. See the LOGIN_LEVEL_* constants.
-	 * @var integer
-	 */
-	protected $loginLevel;
+    /**
+     * Determines if this ACL entry is negated.
+     * @return bool TRUE, if this entry is negated.
+     */
+    public function getNegated()
+    {
+        return $this->negate;
+    }
 
+    /**
+     * Determines if this ACL entry is negated.
+     * @return bool TRUE, if this entry is negated.
+     */
+    public function isNegated()
+    {
+        return $this->negate;
+    }
 
-	/**
-	 * The user group that is affected by this ACL entry. This property is only
-	 * relevant if $loginLevel == LOGIN_LEVEL_SPECIFIC.
-	 *
-	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup
-	 */
-	protected $affectedGroup;
+    /**
+     * Gets the group for this entry.
+     * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup group The group
+     */
+    public function getGroup()
+    {
+        return $this->affectedGroup;
+    }
 
+    /**
+     * Determines whether this entry affects all visitors.
+     * @return bool TRUE, when this entry affects all visitors, otherwise FALSE.
+     */
+    public function isEveryone()
+    {
+        return $this->loginLevel == self::LOGIN_LEVEL_EVERYONE;
+    }
 
-	public function __construct($operation = NULL, $level = NULL, \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup $group = NULL)
-	{
-		$this->operation = $operation;
-		$this->loginLevel = $level;
-		$this->affectedGroup = $group;
-	}
+    /**
+     * Determines whether this entry requires any login.
+     * @return bool TRUE when this entry requires any login, otherwise FALSE.
+     */
+    public function isAnyLogin()
+    {
+        return $this->loginLevel == self::LOGIN_LEVEL_ANYLOGIN;
+    }
 
-	/**
-	 * Gets the affected operation.
-	 * @return string The affected operation.
-	 */
-	public function getOperation()
-	{
-		return $this->operation;
-	}
+    /**
+     * Matches a certain user against this access rule.
+     *
+     * @throws \Exception
+     * @param FrontendUser $user The user to be matched. Can also be NULL (for anonymous  users).
+     * @return bool TRUE if this access rule matches the given user, otherwise FALSE. This result may be negated using the "negate" property.
+     */
+    public function matches(FrontendUser $user = null)
+    {
+        $result = false;
+        if ($this->loginLevel === self::LOGIN_LEVEL_EVERYONE) {
+            $result = true;
+        }
 
-	/**
-	 * Sets the affected operation.
-	 *
-	 * @param string $operation The affected operation
-	 *
-	 * @return void
-	 */
-	public function setOperation($operation)
-	{
-		$this->operation = $operation;
-	}
+        if ($this->loginLevel === self::LOGIN_LEVEL_ANYLOGIN && $user !== null && !$user->isAnonymous()) {
+            $result = true;
+        }
 
-	/**
-	 * Determines if this ACL entry is negated.
-	 * @return boolean TRUE, if this entry is negated.
-	 */
-	public function getNegated()
-	{
-		return $this->negate;
-	}
+        if ($this->loginLevel === self::LOGIN_LEVEL_SPECIFIC) {
+            if (!$this->affectedGroup instanceof FrontendUserGroup) {
+                throw new \Exception('access record #' . $this->getUid() . ' is of login level type "specific", but has not valid affected user group', 1436527735);
+            }
+            if ($user !== null) {
+                foreach ($user->getUsergroup() as $group) {
+                    /** @var $group \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup */
+                    if ($group->getUid() === $this->affectedGroup->getUid()) {
+                        $result = true;
+                        break;
+                    }
+                }
+            }
+        }
 
-	/**
-	 * Determines if this ACL entry is negated.
-	 * @return boolean TRUE, if this entry is negated.
-	 */
-	public function isNegated()
-	{
-		return $this->negate;
-	}
+        return $result;
+    }
 
-	/**
-	 * Gets the group for this entry.
-	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup group The group
-	 */
-	public function getGroup()
-	{
-		return $this->affectedGroup;
-	}
+    /**
+     * Negates this entry.
+     *
+     * @param bool $negate TRUE to negate
+     *
+     * @return void
+     */
+    public function setNegated($negate)
+    {
+        $this->negate = $negate;
+    }
 
-	/**
-	 * Determines whether this entry affects all visitors.
-	 * @return boolean TRUE, when this entry affects all visitors, otherwise FALSE.
-	 */
-
-	public function isEveryone()
-	{
-		return $this->loginLevel == Access::LOGIN_LEVEL_EVERYONE;
-	}
-
-	/**
-	 * Determines whether this entry requires any login.
-	 * @return boolean TRUE when this entry requires any login, otherwise FALSE.
-	 */
-	public function isAnyLogin()
-	{
-		return $this->loginLevel == Access::LOGIN_LEVEL_ANYLOGIN;
-	}
-
-	/**
-	 * Matches a certain user against this access rule.
-	 *
-	 * @throws \Exception
-	 * @param FrontendUser $user The user to be matched. Can also be NULL (for anonymous  users).
-	 * @return bool TRUE if this access rule matches the given user, otherwise FALSE. This result may be negated using the "negate" property.
-	 */
-	public function matches(FrontendUser $user = NULL)
-	{
-		$result = FALSE;
-		if ($this->loginLevel === self::LOGIN_LEVEL_EVERYONE) {
-			$result = TRUE;
-		}
-
-		if ($this->loginLevel === self::LOGIN_LEVEL_ANYLOGIN && $user !== NULL && !$user->isAnonymous()) {
-			$result = TRUE;
-		}
-
-		if ($this->loginLevel === self::LOGIN_LEVEL_SPECIFIC) {
-			if (!$this->affectedGroup instanceof FrontendUserGroup) {
-				throw new \Exception('access record #' . $this->getUid() . ' is of login level type "specific", but has not valid affected user group', 1436527735);
-			}
-			if ($user !== NULL) {
-				foreach ($user->getUsergroup() as $group) {
-					/** @var $group \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup */
-					if ($group->getUid() === $this->affectedGroup->getUid()) {
-						$result = TRUE;
-						break;
-					}
-				}
-			}
-		}
-
-		return $result;
-	}
-
-	/**
-	 * Negates this entry.
-	 *
-	 * @param boolean $negate TRUE to negate
-	 *
-	 * @return void
-	 */
-	public function setNegated($negate)
-	{
-		$this->negate = $negate;
-	}
-
-	/**
-	 * Sets the group.
-	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup $group The group
-	 *
-	 * @return void
-	 */
-	public function setAffectedGroup(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup $group)
-	{
-		$this->affectedGroup = $group;
-	}
+    /**
+     * Sets the group.
+     *
+     * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup $group The group
+     *
+     * @return void
+     */
+    public function setAffectedGroup(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup $group)
+    {
+        $this->affectedGroup = $group;
+    }
 }

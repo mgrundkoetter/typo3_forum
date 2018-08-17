@@ -31,35 +31,35 @@ namespace Mittwald\Typo3Forum\TextParser\Service;
 class SyntaxHighlightingParserService extends AbstractTextParserService
 {
 
-	/**
-	 * @var \Mittwald\Typo3Forum\TextParser\Service\AbstractGeshiService
-	 * @inject
-	 */
-	protected $xtGeshi;
+    /**
+     * @var \Mittwald\Typo3Forum\TextParser\Service\AbstractGeshiService
+     * @inject
+     */
+    protected $xtGeshi;
 
-	/**
-	 * Renders the parsed text.
-	 *
-	 * @param string $text The text to be parsed.
-	 * @return string The parsed text.
-	 */
-	public function getParsedText($text)
+    /**
+     * Renders the parsed text.
+     *
+     * @param string $text The text to be parsed.
+     * @return string The parsed text.
+     */
+    public function getParsedText($text)
     {
-		return preg_replace_callback(
-			',\[code language=([a-z0-9]+)\](.*?)\[\/code\],is',
-			[$this, 'parseSourceCode'],
-			$text
-		);
-	}
+        return preg_replace_callback(
+            ',\[code language=([a-z0-9]+)\](.*?)\[\/code\],is',
+            [$this, 'parseSourceCode'],
+            $text
+        );
+    }
 
-	/**
-	 * Callback function that renders each source code block.
-	 *
-	 * @param array $matches PCRE matches.
-	 * @return string The rendered source code block.
-	 */
-	protected function parseSourceCode($matches)
+    /**
+     * Callback function that renders each source code block.
+     *
+     * @param array $matches PCRE matches.
+     * @return string The rendered source code block.
+     */
+    protected function parseSourceCode($matches)
     {
-		return $this->xtGeshi->getFormattedText(trim($matches[2]), trim($matches[1]));
-	}
+        return $this->xtGeshi->getFormattedText(trim($matches[2]), trim($matches[1]));
+    }
 }

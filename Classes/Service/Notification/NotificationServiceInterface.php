@@ -35,10 +35,9 @@ use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
 interface NotificationServiceInterface
 {
 
-	/**
-	 * @param SubscribeableInterface $subscriptionObject
-	 * @param NotifiableInterface $notificationObject
-	 */
-	public function notifySubscribers(SubscribeableInterface $subscriptionObject, NotifiableInterface $notificationObject);
-
+    /**
+     * @param SubscribeableInterface $subscriptionObject
+     * @param NotifiableInterface $notificationObject
+     */
+    public function notifySubscribers(SubscribeableInterface $subscriptionObject, NotifiableInterface $notificationObject);
 }

@@ -31,11 +31,9 @@ namespace Mittwald\Typo3Forum\Domain\Model\User\Userfield;
 class TextUserfield extends TyposcriptUserfield
 {
 
-	/**
-	 * The typoscript path that is to be used for rendering this field.
-	 * @var string
-	 */
-	protected $typoscriptPath = 'plugin.tx_typo3forum.userfields.text';
-
+    /**
+     * The typoscript path that is to be used for rendering this field.
+     * @var string
+     */
+    protected $typoscriptPath = 'plugin.tx_typo3forum.userfields.text';
 }
-

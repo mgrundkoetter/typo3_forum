@@ -31,22 +31,21 @@ namespace Mittwald\Typo3Forum\Domain\Model\Format;
 class QuoteBBCode extends BBCode
 {
 
-	/**
-	 * Return the left (opening) bb code tag.
-	 * @return string The left bb code tag.
-	 */
-	public function getLeftBBCode()
+    /**
+     * Return the left (opening) bb code tag.
+     * @return string The left bb code tag.
+     */
+    public function getLeftBBCode()
     {
-		return '[quote]';
-	}
+        return '[quote]';
+    }
 
-	/**
-	 * Return the right (closing) bb code tag.
-	 * @return string The right bb code tag.
-	 */
-
-	public function getRightBBCode()
+    /**
+     * Return the right (closing) bb code tag.
+     * @return string The right bb code tag.
+     */
+    public function getRightBBCode()
     {
-		return '[/quote]';
-	}
+        return '[/quote]';
+    }
 }

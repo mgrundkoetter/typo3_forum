@@ -31,7 +31,6 @@ use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 
 class ReportIconViewHelper extends AbstractViewHelper
 {
-
     const TYPOSCRIPT_PATH = 'plugin.tx_typo3forum.renderer.icons.report';
 
     /**
@@ -49,7 +48,7 @@ class ReportIconViewHelper extends AbstractViewHelper
      * Renders the report icon.
      *
      * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\Report $report The report for which the icon is to be rendered.
-     * @param integer $width Image width
+     * @param int $width Image width
      * @param string $alt Alt text
      * @return string             The rendered icon.
      *

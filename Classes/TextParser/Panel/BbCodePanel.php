@@ -28,30 +28,30 @@ namespace Mittwald\Typo3Forum\TextParser\Panel;
 class BbCodePanel extends AbstractPanel
 {
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Format\BBCodeRepository
-	 * @inject
-	 */
-	protected $bbCodeRepository = NULL;
+    /**
+     * @var \Mittwald\Typo3Forum\Domain\Repository\Format\BBCodeRepository
+     * @inject
+     */
+    protected $bbCodeRepository = null;
 
-	/**
-	 * @var array<\Mittwald\Typo3Forum\Domain\Model\Format\BBCode>
-	 */
-	protected $bbCodes = NULL;
+    /**
+     * @var array<\Mittwald\Typo3Forum\Domain\Model\Format\BBCode>
+     */
+    protected $bbCodes = null;
 
-	/**
-	 * @return array
-	 */
-	public function getItems()
+    /**
+     * @return array
+     */
+    public function getItems()
     {
-		if ($this->bbCodes === NULL) {
-			$this->bbCodes = $this->bbCodeRepository->findAll();
-		}
-		$result = [];
+        if ($this->bbCodes === null) {
+            $this->bbCodes = $this->bbCodeRepository->findAll();
+        }
+        $result = [];
 
-		foreach ($this->bbCodes as $bbCode) {
-			$result[] = $bbCode->exportForMarkItUp();
-		}
-		return $result;
-	}
+        foreach ($this->bbCodes as $bbCode) {
+            $result[] = $bbCode->exportForMarkItUp();
+        }
+        return $result;
+    }
 }

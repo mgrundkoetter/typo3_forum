@@ -36,41 +36,41 @@ use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 class AvatarUrlViewHelper extends CObjectViewHelper
 {
 
-	/**
-	 * An instance of the Extbase Signal-/Slot-Dispatcher.
-	 * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
-	 * @inject
-	 */
-	protected $slots;
+    /**
+     * An instance of the Extbase Signal-/Slot-Dispatcher.
+     * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
+     * @inject
+     */
+    protected $slots;
 
-	/**
-	 *
-	 * Initializes the view helper's arguments.
-	 *
-	 */
-	public function initializeArguments()
+    /**
+     *
+     * Initializes the view helper's arguments.
+     *
+     */
+    public function initializeArguments()
     {
-		parent::initializeArguments();
-	}
+        parent::initializeArguments();
+    }
 
-	/**
-	 * Renders the avatar.
-	 *
-	 * @param FrontendUser $user
-	 * @return string
-	 */
-	public function render(FrontendUser $user = NULL)
+    /**
+     * Renders the avatar.
+     *
+     * @param FrontendUser $user
+     * @return string
+     */
+    public function render(FrontendUser $user = null)
     {
-		// if user ist not set
-		$avatarFilename = NULL;
+        // if user ist not set
+        $avatarFilename = null;
 
-		if (($user !== NULL) && !($user instanceof AnonymousFrontendUser)) {
-			$avatarFilename = $user->getImagePath();
-		}
+        if (($user !== null) && !($user instanceof AnonymousFrontendUser)) {
+            $avatarFilename = $user->getImagePath();
+        }
 
-		if ($avatarFilename === NULL) {
-			$avatarFilename = ExtensionManagementUtility::siteRelPath('typo3_forum') . 'Resources/Public/Images/Icons/AvatarEmpty.png';
-		}
-		return $avatarFilename;
-	}
+        if ($avatarFilename === null) {
+            $avatarFilename = ExtensionManagementUtility::siteRelPath('typo3_forum') . 'Resources/Public/Images/Icons/AvatarEmpty.png';
+        }
+        return $avatarFilename;
+    }
 }

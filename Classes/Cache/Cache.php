@@ -39,59 +39,58 @@ use TYPO3\CMS\Core\SingletonInterface;
  */
 class Cache implements SingletonInterface
 {
+    const CACHE_NAME = 'typo3forum_main';
 
-	const CACHE_NAME = 'typo3forum_main';
+    /**
+     * @var \TYPO3\CMS\Core\Cache\Frontend\FrontendInterface
+     */
+    protected $cacheInstance = null;
 
-	/**
-	 * @var \TYPO3\CMS\Core\Cache\Frontend\FrontendInterface
-	 */
-	protected $cacheInstance = NULL;
+    /**
+     * @var \TYPO3\CMS\Core\Cache\CacheFactory
+     */
+    protected $cacheFactory;
 
-	/**
-	 * @var \TYPO3\CMS\Core\Cache\CacheFactory
-	 */
-	protected $cacheFactory;
+    /**
+     * @var \TYPO3\CMS\Core\Cache\CacheManager
+     * @inject
+     */
+    protected $cacheManager;
 
-	/**
-	 * @var \TYPO3\CMS\Core\Cache\CacheManager
-	 * @inject
-	 */
-	protected $cacheManager;
+    /**
+     *
+     */
+    public function initializeObject()
+    {
+        try {
+            $this->cacheInstance = $this->cacheManager->getCache(self::CACHE_NAME);
+        } catch (NoSuchCacheException $e) {
+            $this->cacheInstance = $this->cacheFactory->create(
+                self::CACHE_NAME,
+                $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['typo3forum_main']['frontend'],
+                $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['typo3forum_main']['backend'],
+                $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['typo3forum_main']['options']
+            );
+        }
+    }
 
-	/**
-	 *
-	 */
-	public function initializeObject()
-	{
-		try {
-			$this->cacheInstance = $this->cacheManager->getCache(self::CACHE_NAME);
-		} catch (NoSuchCacheException $e) {
-			$this->cacheInstance = $this->cacheFactory->create(
-				self::CACHE_NAME,
-				$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['typo3forum_main']['frontend'],
-				$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['typo3forum_main']['backend'],
-				$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['typo3forum_main']['options']
-			);
-		}
-	}
+    public function has($identifier)
+    {
+        return $this->cacheInstance->has($identifier);
+    }
 
-	public function has($identifier)
-	{
-		return $this->cacheInstance->has($identifier);
-	}
+    public function get($identifier)
+    {
+        return $this->cacheInstance->get($identifier);
+    }
 
-	public function get($identifier)
-	{
-		return $this->cacheInstance->get($identifier);
-	}
+    public function set($identifier, $value, array $tags = [], $lifetime = null)
+    {
+        $this->cacheInstance->set($identifier, $value, $tags, $lifetime);
+    }
 
-	public function set($identifier, $value, array $tags = [], $lifetime = NULL)
-	{
-		$this->cacheInstance->set($identifier, $value, $tags, $lifetime);
-	}
-
-	public function flush()
-	{
-		$this->cacheInstance->flush();
-	}
+    public function flush()
+    {
+        $this->cacheInstance->flush();
+    }
 }

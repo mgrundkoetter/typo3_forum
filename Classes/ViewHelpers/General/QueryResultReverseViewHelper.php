@@ -29,7 +29,6 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class QueryResultReverseViewHelper extends AbstractViewHelper
 {
-
     public function initializeArguments()
     {
         parent::initializeArguments();

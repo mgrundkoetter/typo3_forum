@@ -36,7 +36,7 @@ use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 class TopicIconViewHelper extends AbstractViewHelper
 {
     protected $escapeOutput = false;
-    
+
     /**
      * The frontend user repository.
      * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
@@ -66,7 +66,7 @@ class TopicIconViewHelper extends AbstractViewHelper
      * Renders the topic icon.
      *
      * @param Topic $topic The topic for which the icon is to be rendered.
-     * @param integer $width Image width
+     * @param int $width Image width
      * @return string The rendered icon.
      */
     public function render(Topic $topic = null, $width = null)

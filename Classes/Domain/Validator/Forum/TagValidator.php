@@ -30,35 +30,35 @@ use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 class TagValidator extends AbstractValidator
 {
 
-	/**
-	 * An instance of the tag repository.
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository
-	 * @inject
-	 */
-	protected $tagRepository;
+    /**
+     * An instance of the tag repository.
+     * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository
+     * @inject
+     */
+    protected $tagRepository;
 
-	/**
-	 * Check if $value is valid. If it is not valid, needs to add an error
-	 * to Result.
-	 *
-	 * @param string $name
-	 * @return bool
-	 */
-	protected function isValid($name = "")
+    /**
+     * Check if $value is valid. If it is not valid, needs to add an error
+     * to Result.
+     *
+     * @param string $name
+     * @return bool
+     */
+    protected function isValid($name = '')
     {
-		$result = TRUE;
+        $result = true;
 
-		if (trim($name) === '') {
-			$this->addError('The name can\'t be empty!.', 1373871955);
-			$result = FALSE;
-		}
-		$name = ucfirst($name);
-		$res = $this->tagRepository->findTagWithSpecificName($name);
-		if ($res[0] != false) {
-			$this->addError('The tag already exists!.', 1373871960);
-			$result = FALSE;
-		}
+        if (trim($name) === '') {
+            $this->addError('The name can\'t be empty!.', 1373871955);
+            $result = false;
+        }
+        $name = ucfirst($name);
+        $res = $this->tagRepository->findTagWithSpecificName($name);
+        if ($res[0] != false) {
+            $this->addError('The tag already exists!.', 1373871960);
+            $result = false;
+        }
 
-		return $result;
-	}
+        return $result;
+    }
 }

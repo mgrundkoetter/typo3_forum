@@ -30,46 +30,46 @@ use TYPO3\CMS\Scheduler\Task\AbstractTask;
 class SessionResetter extends AbstractTask
 {
 
-	/**
-	 * @var int
-	 */
-	protected $userPid;
+    /**
+     * @var int
+     */
+    protected $userPid;
 
-	/**
-	 * @return int
-	 */
-	public function getUserPid()
+    /**
+     * @return int
+     */
+    public function getUserPid()
     {
-		return $this->userPid;
-	}
+        return $this->userPid;
+    }
 
-	/**
-	 * @param int $userPid
-	 */
-	public function setUserPid($userPid)
+    /**
+     * @param int $userPid
+     */
+    public function setUserPid($userPid)
     {
-		$this->userPid = $userPid;
-	}
+        $this->userPid = $userPid;
+    }
 
-	/**
-	 * @return bool
-	 */
-	public function execute()
+    /**
+     * @return bool
+     */
+    public function execute()
     {
-		if ((int)$this->getUserPid() === 0) {
-			return FALSE;
-		}
+        if ((int)$this->getUserPid() === 0) {
+            return false;
+        }
 
-		$updateArray = [
-			'tx_typo3forum_helpful_count_session' => 0,
-			'tx_typo3forum_post_count_session' => 0,
-		];
-		$query = $GLOBALS['TYPO3_DB']->UPDATEquery('fe_users', 'pid=' . (int)$this->getUserPid(), $updateArray);
-		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
-		if (!$res) {
-			return FALSE;
-		} else {
-			return TRUE;
-		}
-	}
+        $updateArray = [
+            'tx_typo3forum_helpful_count_session' => 0,
+            'tx_typo3forum_post_count_session' => 0,
+        ];
+        $query = $GLOBALS['TYPO3_DB']->UPDATEquery('fe_users', 'pid=' . (int)$this->getUserPid(), $updateArray);
+        $res = $GLOBALS['TYPO3_DB']->sql_query($query);
+        if (!$res) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

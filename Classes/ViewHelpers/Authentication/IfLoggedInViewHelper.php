@@ -31,19 +31,18 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  * ViewHelper that renders its contents if there is a user currently logged
  * in.
  */
-
 class IfLoggedInViewHelper extends AbstractViewHelper
 {
     protected $escapeOutput = false;
     protected $escapeChildren = false;
 
-	/**
-	 * Renders the ViewHelper contents if there is a user logged in.
-	 *
-	 * @return string HTML content
-	 */
-	public function render()
+    /**
+     * Renders the ViewHelper contents if there is a user logged in.
+     *
+     * @return string HTML content
+     */
+    public function render()
     {
-		return $GLOBALS['TSFE']->fe_user->user['uid'] ? $this->renderChildren() : '';
-	}
+        return $GLOBALS['TSFE']->fe_user->user['uid'] ? $this->renderChildren() : '';
+    }
 }

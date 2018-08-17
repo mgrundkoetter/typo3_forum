@@ -31,36 +31,36 @@ use Mittwald\Typo3Forum\Domain\Model\Format\QuoteBBCode;
 class BBCodeParserService extends AbstractTextParserService
 {
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Format\BBCodeRepository
-	 * @inject
-	 */
-	protected $bbCodeRepository;
+    /**
+     * @var \Mittwald\Typo3Forum\Domain\Repository\Format\BBCodeRepository
+     * @inject
+     */
+    protected $bbCodeRepository;
 
-	/**
-	 * All bb codes.
-	 * @var array<\Mittwald\Typo3Forum\Domain\Model\Format\BBCode>
-	 */
-	protected $bbCodes = NULL;
+    /**
+     * All bb codes.
+     * @var array<\Mittwald\Typo3Forum\Domain\Model\Format\BBCode>
+     */
+    protected $bbCodes = null;
 
-	/**
-	 * Parses the text. Replaces all bb codes in the text with appropriate HTML tags.
-	 *
-	 * @param string $text The text that is to be parsed.
-	 * @return string       The parsed text.
-	 */
-	public function getParsedText($text)
+    /**
+     * Parses the text. Replaces all bb codes in the text with appropriate HTML tags.
+     *
+     * @param string $text The text that is to be parsed.
+     * @return string       The parsed text.
+     */
+    public function getParsedText($text)
     {
-		if ($this->bbCodes === NULL) {
-			$this->bbCodes = $this->bbCodeRepository->findAll();
-		}
-		foreach ($this->bbCodes as $bbCode) {
-			/** @var $bbCode \Mittwald\Typo3Forum\Domain\Model\Format\BBCode */
-			if ($bbCode instanceof QuoteBBCode || $bbCode instanceof ListBBCode) {
-				continue;
-			}
-			$text = preg_replace($bbCode->getRegularExpression(), $bbCode->getRegularExpressionReplacement(), $text);
-		}
-		return $text;
-	}
+        if ($this->bbCodes === null) {
+            $this->bbCodes = $this->bbCodeRepository->findAll();
+        }
+        foreach ($this->bbCodes as $bbCode) {
+            /** @var $bbCode \Mittwald\Typo3Forum\Domain\Model\Format\BBCode */
+            if ($bbCode instanceof QuoteBBCode || $bbCode instanceof ListBBCode) {
+                continue;
+            }
+            $text = preg_replace($bbCode->getRegularExpression(), $bbCode->getRegularExpressionReplacement(), $text);
+        }
+        return $text;
+    }
 }

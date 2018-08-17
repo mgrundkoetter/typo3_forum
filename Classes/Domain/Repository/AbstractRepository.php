@@ -36,8 +36,6 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
  * Abstract base class for all typo3_forum repositories.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Domain_Repository_User
  * @version    $Id$
  *
  * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
@@ -80,7 +78,6 @@ abstract class AbstractRepository extends Repository
             );
         }
     }
-
 
     /**
      * @return QueryInterface

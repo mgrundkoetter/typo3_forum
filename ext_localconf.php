@@ -66,7 +66,7 @@ $_EXTKEY = 'typo3_forum';
 /*
  * TCE-Main hook for clearing all typo3_forum caches
  */
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['clearCachePostProc'][] = Mittwald\Typo3Forum\Cache\CacheManager::class.'->clearAll';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['clearCachePostProc'][] = Mittwald\Typo3Forum\Cache\CacheManager::class . '->clearAll';
 
 if (!is_array($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['typo3forum_main'])) {
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['typo3forum_main'] = [];

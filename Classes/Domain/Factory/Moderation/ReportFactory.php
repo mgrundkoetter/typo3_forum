@@ -34,64 +34,64 @@ use Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport;
 class ReportFactory extends AbstractFactory
 {
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportWorkflowStatusRepository
-	 * @inject
-	 */
-	protected $workflowStatusRepository;
+    /**
+     * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportWorkflowStatusRepository
+     * @inject
+     */
+    protected $workflowStatusRepository;
 
-	/**
-	 *
-	 * Creates a new User report.
-	 *
-	 * @param ReportComment $firstComment The first report comment for this report.
-	 *
-	 * @return UserReport
-	 *
-	 */
-	public function createUserReport(ReportComment $firstComment)
-	{
-		$user = &$this->getCurrentUser();
-		$firstComment->setAuthor($user);
-		/** @var UserReport $report */
-		$report = $this->objectManager->get(UserReport::class);
-		$report->setWorkflowStatus($this->getInitialWorkflowStatus());
-		$report->setReporter($user);
-		$report->addComment($firstComment);
+    /**
+     *
+     * Creates a new User report.
+     *
+     * @param ReportComment $firstComment The first report comment for this report.
+     *
+     * @return UserReport
+     *
+     */
+    public function createUserReport(ReportComment $firstComment)
+    {
+        $user = &$this->getCurrentUser();
+        $firstComment->setAuthor($user);
+        /** @var UserReport $report */
+        $report = $this->objectManager->get(UserReport::class);
+        $report->setWorkflowStatus($this->getInitialWorkflowStatus());
+        $report->setReporter($user);
+        $report->addComment($firstComment);
 
-		return $report;
-	}
+        return $report;
+    }
 
-	/**
-	 *
-	 * Creates a new User report.
-	 *
-	 * @param ReportComment $firstComment The first report comment for this report.
-	 *
-	 * @return object
-	 */
-	public function createPostReport(ReportComment $firstComment)
-	{
-		$user = &$this->getCurrentUser();
-		$firstComment->setAuthor($user);
-		$report = $this->objectManager->get(PostReport::class);
-		$report->setWorkflowStatus($this->getInitialWorkflowStatus());
-		$report->setReporter($user);
-		$report->addComment($firstComment);
+    /**
+     *
+     * Creates a new User report.
+     *
+     * @param ReportComment $firstComment The first report comment for this report.
+     *
+     * @return object
+     */
+    public function createPostReport(ReportComment $firstComment)
+    {
+        $user = &$this->getCurrentUser();
+        $firstComment->setAuthor($user);
+        $report = $this->objectManager->get(PostReport::class);
+        $report->setWorkflowStatus($this->getInitialWorkflowStatus());
+        $report->setReporter($user);
+        $report->addComment($firstComment);
 
-		return $report;
-	}
+        return $report;
+    }
 
-	/**
-	 * @return ReportWorkflowStatus
-	 * @throws \Exception
-	 */
-	protected function getInitialWorkflowStatus()
-	{
-		$initialWorkStatus = $this->workflowStatusRepository->findInitial();
-		if (!$initialWorkStatus instanceof ReportWorkflowStatus) {
-			throw new \Exception('No initial workflow status configured', 1436529800);
-		}
-		return $initialWorkStatus;
-	}
+    /**
+     * @return ReportWorkflowStatus
+     * @throws \Exception
+     */
+    protected function getInitialWorkflowStatus()
+    {
+        $initialWorkStatus = $this->workflowStatusRepository->findInitial();
+        if (!$initialWorkStatus instanceof ReportWorkflowStatus) {
+            throw new \Exception('No initial workflow status configured', 1436529800);
+        }
+        return $initialWorkStatus;
+    }
 }

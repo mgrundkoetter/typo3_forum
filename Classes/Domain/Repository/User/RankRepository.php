@@ -32,83 +32,83 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 class RankRepository extends Repository
 {
 
-	/**
-	 * Find the rank of a specific user
-	 *
-	 * @param FrontendUser $user
-	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\User\Rank[]
-	 */
-	public function findRankByUser(FrontendUser $user)
+    /**
+     * Find the rank of a specific user
+     *
+     * @param FrontendUser $user
+     *
+     * @return \Mittwald\Typo3Forum\Domain\Model\User\Rank[]
+     */
+    public function findRankByUser(FrontendUser $user)
     {
-		$query = $this->createQuery();
-		$query->matching($query->lessThan('point_limit', $user->getPoints()));
-		$query->setOrderings(['point_limit' => 'DESC']);
-		$query->setLimit(1);
+        $query = $this->createQuery();
+        $query->matching($query->lessThan('point_limit', $user->getPoints()));
+        $query->setOrderings(['point_limit' => 'DESC']);
+        $query->setLimit(1);
 
         // $this->debugSql($query, __METHOD__);
 
-		return $query->execute();
-	}
+        return $query->execute();
+    }
 
-	/**
-	 * Find the rank for a given amount of points
-	 *
-	 * @param int $points
-	 *
-	 * @deprecated
-	 * @return \Mittwald\Typo3Forum\Domain\Model\User\Rank[]
-	 */
-	public function findRankByPoints($points)
+    /**
+     * Find the rank for a given amount of points
+     *
+     * @param int $points
+     *
+     * @deprecated
+     * @return \Mittwald\Typo3Forum\Domain\Model\User\Rank[]
+     */
+    public function findRankByPoints($points)
     {
-		$query = $this->createQuery();
-		$query->matching($query->greaterThan('point_limit', (int)$points));
-		$query->setOrderings(['point_limit' => 'ASC']);
-		$query->setLimit(1);
+        $query = $this->createQuery();
+        $query->matching($query->greaterThan('point_limit', (int)$points));
+        $query->setOrderings(['point_limit' => 'ASC']);
+        $query->setLimit(1);
 
         // $this->debugSql($query, __METHOD__);
 
-		return $query->execute();
-	}
+        return $query->execute();
+    }
 
-	/**
-	 * Find one rank for a given amount of points
-	 *
-	 * @param int $points
-	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\User\Rank
-	 */
-	public function findOneRankByPoints($points)
+    /**
+     * Find one rank for a given amount of points
+     *
+     * @param int $points
+     *
+     * @return \Mittwald\Typo3Forum\Domain\Model\User\Rank
+     */
+    public function findOneRankByPoints($points)
     {
-		$query = $this->createQuery();
-		$query->matching($query->greaterThan('point_limit', (int)$points));
-		$query->setOrderings(['point_limit' => 'ASC']);
-		$query->setLimit(1);
+        $query = $this->createQuery();
+        $query->matching($query->greaterThan('point_limit', (int)$points));
+        $query->setOrderings(['point_limit' => 'ASC']);
+        $query->setLimit(1);
 
-		$result = $query->execute();
+        $result = $query->execute();
 
         // $this->debugSql($query, __METHOD__);
 
-		if ($result instanceof QueryResultInterface) {
-			return $result->getFirst();
-		} elseif (is_array($result)) {
-			return isset($result[0]) ? $result[0] : NULL;
-		}
-		return NULL;
-	}
+        if ($result instanceof QueryResultInterface) {
+            return $result->getFirst();
+        } elseif (is_array($result)) {
+            return isset($result[0]) ? $result[0] : null;
+        }
+        return null;
+    }
 
-	/**
-	 * Find all rankings for the ranking overview
-	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\User\Rank[]
-	 */
-	public function findAllForRankingOverview()
+    /**
+     * Find all rankings for the ranking overview
+     *
+     * @return \Mittwald\Typo3Forum\Domain\Model\User\Rank[]
+     */
+    public function findAllForRankingOverview()
     {
-		$query = $this->createQuery();
-		$query->setOrderings(['point_limit' => 'ASC']);
+        $query = $this->createQuery();
+        $query->setOrderings(['point_limit' => 'ASC']);
 
         // $this->debugSql($query, __METHOD__);
 
-		return $query->execute();
-	}
+        return $query->execute();
+    }
 }

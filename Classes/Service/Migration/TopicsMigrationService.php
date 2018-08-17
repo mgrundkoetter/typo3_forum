@@ -26,12 +26,10 @@ namespace Mittwald\Typo3Forum\Service\Migration;
  *  This copyright notice MUST APPEAR in all copies of the script!
  *
  */
-
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 
 class TopicsMigrationService extends AbstractMigrationService
 {
-
     protected function migrateTable(
         $oldTable,
         $newTable,
@@ -66,9 +64,7 @@ class TopicsMigrationService extends AbstractMigrationService
 
             $this->databaseConnection->exec_INSERTquery($this->getNewTableName(), $updateFields);
         }
-
     }
-
 
     /**
      * @return bool|\mysqli_result|object

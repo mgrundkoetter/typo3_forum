@@ -28,9 +28,8 @@ namespace Mittwald\Typo3Forum\TextParser\Panel;
 interface MarkItUpExportableInterface
 {
 
-	/**
-	 * @return array
-	 */
-	public function exportForMarkItUp();
-
+    /**
+     * @return array
+     */
+    public function exportForMarkItUp();
 }

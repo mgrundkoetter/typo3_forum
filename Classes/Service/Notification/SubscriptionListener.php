@@ -36,36 +36,35 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 final class SubscriptionListener
 {
 
-	/**
-	 * An instance of the notification service.
-	 * @var \Mittwald\Typo3Forum\Service\Notification\NotificationServiceInterface
-	 * @inject
-	 */
-	protected $notificationService = NULL;
+    /**
+     * An instance of the notification service.
+     * @var \Mittwald\Typo3Forum\Service\Notification\NotificationServiceInterface
+     * @inject
+     */
+    protected $notificationService = null;
 
-	/**
-	 * Is fired when a new post is created.
-	 *
-	 * @param Post $post Event data.
-	 * @return void
-	 */
-	public function onPostCreated($post)
+    /**
+     * Is fired when a new post is created.
+     *
+     * @param Post $post Event data.
+     * @return void
+     */
+    public function onPostCreated($post)
     {
-		if ($post instanceof Post) {
-			$this->notificationService->notifySubscribers($post->getTopic(), $post);
-		}
-	}
+        if ($post instanceof Post) {
+            $this->notificationService->notifySubscribers($post->getTopic(), $post);
+        }
+    }
 
-	/**
-	 * Is fired when a new topic is created.
-	 *
-	 * @param Topic $topic Event data.
-	 * @return void
-	 */
-	public function onTopicCreated($topic)
+    /**
+     * Is fired when a new topic is created.
+     *
+     * @param Topic $topic Event data.
+     * @return void
+     */
+    public function onTopicCreated($topic)
     {
-		if ($topic instanceof Topic) {
-
-		}
-	}
+        if ($topic instanceof Topic) {
+        }
+    }
 }

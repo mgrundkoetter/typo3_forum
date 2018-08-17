@@ -31,77 +31,77 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 class TagRepository extends Repository
 {
 
-	/**
-	 * Find all ordered by topic count
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Tag[]
-	 */
-	public function findAllOrderedByCounter()
+    /**
+     * Find all ordered by topic count
+     * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Tag[]
+     */
+    public function findAllOrderedByCounter()
     {
-		$query = $this->createQuery();
-		$query->setOrderings(['topic_count' => 'DESC']);
+        $query = $this->createQuery();
+        $query->setOrderings(['topic_count' => 'DESC']);
 
         // $this->debugSql($query, __METHOD__);
 
-		return $query->execute();
-	}
+        return $query->execute();
+    }
 
-	/**
-	 * Find a tag with a specific name
-	 *
-	 * @param $name
-	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Tag[]
-	 */
-	public function findTagWithSpecificName($name)
+    /**
+     * Find a tag with a specific name
+     *
+     * @param $name
+     *
+     * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Tag[]
+     */
+    public function findTagWithSpecificName($name)
     {
-		$query = $this->createQuery();
-		$query->matching($query->equals('name', $name));
-		$query->setLimit(1);
+        $query = $this->createQuery();
+        $query->matching($query->equals('name', $name));
+        $query->setLimit(1);
 
         // $this->debugSql($query, __METHOD__);
 
-		return $query->execute();
-	}
+        return $query->execute();
+    }
 
-	/**
-	 * Find a tag including a specific name
-	 *
-	 * @param string $name
-	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Tag[]
-	 */
-	public function findTagLikeAName($name)
+    /**
+     * Find a tag including a specific name
+     *
+     * @param string $name
+     *
+     * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Tag[]
+     */
+    public function findTagLikeAName($name)
     {
-		$query = $this->createQuery();
-		$query->getQuerySettings()->setRespectStoragePage(FALSE);
-		$pids = $query->getQuerySettings()->getStoragePageIds();
-		$pid = (int)$pids[0];
-		$constraints = [];
-		$constraints[] = $query->like('name', "%" . $name . "%", false);
-		$constraints[] = $query->equals('pid', $pid);
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+        $pids = $query->getQuerySettings()->getStoragePageIds();
+        $pid = (int)$pids[0];
+        $constraints = [];
+        $constraints[] = $query->like('name', '%' . $name . '%', false);
+        $constraints[] = $query->equals('pid', $pid);
 
-		$query->matching($query->logicalAnd($constraints));
+        $query->matching($query->logicalAnd($constraints));
 
         // $this->debugSql($query, __METHOD__);
 
-		return $query->execute();
-	}
+        return $query->execute();
+    }
 
-	/**
-	 * Find all tags of a specific user
-	 *
-	 * @param FrontendUser $user
-	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Tag[]
-	 */
-	public function findTagsOfUser(FrontendUser $user)
+    /**
+     * Find all tags of a specific user
+     *
+     * @param FrontendUser $user
+     *
+     * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Tag[]
+     */
+    public function findTagsOfUser(FrontendUser $user)
     {
-		$query = $this->createQuery();
-		$query->matching($query->contains('feuser', $user));
-		$query->setOrderings(['name' => 'ASC']);
+        $query = $this->createQuery();
+        $query->matching($query->contains('feuser', $user));
+        $query->setOrderings(['name' => 'ASC']);
 
         // $this->debugSql($query, __METHOD__);
 
-		return $query->execute();
-	}
+        return $query->execute();
+    }
 }
