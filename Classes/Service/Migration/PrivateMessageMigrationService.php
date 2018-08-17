@@ -26,7 +26,6 @@ namespace Mittwald\Typo3Forum\Service\Migration;
  *  This copyright notice MUST APPEAR in all copies of the script!
  *
  */
-
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 
 class PrivateMessageMigrationService extends AbstractMigrationService
@@ -52,7 +51,6 @@ class PrivateMessageMigrationService extends AbstractMigrationService
         }
 
         return $this->generateOutput();
-
     }
 
     /**
@@ -111,7 +109,6 @@ class PrivateMessageMigrationService extends AbstractMigrationService
      */
     protected function persistPrivateMessage(array $message, $messageId)
     {
-
         $fields = array_intersect_key($message, $this->getFieldsDefinition());
         $updateFields = array_combine($this->getFieldsDefinition(), array_values($fields));
         $updateFields['message'] = $messageId;

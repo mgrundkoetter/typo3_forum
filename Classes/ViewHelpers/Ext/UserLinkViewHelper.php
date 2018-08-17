@@ -36,53 +36,53 @@ class UserLinkViewHelper extends CObjectViewHelper
      */
     protected $configurationBuilder;
 
-	/**
-	 * Whole TypoScript typo3_forum settings
-	 * @var array
-	 */
-	protected $settings;
+    /**
+     * Whole TypoScript typo3_forum settings
+     * @var array
+     */
+    protected $settings;
 
-	/**
-	 * An authentication service. Handles the authentication mechanism.
-	 *
-	 * @var \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface
-	 * @inject
-	 */
-	protected $authenticationService = NULL;
+    /**
+     * An authentication service. Handles the authentication mechanism.
+     *
+     * @var \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface
+     * @inject
+     */
+    protected $authenticationService = null;
 
-	public function initializeObject()
+    public function initializeObject()
     {
-		$this->settings = $this->configurationBuilder->getSettings();
-	}
+        $this->settings = $this->configurationBuilder->getSettings();
+    }
 
-	public function initialize()
+    public function initialize()
     {
-		parent::initialize();
-	}
+        parent::initialize();
+    }
 
-	public function initializeArguments()
+    public function initializeArguments()
     {
-		parent::initializeArguments();
-		$this->registerArgument('class', 'string', 'CSS class.');
-		$this->registerArgument('style', 'string', 'CSS inline styles.');
-	}
+        parent::initializeArguments();
+        $this->registerArgument('class', 'string', 'CSS class.');
+        $this->registerArgument('style', 'string', 'CSS inline styles.');
+    }
 
-	/**
-	 * render
-	 *
-	 * @param bool|TRUE $link
-	 *
-	 * @return string
-	 */
-	public function render($link = TRUE)
+    /**
+     * render
+     *
+     * @param bool|TRUE $link
+     *
+     * @return string
+     */
+    public function render($link = true)
     {
-		$user = $this->authenticationService->getUser();
-		if($link){
-				$uriBuilder = $this->controllerContext->getUriBuilder();
-				$uri = $uriBuilder->setTargetPageUid($this->settings['pids']['UserShow'])->setArguments(['tx_typo3forum_pi1[user]' => $user->getUid(), 'tx_typo3forum_pi1[controller]' => 'User', 'tx_typo3forum_pi1[action]' => 'show'])->build();
-				return '<a href="' . $uri . '" title="' . $user->getUsername() . '">' . $user->getUsername() . '</a>';
-		} else {
-			return $user->getUsername();
-		}
-	}
+        $user = $this->authenticationService->getUser();
+        if ($link) {
+            $uriBuilder = $this->controllerContext->getUriBuilder();
+            $uri = $uriBuilder->setTargetPageUid($this->settings['pids']['UserShow'])->setArguments(['tx_typo3forum_pi1[user]' => $user->getUid(), 'tx_typo3forum_pi1[controller]' => 'User', 'tx_typo3forum_pi1[action]' => 'show'])->build();
+            return '<a href="' . $uri . '" title="' . $user->getUsername() . '">' . $user->getUsername() . '</a>';
+        } else {
+            return $user->getUsername();
+        }
+    }
 }

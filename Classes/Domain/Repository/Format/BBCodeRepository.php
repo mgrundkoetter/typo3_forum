@@ -34,16 +34,16 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 class BBCodeRepository extends AbstractRepository
 {
 
-	/**
-	 * @return QueryResultInterface
-	 */
-	public function findAll()
+    /**
+     * @return QueryResultInterface
+     */
+    public function findAll()
     {
-		$query = $this->createQueryWithFallbackStoragePage();
-		$query->setOrderings(['uid' => 'ASC']);
+        $query = $this->createQueryWithFallbackStoragePage();
+        $query->setOrderings(['uid' => 'ASC']);
 
         // $this->debugSql($query, __METHOD__);
 
-		return $query->execute();
-	}
+        return $query->execute();
+    }
 }

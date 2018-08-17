@@ -28,64 +28,64 @@ namespace Mittwald\Typo3Forum\Ajax;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\TypoScript\ExtendedTemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\CMS\Extbase\Core\Bootstrap;
+use TYPO3\CMS\Extbase\Mvc\Dispatcher as ExtbaseDispatcher;
+use TYPO3\CMS\Extbase\Mvc\Web\RequestBuilder;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Object\ObjectManagerInterface; // required?
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController; // required?
 use TYPO3\CMS\Frontend\Page\PageRepository;
 use TYPO3\CMS\Frontend\Utility\EidUtility;
-use TYPO3\CMS\Extbase\Core\Bootstrap;
-use TYPO3\CMS\Extbase\Mvc\Dispatcher as ExtbaseDispatcher; // required?
-use TYPO3\CMS\Extbase\Mvc\Web\RequestBuilder; // required?
-use TYPO3\CMS\Extbase\Object\ObjectManager;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
 final class Dispatcher implements SingletonInterface
 {
 
-	/**
-	 * @var string
-	 */
-	protected $extensionKey = 'Typo3Forum';
+    /**
+     * @var string
+     */
+    protected $extensionKey = 'Typo3Forum';
 
-	/**
-	 * An instance of the extbase bootstrapping class.
-	 * @var Bootstrap
-	 */
-	protected $extbaseBootstap = null;
+    /**
+     * An instance of the extbase bootstrapping class.
+     * @var Bootstrap
+     */
+    protected $extbaseBootstap = null;
 
-	/**
-	 * An instance of the extbase object manager.
-	 * @var ObjectManagerInterface
-	 */
-	protected $objectManager = null;
+    /**
+     * An instance of the extbase object manager.
+     * @var ObjectManagerInterface
+     */
+    protected $objectManager = null;
 
-	/**
-	 * An instance of the extbase request builder.
-	 * @var RequestBuilder
-	 */
-	protected $requestBuilder = null;
+    /**
+     * An instance of the extbase request builder.
+     * @var RequestBuilder
+     */
+    protected $requestBuilder = null;
 
-	/**
-	 * An instance of the extbase dispatcher.
-	 * @var ExtbaseDispatcher
-	 */
-	protected $dispatcher = null;
+    /**
+     * An instance of the extbase dispatcher.
+     * @var ExtbaseDispatcher
+     */
+    protected $dispatcher = null;
 
-	/**
-	 * Initialize the dispatcher.
-	 */
-	protected function init()
+    /**
+     * Initialize the dispatcher.
+     */
+    protected function init()
     {
         $this->initializeTsfe();
-		$this->initTYPO3();
-		$this->initExtbase();
-	}
+        $this->initTYPO3();
+        $this->initExtbase();
+    }
 
-	/**
-	 * Initializes TSFE.
-	 */
-	protected function initializeTsfe()
+    /**
+     * Initializes TSFE.
+     */
+    protected function initializeTsfe()
     {
         // @see https://github.com/mittwald/typo3_forum/commit/fddad2f0f960e025d0e31776c8e9de73ad6c6b94
-		$GLOBALS['TSFE'] = GeneralUtility::makeInstance(
+        $GLOBALS['TSFE'] = GeneralUtility::makeInstance(
             TypoScriptFrontendController::class,
             null, // $GLOBALS['TYPO3_CONF_VARS']
             GeneralUtility::_GP('id'),
@@ -93,28 +93,28 @@ final class Dispatcher implements SingletonInterface
             true,
             GeneralUtility::_GP('cHash')
         );
-		$GLOBALS['TSFE']->initFEuser();
-		$GLOBALS['TSFE']->initUserGroups();
-		EidUtility::initTCA();
-		$GLOBALS['TSFE']->checkAlternativeIdMethods();
-		$GLOBALS['TSFE']->determineId();
-		$GLOBALS['TSFE']->sys_page =  GeneralUtility::makeInstance(PageRepository::class);
-		$GLOBALS['TSFE']->initTemplate();
-		$GLOBALS['TSFE']->newCObj();
-	}
+        $GLOBALS['TSFE']->initFEuser();
+        $GLOBALS['TSFE']->initUserGroups();
+        EidUtility::initTCA();
+        $GLOBALS['TSFE']->checkAlternativeIdMethods();
+        $GLOBALS['TSFE']->determineId();
+        $GLOBALS['TSFE']->sys_page =  GeneralUtility::makeInstance(PageRepository::class);
+        $GLOBALS['TSFE']->initTemplate();
+        $GLOBALS['TSFE']->newCObj();
+    }
 
-	/**
-	 * Initialize the global TSFE object.
-	 *
-	 * Most of the code was adapted from the df_tools extension by Stefan Galinski.
-	 */
-	protected function initTYPO3()
+    /**
+     * Initialize the global TSFE object.
+     *
+     * Most of the code was adapted from the df_tools extension by Stefan Galinski.
+     */
+    protected function initTYPO3()
     {
-		$GLOBALS['TSFE']->getPageAndRootline();
-		$GLOBALS['TSFE']->forceTemplateParsing = true;
-		$GLOBALS['TSFE']->no_cache = true;
-		$GLOBALS['TSFE']->tmpl->start($GLOBALS['TSFE']->rootLine);
-		$GLOBALS['TSFE']->no_cache = false;
+        $GLOBALS['TSFE']->getPageAndRootline();
+        $GLOBALS['TSFE']->forceTemplateParsing = true;
+        $GLOBALS['TSFE']->no_cache = true;
+        $GLOBALS['TSFE']->tmpl->start($GLOBALS['TSFE']->rootLine);
+        $GLOBALS['TSFE']->no_cache = false;
 
         $language = '';
         if (isset($GLOBALS['TSFE']->tmpl->setup['config.']['language'])) {
@@ -133,82 +133,82 @@ final class Dispatcher implements SingletonInterface
             $locale_all = $GLOBALS['TSFE']->tmpl->setup['config.']['locale_all'];
         }
 
-		$GLOBALS['TSFE']->config = [];
-		$GLOBALS['TSFE']->config['config'] = [
+        $GLOBALS['TSFE']->config = [];
+        $GLOBALS['TSFE']->config['config'] = [
             'sys_language_mode' => 'content_fallback;0',
-			'sys_language_overlay' => 'hideNonTranslated',
-			'sys_language_softMergeIfNotBlank' => '',
-			'sys_language_softExclude' => '',
-			'language' => $language,
+            'sys_language_overlay' => 'hideNonTranslated',
+            'sys_language_softMergeIfNotBlank' => '',
+            'sys_language_softExclude' => '',
+            'language' => $language,
             'sys_language_uid' => $sys_language_uid,
             'linkVars' => $linkVars,
             'locale_all' => $locale_all,
-		];
+        ];
 
-		$GLOBALS['TSFE']->settingLanguage();
+        $GLOBALS['TSFE']->settingLanguage();
         $GLOBALS['TSFE']->settingLocale();
         $GLOBALS['TSFE']->calculateLinkVars();
-	}
+    }
 
-	/**
-	 * Initializes the Extbase framework by instantiating the bootstrap
-	 * class and the extbase object manager.
-	 *
-	 * @return void
-	 */
-	protected function initExtbase()
+    /**
+     * Initializes the Extbase framework by instantiating the bootstrap
+     * class and the extbase object manager.
+     *
+     * @return void
+     */
+    protected function initExtbase()
     {
-		$this->extbaseBootstap = GeneralUtility::makeInstance(Bootstrap::class);
-		$this->extbaseBootstap->initialize([
+        $this->extbaseBootstap = GeneralUtility::makeInstance(Bootstrap::class);
+        $this->extbaseBootstap->initialize([
             'extensionName' => $this->extensionKey,
             'pluginName' => 'Ajax',
             'vendorName' => 'Mittwald'
         ]);
-		$this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-	}
+        $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+    }
 
-	/**
-	 * @param integer $pageUid
-	 */
-	protected function loadTS($pageUid = 0)
+    /**
+     * @param int $pageUid
+     */
+    protected function loadTS($pageUid = 0)
     {
-		$sysPageObj =  GeneralUtility::makeInstance(PageRepository::class);
+        $sysPageObj =  GeneralUtility::makeInstance(PageRepository::class);
 
-		$rootLine = $sysPageObj->getRootLine($pageUid);
+        $rootLine = $sysPageObj->getRootLine($pageUid);
 
-		$typoscriptParser = GeneralUtility::makeInstance(ExtendedTemplateService::class);
-		$typoscriptParser->tt_track = 0;
-		$typoscriptParser->init();
-		$typoscriptParser->runThroughTemplates($rootLine);
-		$typoscriptParser->generateConfig();
+        $typoscriptParser = GeneralUtility::makeInstance(ExtendedTemplateService::class);
+        $typoscriptParser->tt_track = 0;
+        $typoscriptParser->init();
+        $typoscriptParser->runThroughTemplates($rootLine);
+        $typoscriptParser->generateConfig();
 
-		return $typoscriptParser->setup;
-	}
+        return $typoscriptParser->setup;
+    }
 
-	/*
-	 * DISPATCHING METHODS
-	 */
+    /*
+     * DISPATCHING METHODS
+     */
 
-	/**
-	 * Initializes this class and starts the dispatching process.
-	 * @return string
-	 */
-	public function processRequest()
+    /**
+     * Initializes this class and starts the dispatching process.
+     * @return string
+     */
+    public function processRequest()
     {
-		$this->init();
-		echo $this->dispatch();
-	}
+        $this->init();
+        echo $this->dispatch();
+    }
 
-	/**
-	 * Dispatches a request.
-	 * @return string
-	 */
-	public function dispatch()
+    /**
+     * Dispatches a request.
+     * @return string
+     */
+    public function dispatch()
     {
-		return $this->extbaseBootstap->run('', [
+        return $this->extbaseBootstap->run('', [
             'extensionName' => $this->extensionKey,
             'pluginName' => 'Ajax',
             'vendorName' => 'Mittwald'
         ]);
-	}
+    }
 }

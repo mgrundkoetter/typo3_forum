@@ -26,12 +26,10 @@ namespace Mittwald\Typo3Forum\Service\Migration;
  *  This copyright notice MUST APPEAR in all copies of the script!
  *
  */
-
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 
 /**
  * Class PostsMigrationService
- * @package Mittwald\Typo3Forum\Service\Migration
  */
 class PostsMigrationService extends AbstractMigrationService
 {

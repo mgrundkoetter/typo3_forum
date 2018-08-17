@@ -26,8 +26,6 @@ namespace Mittwald\Typo3Forum\Service\Migration;
  *  This copyright notice MUST APPEAR in all copies of the script!
  *
  */
-
-use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -55,7 +53,6 @@ class UserGroupMigrationService extends AbstractMigrationService
             );
         }
 
-
         return $this->generateOutput();
     }
 
@@ -78,7 +75,6 @@ class UserGroupMigrationService extends AbstractMigrationService
             $this->getNewTableName(), 'uid = ' . $userGroup['uid'], $updateFields
         );
     }
-
 
     /**
      * @return string

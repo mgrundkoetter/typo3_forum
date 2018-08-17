@@ -30,11 +30,11 @@ use Mittwald\Typo3Forum\Service\AbstractService;
 abstract class AbstractMailingService extends AbstractService implements MailingServiceInterface
 {
 
-	/**
-	 * Whole TypoScript typo3_forum settings
-	 * @var array
-	 */
-	protected $settings;
+    /**
+     * Whole TypoScript typo3_forum settings
+     * @var array
+     */
+    protected $settings;
 
     /**
      * @var \Mittwald\Typo3Forum\Configuration\ConfigurationBuilder
@@ -42,79 +42,73 @@ abstract class AbstractMailingService extends AbstractService implements Mailing
      */
     protected $configurationBuilder;
 
-	/**
-	 * HTML mail format.
-	 */
-	const MAILING_FORMAT_HTML = 'html';
+    /**
+     * HTML mail format.
+     */
+    const MAILING_FORMAT_HTML = 'html';
 
-	/**
-	 * Plaintext mail format.
-	 */
-	const MAILING_FORMAT_PLAIN = 'txt';
+    /**
+     * Plaintext mail format.
+     */
+    const MAILING_FORMAT_PLAIN = 'txt';
 
-	/**
-	 * The format in which this service sends mails. Usually, this would be either 'html' or 'txt'.
-	 * @var string
-	 */
-	protected $format = self::MAILING_FORMAT_HTML;
+    /**
+     * The format in which this service sends mails. Usually, this would be either 'html' or 'txt'.
+     * @var string
+     */
+    protected $format = self::MAILING_FORMAT_HTML;
 
-	public function initializeObject()
+    public function initializeObject()
     {
-		$this->settings = $this->configurationBuilder->getSettings();
-	}
+        $this->settings = $this->configurationBuilder->getSettings();
+    }
 
-	/**
-	 * Gets the preferred format of this mailing service.
-	 * @return string The preferred format of this mailing service.
-	 */
-	public function getFormat()
+    /**
+     * Gets the preferred format of this mailing service.
+     * @return string The preferred format of this mailing service.
+     */
+    public function getFormat()
     {
-		return $this->format;
-	}
+        return $this->format;
+    }
 
-	/**
-	 * Gets the default sender name. Can be configured in the typoscript setup.
-	 * @return string The default sender name.
-	 */
-	protected function getDefaultSenderName()
+    /**
+     * Gets the default sender name. Can be configured in the typoscript setup.
+     * @return string The default sender name.
+     */
+    protected function getDefaultSenderName()
     {
-		return trim($this->settings['mailing']['sender']['name']);
-	}
+        return trim($this->settings['mailing']['sender']['name']);
+    }
 
-
-
-	/**
-	 * Gets the default sender address. Can be configured in the typoscript setup.
-	 * @return string The default sender address.
-	 */
-	protected function getDefaultSenderAddress()
+    /**
+     * Gets the default sender address. Can be configured in the typoscript setup.
+     * @return string The default sender address.
+     */
+    protected function getDefaultSenderAddress()
     {
-		return trim($this->settings['mailing']['sender']['address']);
-	}
+        return trim($this->settings['mailing']['sender']['address']);
+    }
 
-
-
-	/**
-	 * Gets the default sender. This is composed of the default sender name and the
-	 * default sender address.
-	 *
-	 * @return string The default sender.
-	 */
-	protected function getDefaultSender()
+    /**
+     * Gets the default sender. This is composed of the default sender name and the
+     * default sender address.
+     *
+     * @return string The default sender.
+     */
+    protected function getDefaultSender()
     {
-		return $this->getDefaultSenderName() . ' <' . $this->getDefaultSenderAddress() . '>';
-	}
+        return $this->getDefaultSenderName() . ' <' . $this->getDefaultSenderAddress() . '>';
+    }
 
-
-
-	/**
-	 * Gets the preferred character set for sent mails. This usually is TYPO3's
-	 * renderCharset.
-	 *
-	 * @return string The preferred charset.
-	 */
-	protected function getCharset()
+    /**
+     * Gets the preferred character set for sent mails. This usually is TYPO3's
+     * renderCharset.
+     *
+     * @return string The preferred charset.
+     */
+    protected function getCharset()
     {
-		return $GLOBALS['TSFE']->renderCharset;
-	}
+        return $GLOBALS['TSFE']->renderCharset;
+    }
 }

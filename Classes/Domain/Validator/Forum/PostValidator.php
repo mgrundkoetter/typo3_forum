@@ -30,22 +30,22 @@ use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 class PostValidator extends AbstractValidator
 {
 
-	/**
-	 * Check if $value is valid. If it is not valid, needs to add an error
-	 * to Result.
-	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
-	 * @return bool
-	 */
-	protected function isValid($post)
+    /**
+     * Check if $value is valid. If it is not valid, needs to add an error
+     * to Result.
+     *
+     * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
+     * @return bool
+     */
+    protected function isValid($post)
     {
-		$result = TRUE;
+        $result = true;
 
-		if (trim($post->getText()) === '') {
-			$this->addError('The post can\'t be empty!.', 1221560718);
-			$result = FALSE;
-		}
+        if (trim($post->getText()) === '') {
+            $this->addError('The post can\'t be empty!.', 1221560718);
+            $result = false;
+        }
 
-		return $result;
-	}
+        return $result;
+    }
 }

@@ -33,48 +33,48 @@ use TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper;
 class BigButtonViewHelper extends ActionViewHelper
 {
 
-	/**
-	 * iconBaseClass
-	 *
-	 * @var string
-	 */
-	protected $iconBaseClass = 'tx-typo3forum-icon-32-';
+    /**
+     * iconBaseClass
+     *
+     * @var string
+     */
+    protected $iconBaseClass = 'tx-typo3forum-icon-32-';
 
-	public function initializeArguments()
+    public function initializeArguments()
     {
-		parent::initializeArguments();
+        parent::initializeArguments();
 
-		$this->registerArgument('iconAction', 'string', 'Deprecated!');
-		$this->registerArgument('icon', 'string', 'Icon name');
-		$this->registerArgument('iconClass', 'string', 'Classname for the icon');
-	}
+        $this->registerArgument('iconAction', 'string', 'Deprecated!');
+        $this->registerArgument('icon', 'string', 'Icon name');
+        $this->registerArgument('iconClass', 'string', 'Classname for the icon');
+    }
 
-	public function initialize()
+    public function initialize()
     {
-		parent::initialize();
-		$this->tag->addAttribute('class', 'tx-typo3forum-button-big');
-	}
+        parent::initialize();
+        $this->tag->addAttribute('class', 'tx-typo3forum-button-big');
+    }
 
-	public function renderChildren()
+    public function renderChildren()
     {
-		$content   = parent::renderChildren();
-		$iconClass = NULL;
+        $content   = parent::renderChildren();
+        $iconClass = null;
 
-		if ($this->arguments['iconClass']) {
-			$iconClass = $this->arguments['iconClass'];
-		} elseif ($this->arguments['icon']) {
-			$iconClass = $this->iconBaseClass . $this->arguments['icon'];
-		} elseif ($this->arguments['iconAction']) {
-			$iconClass = $this->iconBaseClass . $this->arguments['iconAction'];
-		} elseif ($this->arguments['action']) {
-			$iconClass = $this->iconBaseClass . $this->arguments['action'];
-		}
+        if ($this->arguments['iconClass']) {
+            $iconClass = $this->arguments['iconClass'];
+        } elseif ($this->arguments['icon']) {
+            $iconClass = $this->iconBaseClass . $this->arguments['icon'];
+        } elseif ($this->arguments['iconAction']) {
+            $iconClass = $this->iconBaseClass . $this->arguments['iconAction'];
+        } elseif ($this->arguments['action']) {
+            $iconClass = $this->iconBaseClass . $this->arguments['action'];
+        }
 
-		$this->tag->addAttribute('title', $content);
+        $this->tag->addAttribute('title', $content);
 
-		if ($iconClass) {
-			$content = '<div class="' . $iconClass . '"></div><div class="tx-typo3forum-button-text">' . $content . '</div>';
-		}
-		return $content;
-	}
+        if ($iconClass) {
+            $content = '<div class="' . $iconClass . '"></div><div class="tx-typo3forum-button-text">' . $content . '</div>';
+        }
+        return $content;
+    }
 }

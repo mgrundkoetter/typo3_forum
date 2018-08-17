@@ -26,7 +26,6 @@ namespace Mittwald\Typo3Forum\Service\Migration;
  *  This copyright notice MUST APPEAR in all copies of the script!
  *
  */
-
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -46,7 +45,6 @@ class UserMigrationService extends AbstractMigrationService
 
         $this->changeTableDefinition();
 
-
         if (($users = $this->getUsers($userPid))) {
             foreach ($users as $user) {
                 $this->updateUser($user);
@@ -56,7 +54,6 @@ class UserMigrationService extends AbstractMigrationService
                 FlashMessage::OK, 'MIGRATE ' . $this->getTitle(), 'MIGRATED ' . $this->getTitle() . 'ENTRIES'
             );
         }
-
 
         return $this->generateOutput();
     }
@@ -139,7 +136,6 @@ class UserMigrationService extends AbstractMigrationService
      */
     protected function changeTableDefinition()
     {
-
         $exampleRow = current(
             $this->databaseConnection->exec_SELECTgetRows('*', $this->getNewTableName(), '1=1', '', '', 1)
         );

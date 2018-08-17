@@ -28,7 +28,6 @@ namespace Mittwald\Typo3Forum\Service;
 use Mittwald\Typo3Forum\Configuration\ConfigurationBuilder;
 use Mittwald\Typo3Forum\Domain\Model\ConfigurableInterface;
 use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
-use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 
 class SettingsHydrator
 {

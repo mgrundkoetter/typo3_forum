@@ -30,90 +30,90 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 class Rank extends AbstractEntity
 {
 
-	/**
-	 * The name of this rank
-	 * @var string
-	 */
-	public $name;
+    /**
+     * The name of this rank
+     * @var string
+     */
+    public $name;
 
-	/**
-	 * The limit of points. If a user have less then this limit, this rank will be used.
-	 * @var int
-	 */
-	public $pointLimit;
+    /**
+     * The limit of points. If a user have less then this limit, this rank will be used.
+     * @var int
+     */
+    public $pointLimit;
 
-	/**
-	 * The amount of user
-	 * @var int
-	 */
-	public $userCount;
+    /**
+     * The amount of user
+     * @var int
+     */
+    public $userCount;
 
-	/**
-	 * Get the name of this rank
-	 * @return string
-	 */
-	public function getName()
+    /**
+     * Get the name of this rank
+     * @return string
+     */
+    public function getName()
     {
-		return $this->name;
-	}
+        return $this->name;
+    }
 
-	/**
-	 * Set the name of this rank
-	 *
-	 * @param string $name
-	 *
-	 * @return void
-	 */
-	public function setName($name)
+    /**
+     * Set the name of this rank
+     *
+     * @param string $name
+     *
+     * @return void
+     */
+    public function setName($name)
     {
-		$this->name = $name;
-	}
+        $this->name = $name;
+    }
 
-	/**
-	 * Get the limit of this rank
-	 * @return int
-	 */
-	public function getPointLimit()
+    /**
+     * Get the limit of this rank
+     * @return int
+     */
+    public function getPointLimit()
     {
-		return $this->pointLimit;
-	}
+        return $this->pointLimit;
+    }
 
-	/**
-	 * Set the limit of this rank
-	 *
-	 * @param int $pointLimit
-	 *
-	 * @return void
-	 */
-	public function setPointLimit($pointLimit)
+    /**
+     * Set the limit of this rank
+     *
+     * @param int $pointLimit
+     *
+     * @return void
+     */
+    public function setPointLimit($pointLimit)
     {
-		$this->pointLimit = $pointLimit;
-	}
+        $this->pointLimit = $pointLimit;
+    }
 
-	/**
-	 * Get the amount of users of this rank
-	 * @return int
-	 */
-	public function getUserCount()
+    /**
+     * Get the amount of users of this rank
+     * @return int
+     */
+    public function getUserCount()
     {
-		return $this->userCount;
-	}
+        return $this->userCount;
+    }
 
-	/**
-	 * Set the counter of user count +1
-	 * @return void
-	 */
-	public function increaseUserCount()
+    /**
+     * Set the counter of user count +1
+     * @return void
+     */
+    public function increaseUserCount()
     {
-		$this->userCount++;
-	}
+        $this->userCount++;
+    }
 
-	/**
-	 * Set the counter of user count -1
-	 * @return void
-	 */
-	public function decreaseUserCount()
+    /**
+     * Set the counter of user count -1
+     * @return void
+     */
+    public function decreaseUserCount()
     {
-		$this->userCount--;
-	}
+        $this->userCount--;
+    }
 }

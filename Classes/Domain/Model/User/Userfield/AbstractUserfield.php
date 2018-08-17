@@ -33,100 +33,100 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
 abstract class AbstractUserfield extends AbstractValueObject
 {
 
-	/**
-	 * The name of the userfield.
-	 * @var string
-	 * @validate NotEmpty
-	 */
-	protected $name;
+    /**
+     * The name of the userfield.
+     * @var string
+     * @validate NotEmpty
+     */
+    protected $name;
 
-	/**
-	 * A property name of the FrontendUser object. If this is set, this property will
-	 * be read instead for this userfield.
-	 * @var string
-	 */
-	protected $mapToUserObject = NULL;
+    /**
+     * A property name of the FrontendUser object. If this is set, this property will
+     * be read instead for this userfield.
+     * @var string
+     */
+    protected $mapToUserObject = null;
 
-	/**
-	 * Gets the field name.
-	 * @return string The field name.
-	 */
-	public function getName()
+    /**
+     * Gets the field name.
+     * @return string The field name.
+     */
+    public function getName()
     {
-		return $this->name;
-	}
+        return $this->name;
+    }
 
-	/**
-	 * Sets the userfield name.
-	 *
-	 * @param string $name Name of the userfield
-	 *
-	 * @return void
-	 */
-	public function setName($name)
+    /**
+     * Sets the userfield name.
+     *
+     * @param string $name Name of the userfield
+     *
+     * @return void
+     */
+    public function setName($name)
     {
-		$this->name = $name;
-	}
+        $this->name = $name;
+    }
 
-	/**
-	 * Determines the value for this userfield and a specific user.
-	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
-	 *                             The user for which the value of this userfield is
-	 *                             to be determined.
-	 *
-	 * @return string              The userfield value.
-	 */
-	public function getValueForUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user)
+    /**
+     * Determines the value for this userfield and a specific user.
+     *
+     * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+     *                             The user for which the value of this userfield is
+     *                             to be determined.
+     *
+     * @return string              The userfield value.
+     */
+    public function getValueForUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user)
     {
-		if ($this->isMappedToUserObject()) {
-			$propertyNames = explode('|', $this->getUserObjectPropertyName());
-			$propertyValues = [];
-			foreach ($propertyNames as $propertyName) {
-				$propertyValues[] = $user->_getProperty($propertyName);
-			}
+        if ($this->isMappedToUserObject()) {
+            $propertyNames = explode('|', $this->getUserObjectPropertyName());
+            $propertyValues = [];
+            foreach ($propertyNames as $propertyName) {
+                $propertyValues[] = $user->_getProperty($propertyName);
+            }
 
-			return $propertyValues;
-		} else {
-			foreach ($user->getUserfieldValues() as $userfieldValue) {
-				if ($userfieldValue->getUserfield() == $userfield) {
-					return [$userfieldValue->getValue()];
-				}
-			}
+            return $propertyValues;
+        } else {
+            foreach ($user->getUserfieldValues() as $userfieldValue) {
+                if ($userfieldValue->getUserfield() == $userfield) {
+                    return [$userfieldValue->getValue()];
+                }
+            }
 
-			return NULL;
-		}
-	}
+            return null;
+        }
+    }
 
-	/**
-	 * Determines if this userfield is mapped to a FrontendUser property.
-	 * @return boolean TRUE, if this userfield is mapped to a FrontendUser property,
-	 *                 otherwise FALSE.
-	 */
-	public function isMappedToUserObject()
+    /**
+     * Determines if this userfield is mapped to a FrontendUser property.
+     * @return bool TRUE, if this userfield is mapped to a FrontendUser property,
+     *                 otherwise FALSE.
+     */
+    public function isMappedToUserObject()
     {
-		return $this->mapToUserObject !== NULL;
-	}
+        return $this->mapToUserObject !== null;
+    }
 
-	/**
-	 * If this userfield is mapped to a FrontendUser property, this method gets the
-	 * name of the property this userfield is mapped to.
-	 * @return string The FrontendUser property name.
-	 */
-	public function getUserObjectPropertyName()
+    /**
+     * If this userfield is mapped to a FrontendUser property, this method gets the
+     * name of the property this userfield is mapped to.
+     * @return string The FrontendUser property name.
+     */
+    public function getUserObjectPropertyName()
     {
-		return $this->mapToUserObject;
-	}
+        return $this->mapToUserObject;
+    }
 
-	/**
-	 * Sets the FrontendUser property name.
-	 *
-	 * @param string $property The FrontendUser property name.
-	 *
-	 * @return void
-	 */
-	public function setUserObjectPropertyName($property = NULL)
+    /**
+     * Sets the FrontendUser property name.
+     *
+     * @param string $property The FrontendUser property name.
+     *
+     * @return void
+     */
+    public function setUserObjectPropertyName($property = null)
     {
-		$this->mapToUserObject = $property;
-	}
+        $this->mapToUserObject = $property;
+    }
 }

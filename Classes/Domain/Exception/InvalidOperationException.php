@@ -28,17 +28,15 @@ namespace Mittwald\Typo3Forum\Domain\Exception;
 class InvalidOperationException extends AbstractException
 {
 
-	/**
-	 * Exception message.
-	 * @var string
-	 */
-	protected $message = 'Invalid operation!';
+    /**
+     * Exception message.
+     * @var string
+     */
+    protected $message = 'Invalid operation!';
 
-
-	/**
-	 * Exception code
-	 * @var int
-	 */
-	protected $code = 1334603802;
-
+    /**
+     * Exception code
+     * @var int
+     */
+    protected $code = 1334603802;
 }

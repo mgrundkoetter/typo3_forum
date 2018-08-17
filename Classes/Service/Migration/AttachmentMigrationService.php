@@ -26,7 +26,6 @@ namespace Mittwald\Typo3Forum\Service\Migration;
  *  This copyright notice MUST APPEAR in all copies of the script!
  *
  */
-
 class AttachmentMigrationService extends AbstractMigrationService
 {
 

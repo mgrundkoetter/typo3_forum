@@ -30,15 +30,15 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 class JsonViewHelper extends AbstractViewHelper
 {
 
-	/**
-	 * render
-	 *
-	 * @param array $data
-	 *
-	 * @return string
-	 */
-	public function render(array $data)
+    /**
+     * render
+     *
+     * @param array $data
+     *
+     * @return string
+     */
+    public function render(array $data)
     {
-		return json_encode($data);
-	}
+        return json_encode($data);
+    }
 }

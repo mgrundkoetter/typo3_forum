@@ -47,7 +47,7 @@ class ForumIconViewHelper extends AbstractViewHelper
      * Renders the forum icon.
      *
      * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum The forum for which the icon is to be rendered.
-     * @param integer $width Image width
+     * @param int $width Image width
      * @param string $alt Alt text
      * @return string             The rendered icon.
      *

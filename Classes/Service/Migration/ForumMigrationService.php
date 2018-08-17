@@ -26,7 +26,6 @@ namespace Mittwald\Typo3Forum\Service\Migration;
  *  This copyright notice MUST APPEAR in all copies of the script!
  *
  */
-
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class ForumMigrationService extends AbstractMigrationService
@@ -37,7 +36,6 @@ class ForumMigrationService extends AbstractMigrationService
      */
     public function migrate()
     {
-
         if (($result = $this->selectEntities($this->getOldTableName()))) {
             foreach ($result as $row) {
                 $this->createForumRelations($row);
@@ -145,7 +143,6 @@ class ForumMigrationService extends AbstractMigrationService
         $this->addACL($row, 'group', 'read', 2);
         $this->addACL($row, 'group', 'write', 2);
         $this->addACL($row, 'group', 'mod', 2);
-
     }
 
     /**

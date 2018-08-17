@@ -30,192 +30,187 @@ use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 
 class PrivateMessage extends AbstractEntity
 {
+    const TYPE_SENDER = 0;
 
-	const TYPE_SENDER = 0;
+    const TYPE_RECIPIENT = 1;
 
-	const TYPE_RECIPIENT = 1;
+    /**
+     * The creation date of pm
+     * @var \DateTime
+     */
+    public $crdate;
 
-	/**
-	 * The creation date of pm
-	 * @var \DateTime
-	 */
-	public $crdate;
+    /**
+     * User who read this message
+     * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
+     */
+    public $feuser;
 
-	/**
-	 * User who read this message
-	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
-	 */
-	public $feuser;
+    /**
+     * Opponent user of this message
+     * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
+     */
+    public $opponent;
 
-	/**
-	 * Opponent user of this message
-	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
-	 */
-	public $opponent;
+    /**
+     * The type of pm (0=sender, 1=recipient)
+     * @var int
+     */
+    public $type;
 
+    /**
+     * Flag if recipient already read this message
+     * @var int
+     */
+    public $userRead;
 
-	/**
-	 * The type of pm (0=sender, 1=recipient)
-	 * @var int
-	 */
-	public $type;
+    /**
+     * The message of this pm
+     * @var \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessageText
+     */
+    public $message;
 
-	/**
-	 * Flag if recipient already read this message
-	 * @var int
-	 */
-	public $userRead;
+    /**
+     * GETTER
+     */
 
-
-	/**
-	 * The message of this pm
-	 * @var \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessageText
-	 */
-	public $message;
-
-
-	/**
-	 * GETTER
-	 */
-
-	/**
-	 * Get the date this message has been sent
-	 * @return \DateTime
-	 */
-	public function getCrdate()
+    /**
+     * Get the date this message has been sent
+     * @return \DateTime
+     */
+    public function getCrdate()
     {
-		return $this->crdate;
-	}
+        return $this->crdate;
+    }
 
-	/**
-	 * Get the date this message has been sent
-	 *
-	 * @param \DateTime $crdate
-	 * @return void
-	 */
-	public function setCrdate(\DateTime $crdate)
+    /**
+     * Get the date this message has been sent
+     *
+     * @param \DateTime $crdate
+     * @return void
+     */
+    public function setCrdate(\DateTime $crdate)
     {
-		$this->crdate = $crdate;
-	}
+        $this->crdate = $crdate;
+    }
 
-	/**
-	 * Get the type of this pm
-	 * @return int
-	 */
-	public function getType()
+    /**
+     * Get the type of this pm
+     * @return int
+     */
+    public function getType()
     {
-		return $this->type;
-	}
+        return $this->type;
+    }
 
-	/**
-	 * Get the type of this pm
-	 *
-	 * @param int $type
-	 * @return void
-	 */
-	public function setType($type)
+    /**
+     * Get the type of this pm
+     *
+     * @param int $type
+     * @return void
+     */
+    public function setType($type)
     {
-		$this->type = $type;
-	}
+        $this->type = $type;
+    }
 
-	/**
-	 * Get the User who read this message
-	 * @return FrontendUser The User who read this message
-	 */
-	public function getFeuser()
+    /**
+     * Get the User who read this message
+     * @return FrontendUser The User who read this message
+     */
+    public function getFeuser()
     {
-		if ($this->feuser instanceof LazyLoadingProxy) {
-			$this->feuser->_loadRealInstance();
-		}
-		if ($this->feuser === NULL) {
-			$this->feuser = new AnonymousFrontendUser();
-		}
+        if ($this->feuser instanceof LazyLoadingProxy) {
+            $this->feuser->_loadRealInstance();
+        }
+        if ($this->feuser === null) {
+            $this->feuser = new AnonymousFrontendUser();
+        }
 
-		return $this->feuser;
-	}
+        return $this->feuser;
+    }
 
-	/**
-	 * Sets the user
-	 *
-	 * @param FrontendUser $feuser
-	 *
-	 * @return void
-	 */
-	public function setFeuser(FrontendUser $feuser)
+    /**
+     * Sets the user
+     *
+     * @param FrontendUser $feuser
+     *
+     * @return void
+     */
+    public function setFeuser(FrontendUser $feuser)
     {
-		$this->feuser = $feuser;
-	}
+        $this->feuser = $feuser;
+    }
 
+    /**
+     * SETTER
+     */
 
-	/**
-	 * SETTER
-	 */
-
-	/**
-	 * Get the other User who is involved in this message
-	 * @return FrontendUser The other User who is involved in this message
-	 */
-	public function getOpponent()
+    /**
+     * Get the other User who is involved in this message
+     * @return FrontendUser The other User who is involved in this message
+     */
+    public function getOpponent()
     {
-		if ($this->opponent instanceof LazyLoadingProxy) {
-			$this->opponent->_loadRealInstance();
-		}
-		if ($this->opponent === NULL) {
-			$this->opponent = new AnonymousFrontendUser();
-		}
+        if ($this->opponent instanceof LazyLoadingProxy) {
+            $this->opponent->_loadRealInstance();
+        }
+        if ($this->opponent === null) {
+            $this->opponent = new AnonymousFrontendUser();
+        }
 
-		return $this->opponent;
-	}
+        return $this->opponent;
+    }
 
-	/**
-	 * Sets the opponent user
-	 *
-	 * @param FrontendUser $opponent
-	 *
-	 * @return void
-	 */
-	public function setOpponent(FrontendUser $opponent)
+    /**
+     * Sets the opponent user
+     *
+     * @param FrontendUser $opponent
+     *
+     * @return void
+     */
+    public function setOpponent(FrontendUser $opponent)
     {
-		$this->opponent = $opponent;
-	}
+        $this->opponent = $opponent;
+    }
 
-	/**
-	 * Get if the recipient already read this message
-	 * @return int The flag
-	 */
-	public function getUserRead()
+    /**
+     * Get if the recipient already read this message
+     * @return int The flag
+     */
+    public function getUserRead()
     {
-		return (int) $this->userRead;
-	}
+        return (int) $this->userRead;
+    }
 
-	/**
-	 * Sets the flag
-	 *
-	 * @param int $userRead
-	 *
-	 * @return void
-	 */
-	public function setUserRead($userRead)
+    /**
+     * Sets the flag
+     *
+     * @param int $userRead
+     *
+     * @return void
+     */
+    public function setUserRead($userRead)
     {
-		$this->userRead = $userRead;
-	}
+        $this->userRead = $userRead;
+    }
 
-	/**
-	 * Gets the message of this pm
-	 * @return PrivateMessageText
-	 */
-	public function getMessage()
+    /**
+     * Gets the message of this pm
+     * @return PrivateMessageText
+     */
+    public function getMessage()
     {
-		return $this->message;
-	}
+        return $this->message;
+    }
 
-	/**
-	 * Sets the message of this pm
-	 *
-	 * @param PrivateMessageText $message
-	 */
-	public function setMessage(PrivateMessageText $message)
+    /**
+     * Sets the message of this pm
+     *
+     * @param PrivateMessageText $message
+     */
+    public function setMessage(PrivateMessageText $message)
     {
-		$this->message = $message;
-	}
+        $this->message = $message;
+    }
 }

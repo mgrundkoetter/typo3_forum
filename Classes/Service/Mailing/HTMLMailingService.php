@@ -35,7 +35,6 @@ use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
 class HTMLMailingService extends AbstractMailingService
 {
 
-
     /**
      * Sends a mail with a certain subject and bodytext to a recipient in form of a frontend user.
      *

@@ -12,5 +12,4 @@ interface ConfigurableInterface extends DomainObjectInterface
      * @param ConfigurationBuilder $configurationBuilder
      */
     public function injectSettings(ConfigurationBuilder $configurationBuilder);
-
 }

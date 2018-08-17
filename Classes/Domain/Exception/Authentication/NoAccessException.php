@@ -30,17 +30,15 @@ use Mittwald\Typo3Forum\Domain\Exception\AbstractException;
 class NoAccessException extends AbstractException
 {
 
-	/**
-	 * The exception message.
-	 * @var string
-	 */
-	protected $message = "You do not have access.";
+    /**
+     * The exception message.
+     * @var string
+     */
+    protected $message = 'You do not have access.';
 
-
-	/**
-	 * The exception code.
-	 * @var int
-	 */
-	protected $code = 1284648948;
-
+    /**
+     * The exception code.
+     * @var int
+     */
+    protected $code = 1284648948;
 }

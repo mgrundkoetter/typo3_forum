@@ -31,7 +31,8 @@ use TYPO3\CMS\Core\Resource\FileInterface;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Domain\Model\AbstractFileFolder;
 use TYPO3\CMS\Fluid\ViewHelpers\ImageViewHelper;
-# use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+
+// use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * ViewHelper that renders a user's avatar.
@@ -63,7 +64,6 @@ class AvatarViewHelper extends ImageViewHelper
         $this->imageService = $imageService;
     }
 
-
     /**
      * Initialize arguments.
      */
@@ -71,7 +71,7 @@ class AvatarViewHelper extends ImageViewHelper
     {
         $this->registerArgument('alt', 'string', 'Specifies an alternate text for an image', false);
         $this->registerArgument('class', 'string', 'CSS class(es) for this element');
-        # parent::initializeArguments();
+        // parent::initializeArguments();
     }
 
     /**
@@ -115,7 +115,7 @@ class AvatarViewHelper extends ImageViewHelper
         }
 
         if ($avatarFilename === null) {
-            $avatarFilename = ExtensionManagementUtility::siteRelPath('typo3_forum').'Resources/Public/Images/Icons/AvatarEmpty.png';
+            $avatarFilename = ExtensionManagementUtility::siteRelPath('typo3_forum') . 'Resources/Public/Images/Icons/AvatarEmpty.png';
         }
         $this->arguments['src'] = $avatarFilename;
         if ($height === null) {

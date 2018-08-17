@@ -33,8 +33,6 @@ use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
  * no user is currently logged in.
  *
  * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Domain\Validator\User
  * @version    $Id$
  *
  * @license    GNU Public License, version 2
@@ -44,33 +42,33 @@ use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 class PrivateMessageRecipientValidator extends AbstractValidator
 {
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
-	 * @inject
-	 */
-	protected $userRepository = NULL;
+    /**
+     * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
+     * @inject
+     */
+    protected $userRepository = null;
 
-	/**
-	 * Check if $value is valid. If it is not valid, needs to add an error
-	 * to Result.
-	 *
-	 * @param $value
-	 * @return bool
-	 */
-	protected function isValid($value)
+    /**
+     * Check if $value is valid. If it is not valid, needs to add an error
+     * to Result.
+     *
+     * @param $value
+     * @return bool
+     */
+    protected function isValid($value)
     {
-		$result = TRUE;
+        $result = true;
 
-		if (!$this->userRepository->findOneByUsername($value)) {
-			$this->addError('PM reciepient user not found!', 1372429326);
-			$result = FALSE;
-		}
-		$user = $this->userRepository->findCurrent();
-		if ($user->getUsername() == $value) {
-			$this->addError('You can\'t write yourself a message :)', 1372682275);
-			$result = FALSE;
-		}
+        if (!$this->userRepository->findOneByUsername($value)) {
+            $this->addError('PM reciepient user not found!', 1372429326);
+            $result = false;
+        }
+        $user = $this->userRepository->findCurrent();
+        if ($user->getUsername() == $value) {
+            $this->addError('You can\'t write yourself a message :)', 1372682275);
+            $result = false;
+        }
 
-		return $result;
-	}
+        return $result;
+    }
 }

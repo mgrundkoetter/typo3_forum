@@ -28,43 +28,43 @@ namespace Mittwald\Typo3Forum\TextParser\Panel;
 class SyntaxHighlightingPanel extends \Mittwald\Typo3Forum\TextParser\Panel\AbstractPanel
 {
 
-	/**
-	 * @TODO: what to do?
-	 *
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Format\SyntaxHighlightingRepository
-	 * @inject
-	 */
-	protected $syntaxHighlightingRepository = NULL;
+    /**
+     * @TODO: what to do?
+     *
+     * @var \Mittwald\Typo3Forum\Domain\Repository\Format\SyntaxHighlightingRepository
+     * @inject
+     */
+    protected $syntaxHighlightingRepository = null;
 
-	/**
-	 * @TODO: what to do?
-	 *
-	 * @var array<\Mittwald\Typo3Forum\Domain\Model\Format\SyntaxHighlighting>
-	 */
-	protected $syntaxHighlightings = NULL;
+    /**
+     * @TODO: what to do?
+     *
+     * @var array<\Mittwald\Typo3Forum\Domain\Model\Format\SyntaxHighlighting>
+     */
+    protected $syntaxHighlightings = null;
 
-
-	public function initializeObject() {
-		$this->syntaxHighlightings = $this->syntaxHighlightingRepository->findAll();
-	}
-
-	/**
-	 * @TODO: what to do?
-	 * @return array<array>
-	 */
-	public function getItems()
+    public function initializeObject()
     {
-		$result = [];
+        $this->syntaxHighlightings = $this->syntaxHighlightingRepository->findAll();
+    }
 
-		foreach ($this->syntaxHighlightings as $syntaxHighlighting) {
-			$result[] = $syntaxHighlighting->exportForMarkItUp();
-		}
-		return [[
+    /**
+     * @TODO: what to do?
+     * @return array<array>
+     */
+    public function getItems()
+    {
+        $result = [];
+
+        foreach ($this->syntaxHighlightings as $syntaxHighlighting) {
+            $result[] = $syntaxHighlighting->exportForMarkItUp();
+        }
+        return [[
             'name'      => $this->settings['title'],
             'className' => $this->settings['iconClassName'],
             'openWith'  => '[code]',
             'closeWith' => '[/code]',
             'dropMenu'  => $result
         ]];
-	}
+    }
 }

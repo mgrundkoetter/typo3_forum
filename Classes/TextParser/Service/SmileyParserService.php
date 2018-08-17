@@ -30,65 +30,59 @@ use Mittwald\Typo3Forum\Domain\Model\Format\Smiley;
 class SmileyParserService extends AbstractTextParserService
 {
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Format\SmileyRepository
-	 * @inject
-	 */
-	protected $smileyRepository;
+    /**
+     * @var \Mittwald\Typo3Forum\Domain\Repository\Format\SmileyRepository
+     * @inject
+     */
+    protected $smileyRepository;
 
-	/**
-	 * All smileys.
-	 * @var array<\Mittwald\Typo3Forum\Domain\Model\Format\Smiley>
-	 */
-	protected $smileys = NULL;
+    /**
+     * All smileys.
+     * @var array<\Mittwald\Typo3Forum\Domain\Model\Format\Smiley>
+     */
+    protected $smileys = null;
 
-	/**
-	 * Renders the parsed text.
-	 *
-	 * @param string $text The text to be parsed.
-	 * @return string The parsed text.
-	 */
-	public function getParsedText($text)
+    /**
+     * Renders the parsed text.
+     *
+     * @param string $text The text to be parsed.
+     * @return string The parsed text.
+     */
+    public function getParsedText($text)
     {
-		if ($this->smileys === NULL) {
-			$this->smileys = $this->smileyRepository->findAll();
-		}
-		foreach ($this->smileys as $smiley) {
-
-		    if(':/' === $smiley->getSmileyShortcut()) {
-		        $lastPos = 0;
-		        while(($lastPos = strpos($text, $smiley->getSmileyShortcut(), $lastPos)) !== false) {
+        if ($this->smileys === null) {
+            $this->smileys = $this->smileyRepository->findAll();
+        }
+        foreach ($this->smileys as $smiley) {
+            if (':/' === $smiley->getSmileyShortcut()) {
+                $lastPos = 0;
+                while (($lastPos = strpos($text, $smiley->getSmileyShortcut(), $lastPos)) !== false) {
                     $before =substr($text, $lastPos-4, 4);
                     $currentPos = $lastPos;
                     $lastPos = $lastPos + strlen($smiley->getSmileyShortcut());
-                    if(($before === 'http') || ($before === 'ttps')) {
+                    if (($before === 'http') || ($before === 'ttps')) {
                         continue;
                     }
                     $text = substr_replace($text, $this->getSmileyIcon($smiley), $currentPos, strlen($smiley->getSmileyShortcut()));
-
                 }
-
             } else {
-
                 $text = str_replace($smiley->getSmileyShortcut(), $this->getSmileyIcon($smiley), $text);
             }
-
         }
-		return $text;
-	}
+        return $text;
+    }
 
-	/**
-	 *
-	 * Renders a smiley icon.
-	 *
-	 * @param Smiley $smiley The smiley that is to be rendered.
-	 *
-	 * @return string The smiley as HTML code.
-	 *
-	 */
-
-	protected function getSmileyIcon(Smiley $smiley)
+    /**
+     *
+     * Renders a smiley icon.
+     *
+     * @param Smiley $smiley The smiley that is to be rendered.
+     *
+     * @return string The smiley as HTML code.
+     *
+     */
+    protected function getSmileyIcon(Smiley $smiley)
     {
-		return '<i class="' . $smiley->getIconClass() . '"></i>';
-	}
+        return '<i class="' . $smiley->getIconClass() . '"></i>';
+    }
 }

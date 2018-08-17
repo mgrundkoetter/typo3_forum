@@ -3,12 +3,12 @@
 defined('TYPO3_MODE') or die();
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-	'Mittwald.Typo3Forum',
+    'Mittwald.Typo3Forum',
     'Pi1',
     'typo3_forum'
 );
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-	'Mittwald.Typo3Forum',
+    'Mittwald.Typo3Forum',
     'Widget',
     'typo3_forum Widgets'
 );

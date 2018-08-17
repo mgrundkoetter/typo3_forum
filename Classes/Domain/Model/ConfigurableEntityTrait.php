@@ -26,13 +26,11 @@ namespace Mittwald\Typo3Forum\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  *
  */
-
 use Mittwald\Typo3Forum\Configuration\ConfigurationBuilder;
 
 /**
  * Trait ConfigurableEntityTrait
  * Use this trait if an entity needs TypoScript settings and use ConfigurableInterface
- * @package Mittwald\Typo3Forum\Domain\Model
  */
 trait ConfigurableEntityTrait
 {

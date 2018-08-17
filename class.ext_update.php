@@ -23,7 +23,6 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  *
  */
-
 use Mittwald\Typo3Forum\Service\Migration\AttachmentMigrationService;
 use Mittwald\Typo3Forum\Service\Migration\ForumMigrationService;
 use Mittwald\Typo3Forum\Service\Migration\PostsMigrationService;
@@ -31,8 +30,6 @@ use Mittwald\Typo3Forum\Service\Migration\PrivateMessageMigrationService;
 use Mittwald\Typo3Forum\Service\Migration\TopicsMigrationService;
 use Mittwald\Typo3Forum\Service\Migration\UserGroupMigrationService;
 use Mittwald\Typo3Forum\Service\Migration\UserMigrationService;
-use TYPO3\CMS\Core\Database\DatabaseConnection;
-use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
@@ -124,8 +121,5 @@ class ext_update
         );
 
         return $partial->render();
-
     }
-
-
 }

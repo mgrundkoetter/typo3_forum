@@ -28,15 +28,14 @@ namespace Mittwald\Typo3Forum\TextParser\Panel;
 interface PanelInterface
 {
 
-	/**
-	 * @param array $settings
-	 * @return void
-	 */
-	public function setSettings(array $settings);
+    /**
+     * @param array $settings
+     * @return void
+     */
+    public function setSettings(array $settings);
 
-	/**
-	 * @return array
-	 */
-	public function getItems();
-
+    /**
+     * @return array
+     */
+    public function getItems();
 }
