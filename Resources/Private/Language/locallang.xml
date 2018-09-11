@@ -22,7 +22,7 @@
 			<label index="Button_User_Profile">User profile</label>
 			<label index="Button_More">More</label>
 			<label index="Editor_Panel_Formatting">Formatting</label>
-			<label index="Editor_Panel_Smileys">Smileys</label>
+			<label index="Editor_Panel_Smileys">Emoji</label>
 			<label index="Editor_Panel_SyntaxHighlighting">Syntax highlighting</label>
 			<label index="Error_1335120249">You need to be logged in to view your own subscriptions.</label>
 			<label index="Error_Exception_Title">Whoops!</label>
@@ -274,12 +274,12 @@
 			<label index="User_Email">Email</label>
 			<label index="User_Web">Web</label>
 			<label index="General_No_Entries">No entries found</label>
-			<label index="Not_Logged_In">Sie sind nicht angemeldet.</label>
+			<label index="Not_Logged_In">You are not logged in.</label>
 			<label index="Post_In">Post in</label>
-			<label index="Facebook_Share_Text">Typo3.Net - Post by</label>
-			<label index="Twitter_Share_Text">Typo3.Net - Post by</label>
+			<label index="Facebook_Share_Text">Post by</label>
+			<label index="Twitter_Share_Text">Post by</label>
 			<label index="Topic_Moved">moved</label>
-			<label index="Confirm_Delete_Topic">Are u Sure?</label>
+			<label index="Confirm_Delete_Topic">Are you sure?</label>
 			<label index="Members_Online">members online</label>
 			<label index="Members_Not_Online">no members online</label>
 			<label index="Members_All">All members</label>
@@ -628,7 +628,7 @@ Your ###FORUM_NAME###-Team</label>
 			<label index="Button_User_Profile">Benutzerprofil</label>
 			<label index="Button_More">Mehr</label>
 			<label index="Editor_Panel_Formatting">Formatierung</label>
-			<label index="Editor_Panel_Smileys">Smileys</label>
+			<label index="Editor_Panel_Smileys">Emojis</label>
 			<label index="Editor_Panel_SyntaxHighlighting">Syntax hervorheben</label>
 			<label index="Error_1335120249">Sie müssen eingeloggt sein um Ihre Abonnements einzusehen</label>
 			<label index="Error_Exception_Title">Fehler!</label>
@@ -1529,7 +1529,7 @@ Dein ###FORUM_NAME###-Team</label>
 			<label index="Button_Unsubscribe">Annulla iscrizione</label>
 			<label index="Button_User_Profile">Profilo utente</label>
 			<label index="Editor_Panel_Formatting">Formattazione</label>
-			<label index="Editor_Panel_Smileys">Smileys</label>
+			<label index="Editor_Panel_Smileys">Emojis</label>
 			<label index="Editor_Panel_SyntaxHighlighting">Evidenzia sintassi</label>
 			<label index="Error_1335120249">Per poter vedere le tue iscrizioni devi essere loggato.</label>
 			<label index="Error_Exception_Title">Errore!</label>
