@@ -12,7 +12,7 @@
 			<label index="tx_typo3forum_domain_model_forum_forum.description">Description</label>
 			<label index="tx_typo3forum_domain_model_forum_forum.children">Children</label>
 			<label index="tx_typo3forum_domain_model_forum_forum.topics">Topics</label>
-			<label index="tx_typo3forum_domain_model_forum_forum.acls">Acls</label>
+			<label index="tx_typo3forum_domain_model_forum_forum.acls">ACLs</label>
 			<label index="tx_typo3forum_domain_model_forum_forum.last_topic">Last Topic</label>
 			<label index="tx_typo3forum_domain_model_forum_forum.last_post">Last Post</label>
 			<label index="tx_typo3forum_domain_model_forum_forum.forum">Parent forum</label>
@@ -141,14 +141,14 @@
 			<label index="tx_typo3forum_domain_model_format_textparser.type.bbcode">BB Code</label>
 			<label index="tx_typo3forum_domain_model_format_textparser.type.quote">Quotation</label>
 			<label index="tx_typo3forum_domain_model_format_textparser.type.list">List</label>
-			<label index="tx_typo3forum_domain_model_format_textparser.type.smiley">Smiley</label>
+			<label index="tx_typo3forum_domain_model_format_textparser.type.smiley">Emoji</label>
 			<label index="tx_typo3forum_domain_model_format_textparser.type.syntax">Syntax highlighting</label>
 			<label index="tx_typo3forum_domain_model_format_textparser.icon">Icon</label>
-			<label index="tx_typo3forum_domain_model_format_textparser.icon_class">Icon Klasse</label>
+			<label index="tx_typo3forum_domain_model_format_textparser.icon_class">Icon Class</label>
 			<label index="tx_typo3forum_domain_model_format_textparser.bbcode_wrap">BB Code Wrap</label>
 			<label index="tx_typo3forum_domain_model_format_textparser.regular_expression">Regular expression</label>
 			<label index="tx_typo3forum_domain_model_format_textparser.regular_expression_replacement">Replacement pattern</label>
-			<label index="tx_typo3forum_domain_model_format_textparser.smiley_shortcut">Smiley shortcut</label>
+			<label index="tx_typo3forum_domain_model_format_textparser.smiley_shortcut">Emoji shortcut</label>
 			<label index="tx_typo3forum_domain_model_format_textparser.language">Language</label>
 
 			<label index="tx_typo3forum_domain_model_moderation_report">Report</label>
@@ -187,8 +187,8 @@
 			<label index="fe_users.tx_typo3forum_topic_subscriptions">Subscribed topics</label>
 			<label index="fe_users.tx_typo3forum_forum_subscriptions">Subscribed forums</label>
 			<label index="fe_users.tx_typo3forum.tab.settings">typo3_forum Settings</label>
-			<label index="fe_users.tx_typo3forum_signature">Signatur</label>
-			<label index="fe_users.tx_typo3forum_interests">Interessen</label>
+			<label index="fe_users.tx_typo3forum_signature">Signature</label>
+			<label index="fe_users.tx_typo3forum_interests">Interests</label>
 			<label index="fe_users.tx_typo3forum_read_forum">Forum Read</label>
 			<label index="fe_users.tx_typo3forum_read_topics">Topic Read</label>
 			<label index="fe_users.tx_typo3forum_userfield_values">Userfield values</label>
@@ -198,7 +198,7 @@
 			<label index="fe_users.tx_typo3forum_google">Google</label>
 			<label index="fe_users.tx_typo3forum_skype">Skype</label>
 			<label index="fe_users.tx_typo3forum_job">Job</label>
-			<label index="fe_users.tx_typo3forum_working_environment">Arbeitsumfeld</label>
+			<label index="fe_users.tx_typo3forum_working_environment">Work environment</label>
 			<label index="fe_users.tx_typo3forum_points">Points</label>
 
 			<label index="fe_groups.tx_extbase_type.typo3_forum">typo3_forum group</label>
