@@ -78,6 +78,7 @@
 			<label index="Post_New_Additional_Attachment">Additional attachment</label>
 			<label index="Post_Show_Attachment_DownloadCount">Downloaded %d times</label>
 			<label index="Post_Show_Attachments">Attachments</label>
+			<label index="Post_Delete_Attachment">Delete</label>
 			<label index="Post_Show_QuoteBy">Quote by</label>
 			<label index="Post_Show_Solution_New">Is solution</label>
 			<label index="Post_Show_Solution_Edit">Replace solution</label>
@@ -383,6 +384,7 @@ Your ###FORUM_NAME###-Team</label>
 			<label index="Post_New_Additional_Attachment">Doplňující příloha</label>
 			<label index="Post_Show_Attachment_DownloadCount">Staženo %dx</label>
 			<label index="Post_Show_Attachments">Přílohy</label>
+			<label index="Post_Delete_Attachment">избрисати</label>
 			<label index="Post_Show_QuoteBy">Citoval</label>
 			<label index="Post_Show_Solution_New">Stávající řešení</label>
 			<label index="Post_Show_Solution_Edit">Nahradit řešení</label>
@@ -684,6 +686,7 @@ Your ###FORUM_NAME###-Team</label>
 			<label index="Post_New_Additional_Attachment">Weiterer Anhang</label>
 			<label index="Post_Show_Attachment_DownloadCount">%d heruntergeladen</label>
 			<label index="Post_Show_Attachments">Anhänge</label>
+			<label index="Post_Delete_Attachment">Löschen</label>
 			<label index="Post_Show_QuoteBy">Zitiert von:</label>
 			<label index="Post_Show_Solution_New">Ist Lösung</label>
 			<label index="Post_Show_Solution_Edit">Lösung ersetzen</label>
@@ -982,6 +985,7 @@ Dein ###FORUM_NAME###-Team</label>
 			<label index="Post_New_Additional_Attachment">Archivo adjunto adicional</label>
 			<label index="Post_Show_Attachment_DownloadCount">Descargado %d veces</label>
 			<label index="Post_Show_Attachments">Adjuntos</label>
+			<label index="Post_Delete_Attachment">Borrar</label>
 			<label index="Post_Show_QuoteBy">Cita de:</label>
 			<label index="Post_Show_Solution_New">Como solución</label>
 			<label index="Post_Show_Solution_Edit">Sustituir solución</label>
@@ -1278,6 +1282,7 @@ Dein ###FORUM_NAME###-Team</label>
 			<label index="Post_New_Additional_Attachment">Pièce-jointe supplémentaire</label>
 			<label index="Post_Show_Attachment_DownloadCount">Téléchargé %d fois</label>
 			<label index="Post_Show_Attachments">Pièces-jointes</label>
+			<label index="Post_Delete_Attachment">Effacer</label>
 			<label index="Post_Show_QuoteBy">Cité par</label>
 			<label index="Post_Show_Solution_New">Est la solution</label>
 			<label index="Post_Show_Solution_Edit">Remplacer la solution</label>
@@ -1576,6 +1581,7 @@ Dein ###FORUM_NAME###-Team</label>
 			<label index="Post_New_Additional_Attachment">Altro allegato</label>
 			<label index="Post_Show_Attachment_DownloadCount">%d scaricato</label>
 			<label index="Post_Show_Attachments">Allegati</label>
+			<label index="Post_Delete_Attachments">Elimina</label>
 			<label index="Post_Show_QuoteBy">Quotato da:</label>
 			<label index="Post_Show_Solution_New">È la soluzione</label>
 			<label index="Post_Show_Solution_Edit">Sostituisci soluzione</label>
@@ -1883,6 +1889,7 @@ Dein ###FORUM_NAME###-Team</label>
 			<label index="Post_New_Additional_Attachment">Дополнительное приложение</label>
 			<label index="Post_Show_Attachment_DownloadCount">Загружено %d раз</label>
 			<label index="Post_Show_Attachments">Вложения</label>
+			<label index="Post_Show_Attachments">удалять</label>
 			<label index="Post_Show_QuoteBy">Цитируется из:</label>
 			<label index="Post_Show_Solution_New">Решение</label>
 			<label index="Post_Show_Solution_Edit">Заменить решение</label>
