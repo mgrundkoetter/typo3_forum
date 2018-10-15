@@ -282,10 +282,33 @@ class PostController extends AbstractController
      */
     public function updateAction(Post $post, array $attachments = [])
     {
+        // @TODO use proper Extbase code to retrieve POST data
+        $selectedFiles = $_POST['tx_typo3forum_pi1']['deleteAttachment'];
+
         if ($post->getAuthor() != $this->authenticationService->getUser() || $post->getTopic()->getLastPost()->getAuthor() != $post->getAuthor()) {
             // Assert authorization
             $this->authenticationService->assertModerationAuthorization($post->getTopic()->getForum());
         }
+
+        $getAllAttachments  = $post->getAttachments();
+
+        // Delete selected attachments
+        if (count($selectedFiles) > 0) {
+            $getAllAttachments->rewind();
+            while ($getAllAttachments->valid()) {
+                $storedObject = $getAllAttachments->current();
+                $getExistingFile = $storedObject->getFilename();
+                if (in_array($getExistingFile, $selectedFiles)) {
+                    if (file_exists($storedObject->getAbsoluteFilename())) {
+                        unlink($storedObject->getAbsoluteFilename());
+                    }
+                    $getAllAttachments->detach($storedObject);
+                } else {
+                    $getAllAttachments->next();
+                }
+            }
+        }
+
         if (!empty($attachments)) {
             $attachments = $this->attachmentService->initAttachments($attachments);
             foreach ($attachments as $attachment) {
