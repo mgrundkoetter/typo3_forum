@@ -30,11 +30,12 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use Mittwald\Typo3Forum\Utility\Localization;
+
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 class PostController extends AbstractController
 {
-
     /**
      * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AttachmentRepository
      * @inject
@@ -80,7 +81,10 @@ class PostController extends AbstractController
         $showPaginate = false;
         switch ($this->settings['listPosts']) {
             case '2':
-                $dataset = $this->postRepository->findByFilter(intval($this->settings['widgets']['newestPosts']['limit']), ['crdate' => 'DESC']);
+                $dataset = $this->postRepository->findByFilter(
+                    intval($this->settings['widgets']['newestPosts']['limit']),
+                    ['crdate' => 'DESC']
+                );
                 $partial = 'Post/LatestBox';
                 break;
             default:
@@ -104,7 +108,12 @@ class PostController extends AbstractController
         $currentUser = $this->authenticationService->getUser();
 
         // Return if User not logged in or user is post author or user has already supported the post
-        if ($currentUser === null || $currentUser->isAnonymous() || $currentUser === $post->getAuthor() || $post->hasBeenSupportedByUser($currentUser) || $post->getAuthor()->isAnonymous()) {
+        if ($currentUser === null
+          || $currentUser->isAnonymous()
+          || $currentUser === $post->getAuthor()
+          || $post->hasBeenSupportedByUser($currentUser)
+          || $post->getAuthor()->isAnonymous()
+        ) {
             return json_encode(['error' => true, 'error_msg' => 'not_allowed']);
         }
 
@@ -120,7 +129,14 @@ class PostController extends AbstractController
         $this->frontendUserRepository->update($currentUser);
 
         // output new Data
-        return json_encode(['error' => false, 'add' => 0, 'postHelpfulCount' => $post->getHelpfulCount(), 'userHelpfulCount' => $post->getAuthor()->getHelpfulCount()]);
+        return json_encode(
+            [
+                'error' => false,
+                'add' => 0,
+                'postHelpfulCount' => $post->getHelpfulCount(),
+                'userHelpfulCount' => $post->getAuthor()->getHelpfulCount()
+            ]
+        );
     }
 
     /**
@@ -147,7 +163,14 @@ class PostController extends AbstractController
         $this->frontendUserRepository->update($currentUser);
 
         // output new Data
-        return json_encode(['error' => false, 'add' => 1, 'postHelpfulCount' => $post->getHelpfulCount(), 'userHelpfulCount' => $post->getAuthor()->getHelpfulCount()]);
+        return json_encode(
+            [
+                'error' => false,
+                'add' => 1,
+                'postHelpfulCount' => $post->getHelpfulCount(),
+                'userHelpfulCount' => $post->getAuthor()->getHelpfulCount()
+            ]
+        );
     }
 
     /**
@@ -197,7 +220,11 @@ class PostController extends AbstractController
         // If no post is specified, create an optionally pre-filled post (if a
         // quoted post was specified).
         if ($post === null) {
-            $post = ($quote !== null) ? $this->postFactory->createPostWithQuote($quote) : $this->postFactory->createEmptyPost();
+            if ($quote !== null) {
+                $post = $this->postFactory->createPostWithQuote($quote);
+            } else {
+                $post = $this->postFactory->createEmptyPost();
+            }
         } else {
             $this->authenticationService->assertEditPostAuthorization($post);
         }
@@ -265,7 +292,9 @@ class PostController extends AbstractController
      */
     public function editAction(Post $post)
     {
-        if ($post->getAuthor() != $this->authenticationService->getUser() || $post->getTopic()->getLastPost()->getAuthor() != $post->getAuthor()) {
+        if ($post->getAuthor() != $this->authenticationService->getUser()
+          || $post->getTopic()->getLastPost()->getAuthor() != $post->getAuthor()
+        ) {
             // Assert authorization
             $this->authenticationService->assertModerationAuthorization($post->getTopic()->getForum());
         }
@@ -285,7 +314,9 @@ class PostController extends AbstractController
         // @TODO use proper Extbase code to retrieve POST data
         $selectedFiles = $_POST['tx_typo3forum_pi1']['deleteAttachment'];
 
-        if ($post->getAuthor() != $this->authenticationService->getUser() || $post->getTopic()->getLastPost()->getAuthor() != $post->getAuthor()) {
+        if ($post->getAuthor() != $this->authenticationService->getUser()
+          || $post->getTopic()->getLastPost()->getAuthor() != $post->getAuthor()
+        ) {
             // Assert authorization
             $this->authenticationService->assertModerationAuthorization($post->getTopic()->getForum());
         }
@@ -398,7 +429,7 @@ class PostController extends AbstractController
         $this->attachmentRepository->update($attachment);
 
         //Enforce persistence, since it will not happen regularly because of die() at the end
-        $persistenceManager = $this->objectManager->get(\TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager::class);
+        $persistenceManager = $this->objectManager->get(PersistenceManager::class);
         $persistenceManager->persistAll();
 
         header('Content-type: ' . $attachment->getMimeType());
