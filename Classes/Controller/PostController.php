@@ -1,5 +1,4 @@
 <?php
-
 namespace Mittwald\Typo3Forum\Controller;
 
 /*                                                                      *
@@ -73,7 +72,9 @@ class PostController extends AbstractController
     protected $topicRepository;
 
     /**
-     *  Listing Action.
+     * Listing Action
+     *
+     * @access public
      * @return void
      */
     public function listAction()
@@ -99,6 +100,9 @@ class PostController extends AbstractController
     }
 
     /**
+     * Add supporter action
+     *
+     * @access public
      * @param Post $post
      * @return string
      */
@@ -140,6 +144,9 @@ class PostController extends AbstractController
     }
 
     /**
+     * Remove supporter action
+     *
+     * @access public
      * @param Post $post
      * @return string
      */
@@ -178,6 +185,7 @@ class PostController extends AbstractController
      * topic that contains the requested post.
      * This function is called by post summaries (last post link)
      *
+     * @access public
      * @param Post $post The post
      * @param Post $quote The Quote
      * @param int $showForm ShowForm
@@ -207,6 +215,7 @@ class PostController extends AbstractController
      *
      * @dontvalidate $post
      *
+     * @access public
      * @param Topic $topic The topic in which the new post is to be created.
      * @param Post $post The new post.
      * @param Post $quote An optional post that will be quoted within the bodytext of the new post.
@@ -239,12 +248,13 @@ class PostController extends AbstractController
     /**
      * Creates a new post.
      *
+     * @validate $post \Mittwald\Typo3Forum\Domain\Validator\Forum\PostValidator
+     * @validate $attachments \Mittwald\Typo3Forum\Domain\Validator\Forum\AttachmentPlainValidator
+     *
+     * @access public
      * @param Topic $topic The topic in which the new post is to be created.
      * @param Post $post The new post.
      * @param array $attachments File attachments for the post.
-     *
-     * @validate $post \Mittwald\Typo3Forum\Domain\Validator\Forum\PostValidator
-     * @validate $attachments \Mittwald\Typo3Forum\Domain\Validator\Forum\AttachmentPlainValidator
      */
     public function createAction(Topic $topic, Post $post, array $attachments = [])
     {
@@ -287,6 +297,8 @@ class PostController extends AbstractController
      * Displays a form for editing a post.
      *
      * @dontvalidate $post
+     *
+     * @access public
      * @param Post $post The post that is to be edited.
      * @return void
      */
@@ -304,9 +316,9 @@ class PostController extends AbstractController
     /**
      * Updates a post.
      *
+     * @access public
      * @param Post $post The post that is to be updated.
      * @param array $attachments File attachments for the post.
-     *
      * @return void
      */
     public function updateAction(Post $post, array $attachments = [])
@@ -365,6 +377,7 @@ class PostController extends AbstractController
      * Displays a confirmation screen in which the user is prompted if a post
      * should really be deleted.
      *
+     * @access public
      * @param Post $post The post that is to be deleted.
      * @return void
      */
@@ -377,6 +390,7 @@ class PostController extends AbstractController
     /**
      * Deletes a post.
      *
+     * @access public
      * @param Post $post The post that is to be deleted.
      * @return void
      */
@@ -412,6 +426,8 @@ class PostController extends AbstractController
 
     /**
      * Displays a preview of a rendered post text.
+     *
+     * @access public
      * @param string $text The content.
      */
     public function previewAction($text)
@@ -421,6 +437,8 @@ class PostController extends AbstractController
 
     /**
      * Downloads an attachment and increase the download counter
+     *
+     * @access public
      * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Attachment $attachment
      */
     public function downloadAttachmentAction($attachment)
