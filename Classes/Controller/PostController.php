@@ -226,6 +226,8 @@ class PostController extends AbstractController
         // Assert authorization
         $this->authenticationService->assertNewPostAuthorization($topic);
 
+        $posts = $this->postRepository->findForTopic($topic);
+
         // If no post is specified, create an optionally pre-filled post (if a
         // quoted post was specified).
         if ($post === null) {
@@ -241,6 +243,7 @@ class PostController extends AbstractController
         $this->view->assignMultiple([
             'topic' => $topic,
             'post' => $post,
+            'posts' => $posts,
             'currentUser' => $this->frontendUserRepository->findCurrent()
         ]);
     }
