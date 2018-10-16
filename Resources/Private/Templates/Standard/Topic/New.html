@@ -6,6 +6,18 @@
 
 <f:section name="main">
     <!-- template: Standard/Topic/New.html -->
+	<script type="text/javascript">
+	$(document).ready(function() {
+	});
+	function validate() {
+		var file_size = $('#att')[0].files[0].size / 1000;
+		if (file_size > 2000) {
+			alert("Uploaded file(s) size should be less than 2MB");
+			return false;
+		}
+		return true;
+	}
+	</script>
 
 	<f:render partial="FormErrors"/>
 
@@ -32,13 +44,25 @@
 				<f:if condition="{post.attachments}">
 					<f:for each="{post.attachments}" as="attachment">
 						<div>
-							{attachment.filename},
+							<f:form.checkbox name="deleteAttachment[]" value="{attachment.filename}" />
+							<f:translate key="Post_Delete_Attachment" /> - {attachment.filename},
 							<mmf:format.fileSize>{attachment.filesize}</mmf:format.fileSize>
 						</div>
 					</f:for>
 				</f:if>
-				<f:form.upload name="attachments[0]"/>
 			</b:form.row>
+
+			<b:form.row>
+			<f:form.upload name="attachments[0]" multiple="1" id="att" />
+			<a href="javascript:void(0);" onclick="clearUpload();" style="display:block;float:left;font-size: 24px;">X</a>
+			<style>#att{float:left;}</style>
+			<script>
+				function clearUpload(){
+					$("#att").replaceWith($("#att").val('').clone(true));
+				}
+			</script>
+			</b:form.row>
+
 			<b:form.row llLabel="Topic_New_Subscribe">
 				<label >
 					<f:form.checkbox name="subscribe" value="1"/>

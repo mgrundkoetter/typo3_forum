@@ -1,13 +1,10 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 {namespace b=Mittwald\Typo3Forum\ViewHelpers\Bootstrap}
-
 <f:layout name="default"/>
-
-
 <f:section name="main">
-<script type="text/javascript">
+	<script type="text/javascript">
 	$(document).ready(function() {
-
+	});
 	function validate() {
 		var file_size = $('#att')[0].files[0].size / 1000;
 		if (file_size > 2000) {
@@ -16,7 +13,8 @@
 		}
 		return true;
 	}
-</script>
+	</script>
+
 	<f:render partial="FormErrors"/>
 
 	<h2>
@@ -52,7 +50,7 @@
 
 			<b:form.row>
 			<f:form.upload name="attachments[0]" multiple="1" id="att" />
-			<a href="javascript:void(0);" onclick="clearUpload();" style="display:block;float:left;font-size: 24px;"><i class="fa fa-times" aria-hidden="true" style="fontsize:18px;color:#000;"></i></a>
+			<a href="javascript:void(0);" onclick="clearUpload();" style="display:block;float:left;font-size: 24px;">X</a>
 			<style>#att{float:left;}</style>
 			<script>
 				function clearUpload(){
