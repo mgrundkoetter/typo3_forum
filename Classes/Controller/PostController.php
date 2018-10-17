@@ -28,9 +28,11 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Attachment;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use Mittwald\Typo3Forum\Utility\Configuration;
 use Mittwald\Typo3Forum\Utility\Localization;
 
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 class PostController extends AbstractController
@@ -70,6 +72,21 @@ class PostController extends AbstractController
      * @inject
      */
     protected $topicRepository;
+
+    /**
+     * @var \Mittwald\Typo3Forum\Utility\configuration
+     */
+    private $configuration;
+
+    /**
+     * Initialize object
+     *
+     * @access public
+     */
+    public function initializeObject()
+    {
+        $this->configuration = GeneralUtility::makeInstance(Configuration::class);
+    }
 
     /**
      * Listing Action
@@ -240,7 +257,10 @@ class PostController extends AbstractController
             $this->authenticationService->assertEditPostAuthorization($post);
         }
 
+        $maxFileUploadSize = $this->configuration->getMaxFileUploadSize();
         $this->view->assignMultiple([
+            'maxFileUploadSizeNumeric' => $this->configuration->convertToBytes($maxFileUploadSize),
+            'maxFileUploadSize' => $maxFileUploadSize,
             'topic' => $topic,
             'post' => $post,
             'posts' => $posts,
@@ -313,7 +333,13 @@ class PostController extends AbstractController
             // Assert authorization
             $this->authenticationService->assertModerationAuthorization($post->getTopic()->getForum());
         }
-        $this->view->assign('post', $post);
+
+        $maxFileUploadSize = $this->configuration->getMaxFileUploadSize();
+        $this->view->assignMultiple([
+            'maxFileUploadSizeNumeric' => $this->configuration->convertToBytes($maxFileUploadSize),
+            'maxFileUploadSize' => $maxFileUploadSize,
+            'post' => $post
+        ]);
     }
 
     /**

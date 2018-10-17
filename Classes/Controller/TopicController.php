@@ -28,6 +28,9 @@ use Mittwald\Typo3Forum\Domain\Exception\Authentication\NoAccessException;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
+use Mittwald\Typo3Forum\Utility\Configuration;
+
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class TopicController extends AbstractController
 {
@@ -103,12 +106,18 @@ class TopicController extends AbstractController
     protected $topicRepository;
 
     /**
+     * @var \Mittwald\Typo3Forum\Utility\configuration
+     */
+    private $configuration;
+
+    /**
      * Initialize object
      *
      * @access public
      */
     public function initializeObject()
     {
+        $this->configuration = GeneralUtility::makeInstance(Configuration::class);
         $this->databaseConnection = $GLOBALS['TYPO3_DB'];
     }
 
@@ -220,8 +229,11 @@ class TopicController extends AbstractController
      */
     public function newAction(Forum $forum, Post $post = null, $subject = null)
     {
+        $maxFileUploadSize = $this->configuration->getMaxFileUploadSize();
         $this->authenticationService->assertNewTopicAuthorization($forum);
         $this->view->assignMultiple([
+            'maxFileUploadSizeNumeric' => $this->configuration->convertToBytes($maxFileUploadSize),
+            'maxFileUploadSize' => $maxFileUploadSize,
             'criteria' => $forum->getCriteria(),
             'currentUser' => $this->frontendUserRepository->findCurrent(),
             'forum' => $forum,
