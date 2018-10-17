@@ -375,8 +375,8 @@ class PostController extends AbstractController
             $allAttachments->rewind();
             while ($allAttachments->valid()) {
                 $storedObject = $allAttachments->current();
-                $getExistingFile = $storedObject->getFilename();
-                if (in_array($getExistingFile, $attachmentsToDelete)) {
+                $currentFileName = $storedObject->getFilename();
+                if (in_array($currentFileName, $attachmentsToDelete)) {
                     if (file_exists($storedObject->getAbsoluteFilename())) {
                         unlink($storedObject->getAbsoluteFilename());
                     }
