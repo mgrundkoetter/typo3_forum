@@ -352,9 +352,6 @@ class PostController extends AbstractController
      */
     public function updateAction(Post $post, array $attachments = [])
     {
-        // @TODO use proper Extbase code to retrieve POST data
-        $selectedFiles = $_POST['tx_typo3forum_pi1']['deleteAttachment'];
-
         if ($post->getAuthor() != $this->authenticationService->getUser()
           || $post->getTopic()->getLastPost()->getAuthor() != $post->getAuthor()
         ) {
@@ -364,13 +361,22 @@ class PostController extends AbstractController
 
         $getAllAttachments  = $post->getAttachments();
 
+        // Determine attachments to be deleted (if any)
+        $attachmentsToDelete = [];
+        if ($this->request->hasArgument('deleteAttachment')) {
+            $arguments = $this->request->getArguments();
+            if (is_array($arguments['deleteAttachment'])) {
+                $attachmentsToDelete = $arguments['deleteAttachment'];
+            }
+        }
+
         // Delete selected attachments
-        if (count($selectedFiles) > 0) {
+        if (count($attachmentsToDelete) > 0) {
             $getAllAttachments->rewind();
             while ($getAllAttachments->valid()) {
                 $storedObject = $getAllAttachments->current();
                 $getExistingFile = $storedObject->getFilename();
-                if (in_array($getExistingFile, $selectedFiles)) {
+                if (in_array($getExistingFile, $attachmentsToDelete)) {
                     if (file_exists($storedObject->getAbsoluteFilename())) {
                         unlink($storedObject->getAbsoluteFilename());
                     }
