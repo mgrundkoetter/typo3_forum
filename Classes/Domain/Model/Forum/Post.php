@@ -1,5 +1,4 @@
 <?php
-
 namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 
 /* *
@@ -39,7 +38,6 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  */
 class Post extends AbstractEntity implements AccessibleInterface, NotifiableInterface
 {
-
     /**
      * The post text.
      *
@@ -98,6 +96,11 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
     protected $attachments;
 
     /**
+     * @var string
+     */
+    protected $deleteAttachment;
+
+    /**
      * helpfull count
      * @var int
      */
@@ -133,6 +136,7 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
             '_languageUid' => $this->_languageUid,
             '_versionedUid' => $this->_versionedUid,
             'pid' => $this->getPid(),
+            'deleteAttachment' => $this->getDeleteAttachment(),
         ];
     }
 
@@ -478,5 +482,15 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
     public function removeAllSupporters()
     {
         $this->supporters = new ObjectStorage();
+    }
+
+    /**
+     * Gets all attachments which should be deleted
+     *
+     * @return array;
+     */
+    public function getDeleteAttachment()
+    {
+        return $this->deleteAttachment;
     }
 }

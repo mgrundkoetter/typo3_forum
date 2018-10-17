@@ -1,5 +1,4 @@
 <?php
-
 namespace Mittwald\Typo3Forum\Controller;
 
 /*                                                                      *
@@ -29,12 +28,15 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Attachment;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use Mittwald\Typo3Forum\Utility\Configuration;
 use Mittwald\Typo3Forum\Utility\Localization;
+
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 class PostController extends AbstractController
 {
-
     /**
      * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AttachmentRepository
      * @inject
@@ -72,7 +74,24 @@ class PostController extends AbstractController
     protected $topicRepository;
 
     /**
-     *  Listing Action.
+     * @var \Mittwald\Typo3Forum\Utility\configuration
+     */
+    private $configuration;
+
+    /**
+     * Initialize object
+     *
+     * @access public
+     */
+    public function initializeObject()
+    {
+        $this->configuration = GeneralUtility::makeInstance(Configuration::class);
+    }
+
+    /**
+     * Listing Action
+     *
+     * @access public
      * @return void
      */
     public function listAction()
@@ -80,7 +99,10 @@ class PostController extends AbstractController
         $showPaginate = false;
         switch ($this->settings['listPosts']) {
             case '2':
-                $dataset = $this->postRepository->findByFilter(intval($this->settings['widgets']['newestPosts']['limit']), ['crdate' => 'DESC']);
+                $dataset = $this->postRepository->findByFilter(
+                    intval($this->settings['widgets']['newestPosts']['limit']),
+                    ['crdate' => 'DESC']
+                );
                 $partial = 'Post/LatestBox';
                 break;
             default:
@@ -95,6 +117,9 @@ class PostController extends AbstractController
     }
 
     /**
+     * Add supporter action
+     *
+     * @access public
      * @param Post $post
      * @return string
      */
@@ -104,7 +129,12 @@ class PostController extends AbstractController
         $currentUser = $this->authenticationService->getUser();
 
         // Return if User not logged in or user is post author or user has already supported the post
-        if ($currentUser === null || $currentUser->isAnonymous() || $currentUser === $post->getAuthor() || $post->hasBeenSupportedByUser($currentUser) || $post->getAuthor()->isAnonymous()) {
+        if ($currentUser === null
+          || $currentUser->isAnonymous()
+          || $currentUser === $post->getAuthor()
+          || $post->hasBeenSupportedByUser($currentUser)
+          || $post->getAuthor()->isAnonymous()
+        ) {
             return json_encode(['error' => true, 'error_msg' => 'not_allowed']);
         }
 
@@ -120,10 +150,20 @@ class PostController extends AbstractController
         $this->frontendUserRepository->update($currentUser);
 
         // output new Data
-        return json_encode(['error' => false, 'add' => 0, 'postHelpfulCount' => $post->getHelpfulCount(), 'userHelpfulCount' => $post->getAuthor()->getHelpfulCount()]);
+        return json_encode(
+            [
+                'error' => false,
+                'add' => 0,
+                'postHelpfulCount' => $post->getHelpfulCount(),
+                'userHelpfulCount' => $post->getAuthor()->getHelpfulCount()
+            ]
+        );
     }
 
     /**
+     * Remove supporter action
+     *
+     * @access public
      * @param Post $post
      * @return string
      */
@@ -147,7 +187,14 @@ class PostController extends AbstractController
         $this->frontendUserRepository->update($currentUser);
 
         // output new Data
-        return json_encode(['error' => false, 'add' => 1, 'postHelpfulCount' => $post->getHelpfulCount(), 'userHelpfulCount' => $post->getAuthor()->getHelpfulCount()]);
+        return json_encode(
+            [
+                'error' => false,
+                'add' => 1,
+                'postHelpfulCount' => $post->getHelpfulCount(),
+                'userHelpfulCount' => $post->getAuthor()->getHelpfulCount()
+            ]
+        );
     }
 
     /**
@@ -155,6 +202,7 @@ class PostController extends AbstractController
      * topic that contains the requested post.
      * This function is called by post summaries (last post link)
      *
+     * @access public
      * @param Post $post The post
      * @param Post $quote The Quote
      * @param int $showForm ShowForm
@@ -184,6 +232,7 @@ class PostController extends AbstractController
      *
      * @dontvalidate $post
      *
+     * @access public
      * @param Topic $topic The topic in which the new post is to be created.
      * @param Post $post The new post.
      * @param Post $quote An optional post that will be quoted within the bodytext of the new post.
@@ -194,17 +243,27 @@ class PostController extends AbstractController
         // Assert authorization
         $this->authenticationService->assertNewPostAuthorization($topic);
 
+        $posts = $this->postRepository->findForTopic($topic);
+
         // If no post is specified, create an optionally pre-filled post (if a
         // quoted post was specified).
         if ($post === null) {
-            $post = ($quote !== null) ? $this->postFactory->createPostWithQuote($quote) : $this->postFactory->createEmptyPost();
+            if ($quote !== null) {
+                $post = $this->postFactory->createPostWithQuote($quote);
+            } else {
+                $post = $this->postFactory->createEmptyPost();
+            }
         } else {
             $this->authenticationService->assertEditPostAuthorization($post);
         }
 
+        $maxFileUploadSize = $this->configuration->getMaxFileUploadSize();
         $this->view->assignMultiple([
+            'maxFileUploadSizeNumeric' => $this->configuration->convertToBytes($maxFileUploadSize),
+            'maxFileUploadSize' => $maxFileUploadSize,
             'topic' => $topic,
             'post' => $post,
+            'posts' => $posts,
             'currentUser' => $this->frontendUserRepository->findCurrent()
         ]);
     }
@@ -212,12 +271,13 @@ class PostController extends AbstractController
     /**
      * Creates a new post.
      *
+     * @validate $post \Mittwald\Typo3Forum\Domain\Validator\Forum\PostValidator
+     * @validate $attachments \Mittwald\Typo3Forum\Domain\Validator\Forum\AttachmentPlainValidator
+     *
+     * @access public
      * @param Topic $topic The topic in which the new post is to be created.
      * @param Post $post The new post.
      * @param array $attachments File attachments for the post.
-     *
-     * @validate $post \Mittwald\Typo3Forum\Domain\Validator\Forum\PostValidator
-     * @validate $attachments \Mittwald\Typo3Forum\Domain\Validator\Forum\AttachmentPlainValidator
      */
     public function createAction(Topic $topic, Post $post, array $attachments = [])
     {
@@ -260,32 +320,73 @@ class PostController extends AbstractController
      * Displays a form for editing a post.
      *
      * @dontvalidate $post
+     *
+     * @access public
      * @param Post $post The post that is to be edited.
      * @return void
      */
     public function editAction(Post $post)
     {
-        if ($post->getAuthor() != $this->authenticationService->getUser() || $post->getTopic()->getLastPost()->getAuthor() != $post->getAuthor()) {
+        if ($post->getAuthor() != $this->authenticationService->getUser()
+          || $post->getTopic()->getLastPost()->getAuthor() != $post->getAuthor()
+        ) {
             // Assert authorization
             $this->authenticationService->assertModerationAuthorization($post->getTopic()->getForum());
         }
-        $this->view->assign('post', $post);
+
+        $maxFileUploadSize = $this->configuration->getMaxFileUploadSize();
+        $this->view->assignMultiple([
+            'maxFileUploadSizeNumeric' => $this->configuration->convertToBytes($maxFileUploadSize),
+            'maxFileUploadSize' => $maxFileUploadSize,
+            'post' => $post
+        ]);
     }
 
     /**
      * Updates a post.
      *
+     * @access public
      * @param Post $post The post that is to be updated.
      * @param array $attachments File attachments for the post.
-     *
      * @return void
      */
     public function updateAction(Post $post, array $attachments = [])
     {
-        if ($post->getAuthor() != $this->authenticationService->getUser() || $post->getTopic()->getLastPost()->getAuthor() != $post->getAuthor()) {
+        if ($post->getAuthor() != $this->authenticationService->getUser()
+          || $post->getTopic()->getLastPost()->getAuthor() != $post->getAuthor()
+        ) {
             // Assert authorization
             $this->authenticationService->assertModerationAuthorization($post->getTopic()->getForum());
         }
+
+        $allAttachments  = $post->getAttachments();
+
+        // Determine attachments to be deleted (if any)
+        $attachmentsToDelete = [];
+        if ($this->request->hasArgument('deleteAttachment')) {
+            $arguments = $this->request->getArguments();
+            if (is_array($arguments['deleteAttachment'])) {
+                $attachmentsToDelete = $arguments['deleteAttachment'];
+            }
+        }
+
+        // Delete selected attachments
+        if (count($attachmentsToDelete) > 0) {
+            $allAttachments->rewind();
+            while ($allAttachments->valid()) {
+                $storedObject = $allAttachments->current();
+                $currentFileName = $storedObject->getFilename();
+                if (in_array($currentFileName, $attachmentsToDelete)) {
+                    if (file_exists($storedObject->getAbsoluteFilename())) {
+                        unlink($storedObject->getAbsoluteFilename());
+                    }
+                    $allAttachments->detach($storedObject);
+                } else {
+                    $allAttachments->next();
+                }
+            }
+        }
+
         if (!empty($attachments)) {
             $attachments = $this->attachmentService->initAttachments($attachments);
             foreach ($attachments as $attachment) {
@@ -311,6 +412,7 @@ class PostController extends AbstractController
      * Displays a confirmation screen in which the user is prompted if a post
      * should really be deleted.
      *
+     * @access public
      * @param Post $post The post that is to be deleted.
      * @return void
      */
@@ -323,6 +425,7 @@ class PostController extends AbstractController
     /**
      * Deletes a post.
      *
+     * @access public
      * @param Post $post The post that is to be deleted.
      * @return void
      */
@@ -358,6 +461,8 @@ class PostController extends AbstractController
 
     /**
      * Displays a preview of a rendered post text.
+     *
+     * @access public
      * @param string $text The content.
      */
     public function previewAction($text)
@@ -367,6 +472,8 @@ class PostController extends AbstractController
 
     /**
      * Downloads an attachment and increase the download counter
+     *
+     * @access public
      * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Attachment $attachment
      */
     public function downloadAttachmentAction($attachment)
@@ -375,7 +482,7 @@ class PostController extends AbstractController
         $this->attachmentRepository->update($attachment);
 
         //Enforce persistence, since it will not happen regularly because of die() at the end
-        $persistenceManager = $this->objectManager->get(\TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager::class);
+        $persistenceManager = $this->objectManager->get(PersistenceManager::class);
         $persistenceManager->persistAll();
 
         header('Content-type: ' . $attachment->getMimeType());

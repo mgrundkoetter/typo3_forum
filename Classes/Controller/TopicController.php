@@ -1,5 +1,4 @@
 <?php
-
 namespace Mittwald\Typo3Forum\Controller;
 
 /*                                                                      *
@@ -29,10 +28,12 @@ use Mittwald\Typo3Forum\Domain\Exception\Authentication\NoAccessException;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
+use Mittwald\Typo3Forum\Utility\Configuration;
+
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class TopicController extends AbstractController
 {
-
     /**
      * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AdRepository
      * @inject
@@ -105,15 +106,25 @@ class TopicController extends AbstractController
     protected $topicRepository;
 
     /**
+     * @var \Mittwald\Typo3Forum\Utility\configuration
+     */
+    private $configuration;
+
+    /**
+     * Initialize object
      *
+     * @access public
      */
     public function initializeObject()
     {
+        $this->configuration = GeneralUtility::makeInstance(Configuration::class);
         $this->databaseConnection = $GLOBALS['TYPO3_DB'];
     }
 
     /**
-     *  Listing Action.
+     * Listing Action.
+     *
+     * @access public
      * @return void
      */
     public function listAction()
@@ -126,16 +137,21 @@ class TopicController extends AbstractController
                 $partial = 'Topic/List';
                 break;
             case '3':
-                $dataset = $this->topicRepository->findQuestions(intval($this->settings['maxTopicItems']));
+                $dataset = $this->topicRepository->findQuestions(
+                    intval($this->settings['maxTopicItems'])
+                );
                 $partial = 'Topic/QuestionBox';
                 break;
             case '4':
-                $dataset = $this->topicRepository->findPopularTopics(intval($this->settings['popularTopicTimeDiff']), intval($this->settings['maxTopicItems']));
+                $dataset = $this->topicRepository->findPopularTopics(
+                    intval($this->settings['popularTopicTimeDiff']),
+                    intval($this->settings['maxTopicItems'])
+                );
                 $partial = 'Topic/ListBox';
                 break;
             default:
-                $dataset      = $this->topicRepository->findAll();
-                $partial      = 'Topic/List';
+                $dataset = $this->topicRepository->findAll();
+                $partial = 'Topic/List';
                 $showPaginate = true;
                 break;
         }
@@ -145,7 +161,9 @@ class TopicController extends AbstractController
     }
 
     /**
-     *  Listing Action.
+     * List latest action.
+     *
+     * @access public
      */
     public function listLatestAction()
     {
@@ -162,6 +180,7 @@ class TopicController extends AbstractController
     /**
      * Show action. Displays a single topic and all posts contained in this topic.
      *
+     * @access public
      * @param Topic $topic The topic that is to be displayed.
      * @param Post $quote An optional post that will be quoted within the bodytext of the new post.
      * @param int $showForm ShowForm
@@ -210,8 +229,11 @@ class TopicController extends AbstractController
      */
     public function newAction(Forum $forum, Post $post = null, $subject = null)
     {
+        $maxFileUploadSize = $this->configuration->getMaxFileUploadSize();
         $this->authenticationService->assertNewTopicAuthorization($forum);
         $this->view->assignMultiple([
+            'maxFileUploadSizeNumeric' => $this->configuration->convertToBytes($maxFileUploadSize),
+            'maxFileUploadSize' => $maxFileUploadSize,
             'criteria' => $forum->getCriteria(),
             'currentUser' => $this->frontendUserRepository->findCurrent(),
             'forum' => $forum,
@@ -223,6 +245,11 @@ class TopicController extends AbstractController
     /**
      * Creates a new topic.
      *
+     * @validate $post \Mittwald\Typo3Forum\Domain\Validator\Forum\PostValidator
+     * @validate $attachments \Mittwald\Typo3Forum\Domain\Validator\Forum\AttachmentPlainValidator
+     * @validate $subject NotEmpty
+     *
+     * @access public
      * @param Forum $forum The forum in which the new topic is to be created.
      * @param Post $post The first post of the new topic.
      * @param string $subject The subject of the new topic
@@ -231,14 +258,17 @@ class TopicController extends AbstractController
      * @param array $criteria All submitted criteria with option.
      * @param string $tags All defined tags for this topic
      * @param string $subscribe The flag if the new topic is subscribed by author
-     *
-     * @validate $post \Mittwald\Typo3Forum\Domain\Validator\Forum\PostValidator
-     * @validate $attachments \Mittwald\Typo3Forum\Domain\Validator\Forum\AttachmentPlainValidator
-     * @validate $subject NotEmpty
      */
-    public function createAction(Forum $forum, Post $post, $subject, $attachments = [], $question = '', $criteria = [], $tags = '', $subscribe = '')
-    {
-
+    public function createAction(
+        Forum $forum,
+        Post $post,
+        $subject,
+        $attachments = [],
+        $question = '',
+        $criteria = [],
+        $tags = '',
+        $subscribe = ''
+    ) {
         // Assert authorization
         $this->authenticationService->assertNewTopicAuthorization($forum);
 
@@ -263,7 +293,15 @@ class TopicController extends AbstractController
             $tags = null;
         }
 
-        $topic = $this->topicFactory->createTopic($forum, $post, $subject, (int)$question, $criteria, $tags, (int)$subscribe);
+        $topic = $this->topicFactory->createTopic(
+            $forum,
+            $post,
+            $subject,
+            intval($question),
+            $criteria,
+            $tags,
+            intval($subscribe)
+        );
 
         // Notify potential listeners.
         $this->signalSlotDispatcher->dispatch(
@@ -293,8 +331,8 @@ class TopicController extends AbstractController
     /**
      * Sets a post as solution
      *
+     * @access public
      * @param Post $post The post to be marked as solution.
-     *
      * @throws NoAccessException
      */
     public function solutionAction(Post $post)
@@ -315,8 +353,8 @@ class TopicController extends AbstractController
     /**
      * Marks a topic as read by the current user.
      *
+     * @access public
      * @param Topic $topic The topic that is to be marked as read.
-     *
      */
     protected function markTopicRead(Topic $topic)
     {
