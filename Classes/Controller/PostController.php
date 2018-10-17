@@ -359,7 +359,7 @@ class PostController extends AbstractController
             $this->authenticationService->assertModerationAuthorization($post->getTopic()->getForum());
         }
 
-        $getAllAttachments  = $post->getAttachments();
+        $allAttachments  = $post->getAttachments();
 
         // Determine attachments to be deleted (if any)
         $attachmentsToDelete = [];
@@ -372,17 +372,17 @@ class PostController extends AbstractController
 
         // Delete selected attachments
         if (count($attachmentsToDelete) > 0) {
-            $getAllAttachments->rewind();
-            while ($getAllAttachments->valid()) {
-                $storedObject = $getAllAttachments->current();
+            $allAttachments->rewind();
+            while ($allAttachments->valid()) {
+                $storedObject = $allAttachments->current();
                 $getExistingFile = $storedObject->getFilename();
                 if (in_array($getExistingFile, $attachmentsToDelete)) {
                     if (file_exists($storedObject->getAbsoluteFilename())) {
                         unlink($storedObject->getAbsoluteFilename());
                     }
-                    $getAllAttachments->detach($storedObject);
+                    $allAttachments->detach($storedObject);
                 } else {
-                    $getAllAttachments->next();
+                    $allAttachments->next();
                 }
             }
         }
