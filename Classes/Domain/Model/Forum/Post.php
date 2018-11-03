@@ -31,6 +31,7 @@ use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * A forum post. Forum posts are submitted to the access control mechanism and can be
@@ -294,13 +295,15 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
      */
     public function checkAccess(FrontendUser $user = null, $accessType = Access::TYPE_READ)
     {
+        $access = false;
         switch ($accessType) {
             case Access::TYPE_EDIT_POST:
             case Access::TYPE_DELETE_POST:
-                return $this->checkEditOrDeletePostAccess($user, $accessType);
+                $access = $this->checkEditOrDeletePostAccess($user, $accessType);
             default:
-                return $this->topic->checkAccess($user, $accessType);
+                $access = $this->topic->checkAccess($user, $accessType);
         }
+        return $access;
     }
 
     /**
@@ -316,7 +319,7 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
      * @param string $operation
      * @return bool TRUE, if the user is allowed to edit this post, otherwise FALSE.
      */
-    public function checkEditOrDeletePostAccess(FrontendUser $user, $operation)
+    public function checkEditOrDeletePostAccess(FrontendUser $user = null, $operation)
     {
         if ($user === null || $user->isAnonymous()) {
             return false;
