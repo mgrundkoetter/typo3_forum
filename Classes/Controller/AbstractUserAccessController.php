@@ -27,5 +27,5 @@ namespace Mittwald\Typo3Forum\Controller;
 
 abstract class AbstractUserAccessController extends AbstractController
 {
-    
+
 }
