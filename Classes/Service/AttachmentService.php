@@ -46,7 +46,7 @@ class AttachmentService implements SingletonInterface
     protected function initSingleAttachmentStack($singleAttachmentStack, $objAttachments)
     {
         foreach ($singleAttachmentStack as $attachmentID => $singleAttachment) {
-            $this->initSingleAttachment($singleAttachment, $objAttachments);
+            $this->initSingleAttachment($singleAttachment, $attachmentID, $objAttachments);
         }
     }
 
