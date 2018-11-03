@@ -35,11 +35,6 @@ class ForumController extends AbstractUserAccessController
 {
 
     /**
-     * @var \TYPO3\CMS\Core\Database\DatabaseConnection
-     */
-    protected $databaseConnection;
-
-    /**
      * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
      * @inject
      */
@@ -62,14 +57,6 @@ class ForumController extends AbstractUserAccessController
      * @inject
      */
     protected $rootForum;
-
-    /**
-     *
-     */
-    public function initializeAction()
-    {
-        $this->databaseConnection = $GLOBALS['TYPO3_DB'];
-    }
 
     /**
      * Index action. Displays the first two levels of the forum tree.

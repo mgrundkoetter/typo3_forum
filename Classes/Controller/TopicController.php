@@ -53,11 +53,6 @@ class TopicController extends AbstractUserAccessController
     protected $criteraRepository;
 
     /**
-     * @var \TYPO3\CMS\Core\Database\DatabaseConnection
-     */
-    protected $databaseConnection;
-
-    /**
      * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
      * @inject
      */
@@ -118,7 +113,6 @@ class TopicController extends AbstractUserAccessController
     public function initializeObject()
     {
         $this->configuration = GeneralUtility::makeInstance(Configuration::class);
-        $this->databaseConnection = $GLOBALS['TYPO3_DB'];
     }
 
     /**
