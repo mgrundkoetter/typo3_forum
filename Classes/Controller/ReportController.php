@@ -34,7 +34,7 @@ use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
-class ReportController extends AbstractController
+class ReportController extends AbstractUserAccessController
 {
 
     /**

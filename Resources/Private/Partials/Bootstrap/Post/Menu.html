@@ -6,7 +6,7 @@
 		<span class="caret"></span>
 	</a>
 	<ul class="dropdown-menu pull-right">
-		<mmf:authentication.ifAccess object="{post.topic}" accessType="newPost">
+        <mmf:authentication.ifAccess object="{post.topic}" accessType="newPost">
 			<li>
 				<f:link.action controller="Post" action="new" arguments="{topic: post.topic, quote: post}">
 					<i class="tx-typo3forum-icon-16-quote"></i>
@@ -14,7 +14,7 @@
 				</f:link.action>
 			</li>
 		</mmf:authentication.ifAccess>
-		<mmf:authentication.ifLoggedIn>
+        <mmf:authentication.ifLoggedIn>
 			<li>
 				<f:link.action controller="Report" action="newPostReport" arguments="{post: post}">
 					<i class="tx-typo3forum-icon-16-report-new"></i>

@@ -5,7 +5,7 @@ namespace Mittwald\Typo3Forum\Controller;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2018 David Bruchmann, Webdevelopment Barlian                    *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -25,29 +25,7 @@ namespace Mittwald\Typo3Forum\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-class StatsController extends AbstractUserAccessController
+abstract class AbstractUserAccessController extends AbstractController
 {
-
-    /**
-     * @var \Mittwald\Typo3Forum\Domain\Repository\Stats\SummaryRepository
-     * @inject
-     */
-    protected $summaryRepository;
-
-    /**
-     * Listing Action.
-     * @return void
-     */
-    public function listAction()
-    {
-        switch ($this->settings['listStats']) {
-            default:
-            case 'summary':
-                $dataset['items'] = $this->summaryRepository->findLatestSummaryItems();
-                $partial = 'Stats/Summary';
-                break;
-        }
-        $this->view->assign('partial', $partial);
-        $this->view->assign('dataset', $dataset);
-    }
+    
 }

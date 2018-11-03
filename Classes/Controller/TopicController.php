@@ -32,7 +32,7 @@ use Mittwald\Typo3Forum\Utility\Configuration;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class TopicController extends AbstractController
+class TopicController extends AbstractUserAccessController
 {
     /**
      * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AdRepository

@@ -37,7 +37,7 @@ use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
 
-class ModerationController extends AbstractController
+class ModerationController extends AbstractUserAccessController
 {
 
     /**

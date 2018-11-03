@@ -1,6 +1,6 @@
 TYPO3 Extension ``TYPO3 Forum (typo3_forum)``  
 =============================================  
-
+[![StyleCI](https://github.styleci.io/repos/143389877/shield?branch=develop)](https://github.styleci.io/repos/143389877)  
 
 The typo3_forum is a frontend plugin that adds a discussion board to your TYPO3-based website. The extension was originally written to be used for discussing questions about TYPO3 in the TYPO3 portal TYPO3.net by Mittwald CM Service.
 

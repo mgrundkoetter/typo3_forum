@@ -31,7 +31,7 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
-class ForumController extends AbstractController
+class ForumController extends AbstractUserAccessController
 {
 
     /**

@@ -35,7 +35,7 @@ use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
-class PostController extends AbstractController
+class PostController extends AbstractUserAccessController
 {
     /**
      * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AttachmentRepository

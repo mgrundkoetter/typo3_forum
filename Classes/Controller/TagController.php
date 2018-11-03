@@ -28,7 +28,7 @@ namespace Mittwald\Typo3Forum\Controller;
 use Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Tag;
 
-class TagController extends AbstractController
+class TagController extends AbstractUserAccessController
 {
 
     /**

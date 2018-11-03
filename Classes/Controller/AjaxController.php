@@ -31,7 +31,7 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
-class AjaxController extends AbstractController
+class AjaxController extends AbstractUserAccessController
 {
 
     /**
