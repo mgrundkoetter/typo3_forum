@@ -177,7 +177,7 @@
 			<label index="fe_users.user_mod">User mod</label>
 			<label index="fe_users.use_gravatar">Use gravatar image (if no local image)</label>
 			<label index="fe_users.contact">Contact addresses and social network profiles (JSON encoded)</label>
-			<label index="fe_users.tx_extbase_type.typo3_forum">typo3_forum user</label>
+			<label index="fe_users.tx_extbase_type.typo3_forum">Typo3 Forum User</label>
 			<label index="fe_users.tx_typo3forum_post_count">Post count</label>
 			<label index="fe_users.tx_typo3forum_post_count_session">Post count session</label>
 			<label index="fe_users.tx_typo3forum_topic_count">Topic count</label>
@@ -186,7 +186,7 @@
 			<label index="fe_users.tx_typo3forum_question_count">Question count</label>
 			<label index="fe_users.tx_typo3forum_topic_subscriptions">Subscribed topics</label>
 			<label index="fe_users.tx_typo3forum_forum_subscriptions">Subscribed forums</label>
-			<label index="fe_users.tx_typo3forum.tab.settings">typo3_forum Settings</label>
+			<label index="fe_users.tx_typo3forum.tab.settings">Typo3 Forum Settings</label>
 			<label index="fe_users.tx_typo3forum_signature">Signature</label>
 			<label index="fe_users.tx_typo3forum_interests">Interests</label>
 			<label index="fe_users.tx_typo3forum_read_forum">Forum Read</label>
@@ -201,7 +201,7 @@
 			<label index="fe_users.tx_typo3forum_working_environment">Work environment</label>
 			<label index="fe_users.tx_typo3forum_points">Points</label>
 
-			<label index="fe_groups.tx_extbase_type.typo3_forum">typo3_forum group</label>
+			<label index="fe_groups.tx_extbase_type.typo3_forum">Typo3 Forum Group</label>
 			<label index="backend.update.user_pid">Where are fe_users and fe_groups for usage of forum located?</label>
 			<label index="backend.update.run">Update database!</label>
 		</languageKey>

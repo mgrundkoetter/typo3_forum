@@ -5,23 +5,23 @@ defined('TYPO3_MODE') or die();
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
     'Mittwald.Typo3Forum',
     'Pi1',
-    'typo3_forum'
+    'Typo3 Forum'
 );
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
     'Mittwald.Typo3Forum',
     'Widget',
-    'typo3_forum Widgets'
+    'Typo3 Forum Widgets'
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
     $_EXTKEY,
     'Configuration/TypoScript',
-    'typo3_forum'
+    'Typo3 Forum'
 );
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
     $_EXTKEY,
     'Configuration/TypoScript/Bootstrap',
-    'typo3_forum Bootstrap Template'
+    'Typo3 Forum Bootstrap Template'
 );
 
 $pluginSignature = strtolower(\TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamelCase($_EXTKEY));
