@@ -1,5 +1,5 @@
 {
-	"name": "mittwald/typo3_forum",
+	"name": "wdb/typo3-forum",
 	"description": "Forum extension",
 	"license": "GPL-2",
 	"type": "typo3-cms-extension",
@@ -10,8 +10,8 @@
 		}
 	],
 	"require": {
-		"typo3/cms-core": "^8.7.*",
-		"typo3-ter/static-info-tables": "6.3.*"
+		"typo3/cms-core": "^8.7",
+		"typo3-ter/static-info-tables": "^6.3"
 	},
 	"require-dev": {
 		"namelesscoder/typo3-repository-client": "^1.2",
@@ -20,8 +20,7 @@
 	},
 	"replace": {
 		"typo3_forum": "self.version",
-		"typo3-ter/typo3-forum": "self.version",
-		"typo3-ter/typo3_forum": "self.version"
+		"wdb/typo3-forum": "self.version"
 	},
 	"config": {
 		"vendor-dir": ".Build/vendor",
@@ -42,6 +41,15 @@
 			"TYPO3\\CMS\\Fluid\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/fluid/Tests/"
 		}
 	},
+    "suggest": {
+        "secure_downloads": "^3.0"
+    }
+    "conflict": {
+        "mittwald/typo3_forum": "",
+        "mittwald/typo3-forum": "",
+        "typo3-ter/typo3-forum": "",
+        "typo3-ter/typo3_forum": ""
+    }
 	"scripts": {
 		"post-autoload-dump": [
 			"mkdir -p .Build/Web/typo3conf/ext/",

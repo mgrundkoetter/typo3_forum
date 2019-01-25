@@ -16,7 +16,7 @@ $EM_CONF[$_EXTKEY] = [
 
     // NOTE: DO NOT CHANGE this version number manually.
     // This is done by the build-release.sh script.
-    'version' => '8.7.0',
+    'version' => '8.7.1',
     'constraints' => [
         'depends' => [
             'typo3' => '8.7.0-8.7.99',
@@ -25,6 +25,7 @@ $EM_CONF[$_EXTKEY] = [
         ],
         'suggests' => [
             'sr_feuser_register' => '',
+            'secure_downloads' => '',
         ],
     ],
 ];
