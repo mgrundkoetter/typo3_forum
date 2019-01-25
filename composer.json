@@ -43,13 +43,13 @@
 	},
     "suggest": {
         "secure_downloads": "^3.0"
-    }
+    },
     "conflict": {
         "mittwald/typo3_forum": "",
         "mittwald/typo3-forum": "",
         "typo3-ter/typo3-forum": "",
         "typo3-ter/typo3_forum": ""
-    }
+    },
 	"scripts": {
 		"post-autoload-dump": [
 			"mkdir -p .Build/Web/typo3conf/ext/",

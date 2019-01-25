@@ -25,7 +25,7 @@ $EM_CONF[$_EXTKEY] = [
         ],
         'suggests' => [
             'sr_feuser_register' => '',
-            'secure_downloads' => '',
+            'secure_downloads' => '3.0',
         ],
     ],
 ];
