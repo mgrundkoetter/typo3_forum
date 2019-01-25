@@ -45,10 +45,10 @@
         "secure_downloads": "^3.0"
     },
     "conflict": {
-        "mittwald/typo3_forum": "",
-        "mittwald/typo3-forum": "",
-        "typo3-ter/typo3-forum": "",
-        "typo3-ter/typo3_forum": ""
+        "mittwald/typo3_forum": ">=1.0",
+        "mittwald/typo3-forum": ">=1.0",
+        "typo3-ter/typo3-forum": ">=1.0",
+        "typo3-ter/typo3_forum": ">=1.0"
     },
 	"scripts": {
 		"post-autoload-dump": [
