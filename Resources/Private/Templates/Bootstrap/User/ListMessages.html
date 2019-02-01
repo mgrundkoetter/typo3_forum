@@ -107,8 +107,8 @@
 						<a name="post-create"></a>
 						<f:form controller="User" action="createMessage" class="form-horizontal">
 							<b:form.row error="post" errorLLPrefix="Post_New_Error_Text">
-								<mmf:form.bbCodeEditor class="tx-typo3forum-editor" name="text" property="text" id="typo3forum_editor" rows="20"
-													   class="input-block-level"/>
+							   <!-- class="input-block-level" -->
+								<f:render partial="Editor" arguments="{_all}" />
 							</b:form.row>
 							<f:form.hidden name="recipient" value="{partner.username}"/>
 							<div class="row-fluid">
