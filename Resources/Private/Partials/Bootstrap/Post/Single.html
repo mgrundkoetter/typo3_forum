@@ -14,7 +14,7 @@
 	</f:if>
 	<div class="tx-typo3forum-topic-show-post-text">
 
-        <f:format.html><mmf:format.textParser post="{post}"/></f:format.html>
+        <f:render partial="TextParserOutput" arguments="{_all}" />
 
 		<f:if condition="{post.attachments}">
 			<div class="tx-typo3forum-topic-show-post-attachments">
