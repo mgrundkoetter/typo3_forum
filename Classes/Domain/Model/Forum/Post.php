@@ -295,12 +295,10 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
     public function checkAccess(FrontendUser $user = null, $accessType = Access::TYPE_READ)
     {
         switch ($accessType) {
-            
             case Access::TYPE_EDIT_POST:
             case Access::TYPE_DELETE_POST:
                 $access = $this->checkEditOrDeletePostAccess($user, $accessType);
                 break;
-
             default:
                 $access = $this->topic->checkAccess($user, $accessType);
                 break;
